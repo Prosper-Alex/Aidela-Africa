@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: aidela-africa-api
+    runtime: node
+    plan: free
+    autoDeploy: true
+    buildCommand: pnpm install --frozen-lockfile
+    startCommand: pnpm --filter backend start
+    healthCheckPath: /health

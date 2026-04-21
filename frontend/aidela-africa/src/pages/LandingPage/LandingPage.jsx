@@ -1,11 +1,12 @@
 import { BriefcaseBusiness, ShieldCheck, Users2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import AppHeader from "../../components/AppHeader";
+import MotionPopup from "../../components/MotionPopup";
 import { Hero } from "./components/Hero";
 
 export const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.10),_transparent_30%),linear-gradient(180deg,_#f8fbff_0%,_#eef5ff_100%)]">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.10),transparent_30%),linear-gradient(180deg,#f8fbff_0%,#eef5ff_100%)]">
       <AppHeader />
       <Hero />
 
@@ -36,7 +37,7 @@ export const LandingPage = () => {
             return (
               <article
                 key={feature.title}
-                className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"
+                className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 text-sky-700">
                   <Icon className="h-5 w-5" />
@@ -69,22 +70,17 @@ export const LandingPage = () => {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                to="/find-jobs"
-                className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-50"
-              >
+              <Link to="/find-jobs" className="btn btn-primary rounded-full text-sm">
                 Explore jobs
               </Link>
-              <Link
-                to="/signup"
-                className="rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
+              <Link to="/signup" className="btn btn-secondary rounded-full text-sm">
                 Create account
               </Link>
             </div>
           </div>
         </section>
       </main>
+      <MotionPopup />
     </div>
   );
 };

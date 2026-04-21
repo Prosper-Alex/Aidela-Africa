@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { ArrowRight, Building2, Search, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.24),transparent_30%)]" />
 
         <div className="relative grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
@@ -31,13 +31,13 @@ export const Hero = () => {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/find-jobs"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-400">
+                className="btn btn-primary rounded-full inline-flex items-center justify-center gap-2 text-sm">
                 Find jobs
                 <Search className="h-4 w-4" />
               </Link>
               <Link
                 to="/signup"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                className="btn btn-secondary rounded-full inline-flex items-center justify-center gap-2 text-sm">
                 Hire talent
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -61,13 +61,13 @@ export const Hero = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </Motion.div>
 
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-[2rem] border border-white/10 bg-white/8 p-5 backdrop-blur">
+            className="rounded-3xl border border-white/10 bg-white/8 p-5 backdrop-blur">
             <div className="rounded-[1.75rem] border border-white/10 bg-white p-5 text-slate-950 shadow-2xl">
               <div className="flex items-center justify-between gap-3">
                 <div>
@@ -83,7 +83,7 @@ export const Hero = () => {
                 </div>
               </div>
 
-              <div className="mt-6 space-y-3 rounded-[1.5rem] bg-slate-50 p-4 text-sm text-slate-600">
+              <div className="mt-6 space-y-3 rounded-3xl bg-slate-50 p-4 text-sm text-slate-600">
                 <div className="flex items-center justify-between">
                   <span>Company</span>
                   <span className="font-semibold text-slate-900">
@@ -112,17 +112,17 @@ export const Hero = () => {
               <div className="mt-6 flex gap-3">
                 <Link
                   to="/find-jobs"
-                  className="inline-flex flex-1 items-center justify-center rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+                  className="btn btn-primary flex-1 inline-flex items-center justify-center rounded-full text-sm">
                   Browse jobs
                 </Link>
                 <Link
                   to="/signup"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800">
+                  className="btn btn-secondary inline-flex items-center justify-center rounded-full text-sm">
                   Join now
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </Motion.div>
         </div>
       </div>
     </section>

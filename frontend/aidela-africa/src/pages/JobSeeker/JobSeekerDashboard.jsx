@@ -67,19 +67,39 @@ export const JobSeekerDashboard = () => {
           return;
         }
 
-        setJobs(data.jobs);
-        setPagination(data.pagination);
+        // Defensive assignment with fallbacks
+        const jobsData = Array.isArray(data?.jobs) ? data.jobs : [];
+        const paginationData = data?.pagination || {
+          page: 1,
+          limit: 9,
+          total: 0,
+          totalPages: 0,
+          hasNextPage: false,
+          hasPrevPage: false,
+        };
+
+        console.log("[Dashboard] Jobs loaded:", {
+          count: jobsData.length,
+          page: paginationData.page,
+          total: paginationData.total,
+        });
+
+        setJobs(jobsData);
+        setPagination(paginationData);
       } catch (requestError) {
         if (!isMounted) {
           return;
         }
 
-        setError(
-          getErrorMessage(
-            requestError,
-            "Unable to load jobs right now. Please try again.",
-          ),
+        console.error("[Dashboard] Error loading jobs:", requestError);
+
+        const errorMsg = getErrorMessage(
+          requestError,
+          "Unable to load jobs right now. Please try again.",
         );
+
+        console.error("[Dashboard] Error message:", errorMsg);
+        setError(errorMsg);
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -92,7 +112,13 @@ export const JobSeekerDashboard = () => {
     return () => {
       isMounted = false;
     };
-  }, [currentPage, debouncedSearch, filters.location, filters.jobType, refreshCount]);
+  }, [
+    currentPage,
+    debouncedSearch,
+    filters.location,
+    filters.jobType,
+    refreshCount,
+  ]);
 
   const handleFilterChange = (field, value) => {
     setFilters((currentFilters) => ({
@@ -107,18 +133,30 @@ export const JobSeekerDashboard = () => {
     setCurrentPage(1);
   };
 
-  const locationOptions = Array.from(
-    new Set([
-      ...FALLBACK_LOCATION_OPTIONS,
-      ...jobs.map((job) => job.location).filter(Boolean),
-      filters.location,
-    ]),
-  )
-    .filter((value) => value !== undefined)
-    .map((value) => ({
-      value,
-      label: value || "All locations",
-    }));
+  const locationOptions = (() => {
+    try {
+      return Array.from(
+        new Set([
+          ...FALLBACK_LOCATION_OPTIONS,
+          ...(Array.isArray(jobs)
+            ? jobs.map((job) => job?.location).filter(Boolean)
+            : []),
+          filters.location,
+        ]),
+      )
+        .filter((value) => value !== undefined)
+        .map((value) => ({
+          value,
+          label: value || "All locations",
+        }));
+    } catch (err) {
+      console.error("[Dashboard] Error building location options:", err);
+      return FALLBACK_LOCATION_OPTIONS.map((value) => ({
+        value,
+        label: value || "All locations",
+      }));
+    }
+  })();
 
   return (
     <PageShell
@@ -127,12 +165,10 @@ export const JobSeekerDashboard = () => {
       actions={
         <Link
           to="/signup"
-          className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
-        >
+          className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
           Join as a candidate
         </Link>
-      }
-    >
+      }>
       <div className="space-y-6">
         <JobFilters
           search={filters.search}
@@ -145,7 +181,7 @@ export const JobSeekerDashboard = () => {
           onClear={handleClearFilters}
         />
 
-        <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <section className="rounded-4xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
@@ -157,9 +193,12 @@ export const JobSeekerDashboard = () => {
             </div>
             <p className="text-sm text-slate-500">
               Showing{" "}
-              <span className="font-semibold text-slate-900">{jobs.length}</span> of{" "}
               <span className="font-semibold text-slate-900">
-                {pagination.total}
+                {Array.isArray(jobs) ? jobs.length : 0}
+              </span>{" "}
+              of{" "}
+              <span className="font-semibold text-slate-900">
+                {pagination?.total || 0}
               </span>{" "}
               matching jobs
             </p>
@@ -175,8 +214,7 @@ export const JobSeekerDashboard = () => {
                   <button
                     type="button"
                     onClick={() => setRefreshCount((count) => count + 1)}
-                    className="rounded-full border border-rose-200 px-4 py-2 font-semibold text-rose-700 transition hover:bg-white"
-                  >
+                    className="rounded-full border border-rose-200 px-4 py-2 font-semibold text-rose-700 transition hover:bg-white">
                     Try again
                   </button>
                 }
@@ -191,8 +229,7 @@ export const JobSeekerDashboard = () => {
                   <button
                     type="button"
                     onClick={handleClearFilters}
-                    className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
-                  >
+                    className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
                     Reset filters
                   </button>
                 }
@@ -201,18 +238,22 @@ export const JobSeekerDashboard = () => {
 
             {!isLoading && !error && jobs.length > 0 ? (
               <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {jobs.map((job) => (
-                  <JobCard key={job._id} job={job} />
-                ))}
+                {Array.isArray(jobs) &&
+                  jobs.map((job) => <JobCard key={job._id} job={job} />)}
               </div>
             ) : null}
           </div>
         </section>
 
-        <PaginationControls
-          pagination={pagination}
-          onPageChange={(pageNumber) => setCurrentPage(pageNumber)}
-        />
+        {!isLoading &&
+        !error &&
+        jobs.length > 0 &&
+        pagination?.totalPages > 1 ? (
+          <PaginationControls
+            pagination={pagination}
+            onPageChange={(pageNumber) => setCurrentPage(pageNumber)}
+          />
+        ) : null}
       </div>
     </PageShell>
   );

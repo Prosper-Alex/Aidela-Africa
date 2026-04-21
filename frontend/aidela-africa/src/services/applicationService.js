@@ -1,7 +1,7 @@
 import API from "../pages/utils/axiosinstance";
 
-export const applyToJob = async (payload) => {
-  const { data } = await API.post("/api/applications", payload);
+export const applyToJob = async (jobId, payload) => {
+  const { data } = await API.post(`/api/applications/${jobId}`, payload);
   return data;
 };
 
@@ -15,7 +15,9 @@ export const getApplicantsForJob = async (jobId, params = {}) => {
   return data;
 };
 
-export const updateApplicationStatus = async (applicationId, payload) => {
-  const { data } = await API.put(`/api/applications/${applicationId}`, payload);
+export const updateApplicationStatus = async (applicationId, status) => {
+  const { data } = await API.put(`/api/applications/${applicationId}/status`, {
+    status,
+  });
   return data;
 };

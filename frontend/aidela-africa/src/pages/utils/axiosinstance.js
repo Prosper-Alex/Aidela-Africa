@@ -1,21 +1,10 @@
-import axios from "axios";
-import { readStoredAuth } from "../../utils/authStorage";
+/**
+ * @deprecated Use ../services/api.js instead
+ *
+ * This file is kept for backward compatibility.
+ * New code should import directly from services/api.js
+ */
 
-const API = axios.create({
-  baseURL: (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(
-    /\/$/,
-    "",
-  ),
-});
+import api from "../../services/api.js";
 
-API.interceptors.request.use((config) => {
-  const { token } = readStoredAuth();
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
-
-export default API;
+export default api;

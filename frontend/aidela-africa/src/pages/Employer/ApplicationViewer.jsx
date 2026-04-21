@@ -29,7 +29,9 @@ export const ApplicationViewer = () => {
   const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [jobs, setJobs] = useState([]);
-  const [selectedJobId, setSelectedJobId] = useState(searchParams.get("jobId") || "");
+  const [selectedJobId, setSelectedJobId] = useState(
+    searchParams.get("jobId") || "",
+  );
   const [applications, setApplications] = useState([]);
   const [jobDetails, setJobDetails] = useState(null);
   const [isJobsLoading, setIsJobsLoading] = useState(true);
@@ -62,7 +64,10 @@ export const ApplicationViewer = () => {
       } catch (requestError) {
         if (isMounted) {
           setJobsError(
-            getErrorMessage(requestError, "Unable to load your jobs for review."),
+            getErrorMessage(
+              requestError,
+              "Unable to load your jobs for review.",
+            ),
           );
         }
       } finally {
@@ -154,14 +159,13 @@ export const ApplicationViewer = () => {
       eyebrow="Applicant review"
       title="Review applicants by job"
       description="Pick a role, review who has applied, and keep status updates clear and timely."
-      navItems={recruiterNav}
-    >
+      navItems={recruiterNav}>
       {jobsError ? <ErrorPanel message={jobsError} /> : null}
       {isJobsLoading ? <SectionLoader label="Loading your jobs..." /> : null}
 
       {!isJobsLoading ? (
         <div className="grid gap-6 lg:grid-cols-[0.42fr_0.58fr]">
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
+          <section className="rounded-4xl border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="text-lg font-semibold text-slate-950">Your jobs</h2>
             <p className="mt-2 text-sm text-slate-500">
               Select a job to inspect applicants and update statuses.
@@ -177,8 +181,7 @@ export const ApplicationViewer = () => {
                     selectedJobId === job._id
                       ? "border-sky-400 bg-sky-50"
                       : "border-slate-200 bg-white hover:border-sky-200 hover:bg-slate-50"
-                  }`}
-                >
+                  }`}>
                   <p className="font-semibold text-slate-950">{job.title}</p>
                   <p className="mt-2 text-sm text-slate-500">
                     {job.company} • {job.location}
@@ -189,7 +192,9 @@ export const ApplicationViewer = () => {
           </section>
 
           <section className="min-w-0">
-            {applicationsError ? <ErrorPanel message={applicationsError} /> : null}
+            {applicationsError ? (
+              <ErrorPanel message={applicationsError} />
+            ) : null}
             <ApplicantsPanel
               job={jobDetails}
               applications={applications}

@@ -16,3 +16,98 @@
     background-color: #f7fafe;
   }
 }
+
+/* Tailwind component utilities and site-wide components */
+@layer components {
+  /* 🧭 Layout */
+  .page {
+    @apply bg-gray-50 min-h-screen p-4;
+  }
+
+  .container {
+    @apply max-w-6xl mx-auto;
+  }
+
+  /* 🧱 Card */
+  .card {
+    @apply bg-white p-4 rounded-xl border border-gray-200 shadow-sm;
+  }
+
+  .card-hover {
+    @apply hover:shadow-md transition;
+  }
+
+  /* 🔘 Buttons */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition;
+  }
+
+  .btn-primary {
+    @apply bg-indigo-500 text-white hover:bg-indigo-600;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+  }
+
+  /* 🏷 Status Badges */
+  .badge {
+    @apply px-2 py-1 text-xs rounded-full font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-700;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-700;
+  }
+
+  .badge-error {
+    @apply bg-red-100 text-red-700;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  /* 🧾 Text */
+  .title {
+    @apply text-lg font-semibold text-gray-800;
+  }
+
+  .subtitle {
+    @apply text-sm text-gray-500;
+  }
+
+  /* 🧭 Navbar */
+  .navbar {
+    @apply bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center;
+  }
+
+  /* 📝 Input */
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400;
+  }
+
+  /* ⏳ Loader */
+  .loader {
+    @apply text-center text-gray-500;
+  }
+
+  /* ✅ Lists — make ULs fit code snippets and long inline code */
+  ul {
+    @apply list-disc pl-6 space-y-2;
+  }
+
+  ul li {
+    overflow-wrap: anywhere;
+  }
+
+  ul li code,
+  ul li pre {
+    @apply font-mono text-sm bg-gray-100 px-1 rounded;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}

@@ -5,7 +5,13 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 const DEFAULT_PAGE_SIZE = 10;
 const MAX_PAGE_SIZE = 50;
-const VALID_JOB_TYPES = new Set(["full-time", "part-time", "remote"]);
+const VALID_JOB_TYPES = new Set(["full-time", "part-time", "contract", "remote"]);
+const JOB_TYPE_MAP = {
+  "full-time": "Full-time",
+  "part-time": "Part-time",
+  contract: "Contract",
+  remote: "Remote",
+};
 
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -38,15 +44,81 @@ const normalizeRequirements = (requirements) => {
   throw new AppError("Requirements must be an array of strings", 400);
 };
 
+const normalizeJobType = (jobType) => {
+  if (jobType === undefined) {
+    return undefined;
+  }
+
+  const normalizedJobType = `${jobType}`.trim().toLowerCase();
+  const mappedJobType = JOB_TYPE_MAP[normalizedJobType];
+
+  if (!mappedJobType) {
+    throw new AppError("Invalid job type", 400);
+  }
+
+  return mappedJobType;
+};
+
+const parseSalaryNumber = (value) => {
+  if (value === null || value === undefined || value === "") {
+    return null;
+  }
+
+  const parsedValue = Number.parseFloat(`${value}`.replace(/,/g, "").trim());
+
+  if (Number.isNaN(parsedValue)) {
+    throw new AppError("Salary values must be valid numbers", 400);
+  }
+
+  return parsedValue;
+};
+
+const normalizeSalary = (salary) => {
+  if (salary === undefined) {
+    return undefined;
+  }
+
+  if (salary === null || salary === "") {
+    return {};
+  }
+
+  if (typeof salary !== "object" || Array.isArray(salary)) {
+    throw new AppError(
+      "Salary must be submitted as min, max, and currency fields",
+      400,
+    );
+  }
+
+  const min = parseSalaryNumber(salary.min);
+  const max = parseSalaryNumber(salary.max);
+  const currency = `${salary.currency || "USD"}`.trim().toUpperCase();
+
+  return {
+    min,
+    max,
+    currency: currency || "USD",
+  };
+};
+
 const buildJobPayload = (body) => {
   const payload = {};
-  const fields = ["title", "company", "location", "salary", "jobType", "description"];
+  const fields = ["title", "company", "location", "description"];
 
   fields.forEach((field) => {
     if (body[field] !== undefined) {
       payload[field] = body[field];
     }
   });
+
+  const normalizedJobType = normalizeJobType(body.jobType);
+  if (normalizedJobType !== undefined) {
+    payload.jobType = normalizedJobType;
+  }
+
+  const normalizedSalary = normalizeSalary(body.salary);
+  if (normalizedSalary !== undefined) {
+    payload.salary = normalizedSalary;
+  }
 
   const normalizedRequirements = normalizeRequirements(body.requirements);
 
@@ -116,7 +188,7 @@ const getJobs = asyncHandler(async (req, res) => {
       throw new AppError("Invalid jobType filter", 400);
     }
 
-    filters.jobType = normalizedJobType;
+    filters.jobType = JOB_TYPE_MAP[normalizedJobType];
   }
 
   if (req.query.search?.trim()) {

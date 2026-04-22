@@ -1,7 +1,5 @@
 import {
-  BriefcaseBusiness,
   ClipboardList,
-  LayoutDashboard,
   PencilLine,
   PlusCircle,
   Trash2,
@@ -11,17 +9,15 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import DashboardShell from "../../components/DashboardShell";
 import StatusBadge from "../../components/StatusBadge";
-import { EmptyState, ErrorPanel, SectionLoader } from "../../components/Feedback";
+import {
+  EmptyState,
+  ErrorPanel,
+  SectionLoader,
+} from "../../components/Feedback";
 import { useAuth } from "../../context/AuthContext";
 import { deleteJob, getRecruiterJobs } from "../../services/jobService";
 import { getErrorMessage } from "../../utils/getErrorMessage";
-
-const recruiterNav = [
-  { to: "/employer-dashboard", label: "Overview", icon: LayoutDashboard },
-  { to: "/post-job", label: "Post a job", icon: PlusCircle },
-  { to: "/manage-jobs", label: "Manage jobs", icon: BriefcaseBusiness },
-  { to: "/applicants", label: "Applicants", icon: ClipboardList },
-];
+import { formatSalary } from "../../utils/formatSalary";
 
 export const ManageJobs = () => {
   const { user } = useAuth();
@@ -41,7 +37,7 @@ export const ManageJobs = () => {
         const data = await getRecruiterJobs(user?._id, { limit: 100 });
 
         if (isMounted) {
-          setJobs(data.jobs);
+          setJobs(Array.isArray(data?.jobs) ? data.jobs : []);
         }
       } catch (requestError) {
         if (isMounted) {
@@ -81,8 +77,7 @@ export const ManageJobs = () => {
     <DashboardShell
       eyebrow="Recruiter workflow"
       title="Manage published jobs"
-      description="Keep every listing clean, current, and easy to review before candidates arrive."
-      navItems={recruiterNav}
+      description="Keep every listing current, balanced, and easy to act on across tablet and desktop card grids."
       actions={
         <Link
           to="/post-job"
@@ -100,57 +95,70 @@ export const ManageJobs = () => {
         <EmptyState
           title="No jobs to manage yet"
           description="Your published roles will appear here once you create them."
+          action={
+            <Link
+              to="/post-job"
+              className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+            >
+              Create your first job
+            </Link>
+          }
         />
       ) : null}
 
       {!isLoading && jobs.length > 0 ? (
-        <div className="grid gap-4">
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {jobs.map((job) => (
             <article
               key={job._id}
-              className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm"
+              className="flex h-full flex-col rounded-[2rem] border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur"
             >
-              <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-                <div className="max-w-3xl">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="text-xl font-semibold text-slate-950">
-                      {job.title}
-                    </h2>
-                    <StatusBadge value={job.jobType} />
-                  </div>
-                  <p className="mt-3 text-sm text-slate-600">
-                    {job.company} • {job.location} • {job.salary || "Salary not specified"}
-                  </p>
-                  <p className="mt-4 line-clamp-2 text-sm leading-7 text-slate-500">
-                    {job.description}
-                  </p>
-                </div>
+              <div className="flex items-start justify-between gap-3">
+                <StatusBadge value={job.jobType} />
+                <span className="text-xs font-semibold text-slate-400">
+                  {job.applicationsCount || 0} applicants
+                </span>
+              </div>
 
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    to={`/post-job?jobId=${job._id}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800"
-                  >
-                    <PencilLine className="h-4 w-4" />
-                    Edit
-                  </Link>
-                  <Link
-                    to={`/applicants?jobId=${job._id}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800"
-                  >
-                    <ClipboardList className="h-4 w-4" />
-                    Applicants
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(job._id)}
-                    disabled={deletingId === job._id}
-                    className="inline-flex items-center gap-2 rounded-full border border-rose-200 px-4 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    {deletingId === job._id ? "Deleting..." : "Delete"}
-                  </button>
-                </div>
+              <div className="mt-5 flex-1">
+                <h2 className="text-xl font-semibold text-slate-950">
+                  {job.title}
+                </h2>
+                <p className="mt-2 text-sm text-slate-600">
+                  {job.company} • {job.location}
+                </p>
+                <p className="mt-3 text-sm font-medium text-slate-700">
+                  {formatSalary(job.salary)}
+                </p>
+                <p className="mt-4 line-clamp-3 text-sm leading-7 text-slate-500">
+                  {job.description}
+                </p>
+              </div>
+
+              <div className="mt-6 grid gap-3">
+                <Link
+                  to={`/post-job?jobId=${job._id}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800"
+                >
+                  <PencilLine className="h-4 w-4" />
+                  Edit listing
+                </Link>
+                <Link
+                  to={`/applicants?jobId=${job._id}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+                >
+                  <ClipboardList className="h-4 w-4" />
+                  Review applicants
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(job._id)}
+                  disabled={deletingId === job._id}
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-rose-200 px-4 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  {deletingId === job._id ? "Deleting..." : "Delete"}
+                </button>
               </div>
             </article>
           ))}

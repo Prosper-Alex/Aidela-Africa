@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import { reconcileApplicationStorage } from "./utils/reconcileApplicationStorage.js";
 
 dotenv.config();
 
@@ -39,8 +40,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 app.get("/", (_req, res) => {
   res.status(200).json({
@@ -75,6 +76,11 @@ const startServer = async () => {
   }
 
   await connectDB();
+  try {
+    await reconcileApplicationStorage();
+  } catch (error) {
+    console.warn(`Application storage reconciliation skipped: ${error.message}`);
+  }
 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

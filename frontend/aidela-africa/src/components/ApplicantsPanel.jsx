@@ -56,8 +56,14 @@ const ApplicantsPanel = ({
   return (
     <div className="space-y-4">
       {applications.map((application) => {
+        const applicant = application.applicant || application.user;
         const isPending = application.status === "pending";
         const resumeValue = application.resume?.trim();
+        const resumeLabel = resumeValue?.startsWith("data:application/pdf")
+          ? "Download resume (PDF)"
+          : resumeValue?.startsWith("data:text/plain")
+            ? "Open resume (TXT)"
+            : "View resume";
 
         return (
           <article
@@ -68,23 +74,24 @@ const ApplicantsPanel = ({
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="text-lg font-semibold text-slate-950">
-                    {application.user?.name}
+                    {applicant?.name || "Applicant"}
                   </h3>
                   <StatusBadge value={application.status} />
                 </div>
-                <p className="text-sm text-slate-600">{application.user?.email}</p>
+                <p className="text-sm text-slate-600">{applicant?.email || "No email available"}</p>
                 <p className="text-sm text-slate-500">
                   Applied on {new Date(application.createdAt).toLocaleString()}
                 </p>
                 {resumeValue ? (
-                  resumeValue.startsWith("http") ? (
+                  resumeValue.startsWith("http") || resumeValue.startsWith("data:") ? (
                     <a
                       href={resumeValue}
                       target="_blank"
                       rel="noreferrer"
+                      download={resumeValue.startsWith("data:") ? "resume" : undefined}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-sky-700 hover:text-sky-800"
                     >
-                      View resume
+                      {resumeLabel}
                       <ExternalLink className="h-4 w-4" />
                     </a>
                   ) : (

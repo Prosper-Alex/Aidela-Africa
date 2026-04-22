@@ -1,17 +1,12 @@
-import { BriefcaseBusiness, ClipboardList, Sparkles, UserCircle2 } from "lucide-react";
+import { BriefcaseBusiness, ClipboardList, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import DashboardShell from "../../components/DashboardShell";
 import { ErrorPanel, SectionLoader } from "../../components/Feedback";
 import StatCard from "../../components/StatCard";
 import { useAuth } from "../../context/AuthContext";
 import { getMyApplications } from "../../services/applicationService";
 import { getErrorMessage } from "../../utils/getErrorMessage";
-
-const jobSeekerNav = [
-  { to: "/my-applications", label: "My applications", icon: ClipboardList },
-  { to: "/find-jobs", label: "Find jobs", icon: BriefcaseBusiness },
-  { to: "/profile", label: "Profile", icon: UserCircle2 },
-];
 
 export const UserProfile = () => {
   const { user } = useAuth();
@@ -37,15 +32,22 @@ export const UserProfile = () => {
           return;
         }
 
+        const applications = Array.isArray(data?.applications)
+          ? data.applications
+          : [];
+
         setApplicationStats({
-          total: data.applications.length,
-          accepted: data.applications.filter((item) => item.status === "accepted").length,
-          pending: data.applications.filter((item) => item.status === "pending").length,
+          total: applications.length,
+          accepted: applications.filter((item) => item.status === "accepted").length,
+          pending: applications.filter((item) => item.status === "pending").length,
         });
       } catch (requestError) {
         if (isMounted) {
           setError(
-            getErrorMessage(requestError, "Unable to load your profile insights."),
+            getErrorMessage(
+              requestError,
+              "Unable to load your profile insights.",
+            ),
           );
         }
       } finally {
@@ -66,13 +68,20 @@ export const UserProfile = () => {
     <DashboardShell
       eyebrow="Candidate profile"
       title={user?.name || "Your profile"}
-      description="Keep an eye on your candidate activity and understand how your job search is progressing."
-      navItems={jobSeekerNav}
+      description="Keep an eye on your candidate activity and understand how your search is progressing in the same visual system as the jobs dashboard."
+      actions={
+        <Link
+          to="/my-applications"
+          className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+        >
+          View applications
+        </Link>
+      }
     >
       {error ? <ErrorPanel message={error} /> : null}
 
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-600">
             Account details
           </p>
@@ -103,7 +112,7 @@ export const UserProfile = () => {
 
           {!isLoading ? (
             <>
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 <StatCard
                   label="Applications"
                   value={applicationStats.total}
@@ -124,7 +133,7 @@ export const UserProfile = () => {
                 />
               </div>
 
-              <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+              <article className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
                 <h3 className="text-xl font-semibold text-slate-950">
                   Candidate experience tips
                 </h3>

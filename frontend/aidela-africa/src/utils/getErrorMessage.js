@@ -13,6 +13,26 @@ export const getErrorMessage = (error, fallback = "Something went wrong.") => {
   if (
     error &&
     typeof error === "object" &&
+    Array.isArray(error.errors) &&
+    error.errors.length > 0
+  ) {
+    return error.errors[0];
+  }
+
+  if (
+    error &&
+    typeof error === "object" &&
+    error.originalError
+  ) {
+    const nestedMessage = getNestedError(error.originalError.response?.data);
+    if (nestedMessage) {
+      return nestedMessage;
+    }
+  }
+
+  if (
+    error &&
+    typeof error === "object" &&
     error.message &&
     typeof error.message === "string"
   ) {

@@ -2,17 +2,23 @@ import express from "express";
 import {
   applyToJob,
   getApplicationsForJob,
+  getMyApplications,
   updateApplicationStatus,
   updateApplicationStatusByJobId,
 } from "../controllers/applicationController.js";
 import { protect } from "../middleware/authMiddleware.js";
+import { isRecruiter, isJobSeeker } from "../middleware/roleMiddleware.js";
 
 const router = express.Router();
 
-// Apply to a job
-router.post("/:jobId", protect, applyToJob);
+// Apply to a job (job seekers only)
+router.post("/:jobId", protect, isJobSeeker, applyToJob);
 
-router.get("/job/:jobId", protect, getApplicationsForJob);
+// Get current user's applications (job seekers only)
+router.get("/me", protect, isJobSeeker, getMyApplications);
+
+// Recruiters: view applicants for a job (recruiter middleware + controller ownership check)
+router.get("/job/:jobId", protect, isRecruiter, getApplicationsForJob);
 
 router.put("/:id/status", protect, updateApplicationStatus);
 

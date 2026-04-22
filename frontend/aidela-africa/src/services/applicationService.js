@@ -12,12 +12,28 @@ export const getMyApplications = async (params = {}) => {
 
 export const getApplicantsForJob = async (jobId, params = {}) => {
   const { data } = await API.get(`/api/applications/job/${jobId}`, { params });
-  return data;
+
+  if (Array.isArray(data)) {
+    return {
+      applications: data,
+      job: null,
+    };
+  }
+
+  return {
+    applications: Array.isArray(data?.applications) ? data.applications : [],
+    job: data?.job || null,
+  };
 };
 
 export const updateApplicationStatus = async (applicationId, status) => {
-  const { data } = await API.put(`/api/applications/${applicationId}/status`, {
-    status,
-  });
+  const nextStatus =
+    typeof status === "string" ? status : status?.status || "";
+  const { data } = await API.put(
+    `/api/applications/${applicationId}/status`,
+    {
+      status: nextStatus,
+    },
+  );
   return data;
 };

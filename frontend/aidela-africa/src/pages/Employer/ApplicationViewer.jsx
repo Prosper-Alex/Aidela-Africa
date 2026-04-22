@@ -1,15 +1,15 @@
-import {
-  BriefcaseBusiness,
-  ClipboardList,
-  LayoutDashboard,
-  PlusCircle,
-} from "lucide-react";
+import { ClipboardList, PlusCircle, Users2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import ApplicantsPanel from "../../components/ApplicantsPanel";
 import DashboardShell from "../../components/DashboardShell";
-import { ErrorPanel, SectionLoader } from "../../components/Feedback";
+import {
+  EmptyState,
+  ErrorPanel,
+  SectionLoader,
+} from "../../components/Feedback";
+import StatCard from "../../components/StatCard";
 import { useAuth } from "../../context/AuthContext";
 import {
   getApplicantsForJob,
@@ -17,13 +17,6 @@ import {
 } from "../../services/applicationService";
 import { getRecruiterJobs } from "../../services/jobService";
 import { getErrorMessage } from "../../utils/getErrorMessage";
-
-const recruiterNav = [
-  { to: "/employer-dashboard", label: "Overview", icon: LayoutDashboard },
-  { to: "/post-job", label: "Post a job", icon: PlusCircle },
-  { to: "/manage-jobs", label: "Manage jobs", icon: BriefcaseBusiness },
-  { to: "/applicants", label: "Applicants", icon: ClipboardList },
-];
 
 export const ApplicationViewer = () => {
   const { user } = useAuth();
@@ -39,6 +32,7 @@ export const ApplicationViewer = () => {
   const [jobsError, setJobsError] = useState("");
   const [applicationsError, setApplicationsError] = useState("");
   const [updatingId, setUpdatingId] = useState("");
+  const [refreshCount, setRefreshCount] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -49,17 +43,30 @@ export const ApplicationViewer = () => {
 
       try {
         const data = await getRecruiterJobs(user?._id, { limit: 100 });
+        const nextJobs = Array.isArray(data?.jobs) ? data.jobs : [];
 
         if (!isMounted) {
           return;
         }
 
-        setJobs(data.jobs);
+        setJobs(nextJobs);
 
-        if (!selectedJobId && data.jobs.length > 0) {
-          const firstJobId = data.jobs[0]._id;
-          setSelectedJobId(firstJobId);
-          setSearchParams({ jobId: firstJobId });
+        if (nextJobs.length === 0) {
+          setSelectedJobId("");
+          setSearchParams({});
+          return;
+        }
+
+        const hasSelectedJob = nextJobs.some(
+          (job) => job._id === selectedJobId,
+        );
+        const nextSelectedJobId = hasSelectedJob
+          ? selectedJobId
+          : nextJobs[0]._id;
+
+        setSelectedJobId(nextSelectedJobId);
+        if (selectedJobId !== nextSelectedJobId) {
+          setSearchParams({ jobId: nextSelectedJobId });
         }
       } catch (requestError) {
         if (isMounted) {
@@ -84,7 +91,7 @@ export const ApplicationViewer = () => {
     return () => {
       isMounted = false;
     };
-  }, [user?._id, selectedJobId, setSearchParams]);
+  }, [user?._id, setSearchParams, selectedJobId]);
 
   useEffect(() => {
     let isMounted = true;
@@ -101,13 +108,17 @@ export const ApplicationViewer = () => {
 
       try {
         const data = await getApplicantsForJob(selectedJobId, { limit: 100 });
+        const fallbackJob =
+          jobs.find((job) => job._id === selectedJobId) || null;
 
         if (!isMounted) {
           return;
         }
 
-        setApplications(data.applications);
-        setJobDetails(data.job);
+        setApplications(
+          Array.isArray(data?.applications) ? data.applications : [],
+        );
+        setJobDetails(data?.job || fallbackJob);
       } catch (requestError) {
         if (isMounted) {
           setApplicationsError(
@@ -129,7 +140,7 @@ export const ApplicationViewer = () => {
     return () => {
       isMounted = false;
     };
-  }, [selectedJobId]);
+  }, [jobs, refreshCount, selectedJobId]);
 
   const handleSelectJob = (jobId) => {
     setSelectedJobId(jobId);
@@ -140,10 +151,12 @@ export const ApplicationViewer = () => {
     setUpdatingId(applicationId);
 
     try {
-      const data = await updateApplicationStatus(applicationId, { status });
+      const data = await updateApplicationStatus(applicationId, status);
       setApplications((currentApplications) =>
         currentApplications.map((application) =>
-          application._id === applicationId ? data.application : application,
+          application._id === applicationId
+            ? { ...application, ...data.application }
+            : application,
         ),
       );
       toast.success(`Application ${status}.`);
@@ -154,58 +167,116 @@ export const ApplicationViewer = () => {
     }
   };
 
+  const selectedJob =
+    jobs.find((job) => job._id === selectedJobId) || jobDetails;
+
   return (
     <DashboardShell
       eyebrow="Applicant review"
       title="Review applicants by job"
-      description="Pick a role, review who has applied, and keep status updates clear and timely."
-      navItems={recruiterNav}>
+      description="Move between roles quickly, keep applicant cards readable, and update status without a cluttered dashboard layout."
+      actions={
+        <Link
+          to="/post-job"
+          className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+          <PlusCircle className="h-4 w-4" />
+          Post a job
+        </Link>
+      }>
       {jobsError ? <ErrorPanel message={jobsError} /> : null}
       {isJobsLoading ? <SectionLoader label="Loading your jobs..." /> : null}
 
-      {!isJobsLoading ? (
-        <div className="grid gap-6 lg:grid-cols-[0.42fr_0.58fr]">
-          <section className="rounded-4xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-950">Your jobs</h2>
-            <p className="mt-2 text-sm text-slate-500">
-              Select a job to inspect applicants and update statuses.
-            </p>
+      {!isJobsLoading && jobs.length === 0 ? (
+        <EmptyState
+          title="No jobs available for review"
+          description="Post a role first, then applicant review will appear here."
+          action={
+            <Link
+              to="/post-job"
+              className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+              Create a job
+            </Link>
+          }
+        />
+      ) : null}
 
-            <div className="mt-5 space-y-3">
-              {jobs.map((job) => (
-                <button
-                  key={job._id}
-                  type="button"
-                  onClick={() => handleSelectJob(job._id)}
-                  className={`w-full rounded-2xl border px-4 py-4 text-left transition ${
-                    selectedJobId === job._id
-                      ? "border-sky-400 bg-sky-50"
-                      : "border-slate-200 bg-white hover:border-sky-200 hover:bg-slate-50"
-                  }`}>
-                  <p className="font-semibold text-slate-950">{job.title}</p>
-                  <p className="mt-2 text-sm text-slate-500">
-                    {job.company} • {job.location}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </section>
-
-          <section className="min-w-0">
-            {applicationsError ? (
-              <ErrorPanel message={applicationsError} />
-            ) : null}
-            <ApplicantsPanel
-              job={jobDetails}
-              applications={applications}
-              isLoading={isApplicationsLoading}
-              error={applicationsError}
-              onRetry={() => handleSelectJob(selectedJobId)}
-              onUpdateStatus={handleUpdateStatus}
-              updatingId={updatingId}
+      {!isJobsLoading && jobs.length > 0 ? (
+        <>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <StatCard
+              label="Open jobs"
+              value={jobs.length}
+              note="Roles ready for recruiter review"
+              icon={ClipboardList}
             />
-          </section>
-        </div>
+            <StatCard
+              label="Applicants loaded"
+              value={applications.length}
+              note="Candidates visible for the selected role"
+              icon={Users2}
+            />
+            <StatCard
+              label="Selected role"
+              value={selectedJob ? "Active" : "None"}
+              note={
+                selectedJob?.title || "Choose a job to inspect applications"
+              }
+              icon={ClipboardList}
+            />
+          </div>
+
+          <div className="grid gap-6 xl:grid-cols-[0.38fr_0.62fr]">
+            <section className="rounded-4xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-lg font-semibold text-slate-950">
+                    Your jobs
+                  </h2>
+                  <p className="mt-2 text-sm text-slate-500">
+                    Select a role to inspect applicants and update statuses.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+                {jobs.map((job) => (
+                  <button
+                    key={job._id}
+                    type="button"
+                    onClick={() => handleSelectJob(job._id)}
+                    className={`w-full rounded-3xl border px-4 py-4 text-left transition ${
+                      selectedJobId === job._id
+                        ? "border-sky-300 bg-sky-50"
+                        : "border-slate-200 bg-white hover:border-sky-200 hover:bg-slate-50"
+                    }`}>
+                    <p className="font-semibold text-slate-950">{job.title}</p>
+                    <p className="mt-2 text-sm text-slate-500">
+                      {job.company} • {job.location}
+                    </p>
+                    <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+                      {job.applicationsCount || 0} applicants
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="min-w-0">
+              {applicationsError ? (
+                <ErrorPanel message={applicationsError} />
+              ) : null}
+              <ApplicantsPanel
+                job={selectedJob}
+                applications={applications}
+                isLoading={isApplicationsLoading}
+                error={applicationsError}
+                onRetry={() => setRefreshCount((count) => count + 1)}
+                onUpdateStatus={handleUpdateStatus}
+                updatingId={updatingId}
+              />
+            </section>
+          </div>
+        </>
       ) : null}
     </DashboardShell>
   );

@@ -1,24 +1,12 @@
-import {
-  BriefcaseBusiness,
-  ClipboardList,
-  LayoutDashboard,
-  PlusCircle,
-  UserCircle2,
-} from "lucide-react";
+import { BriefcaseBusiness, UserCircle2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import DashboardShell from "../../components/DashboardShell";
 import { ErrorPanel, SectionLoader } from "../../components/Feedback";
 import StatCard from "../../components/StatCard";
 import { useAuth } from "../../context/AuthContext";
 import { getRecruiterJobs } from "../../services/jobService";
 import { getErrorMessage } from "../../utils/getErrorMessage";
-
-const recruiterNav = [
-  { to: "/employer-dashboard", label: "Overview", icon: LayoutDashboard },
-  { to: "/post-job", label: "Post a job", icon: PlusCircle },
-  { to: "/manage-jobs", label: "Manage jobs", icon: BriefcaseBusiness },
-  { to: "/applicants", label: "Applicants", icon: ClipboardList },
-];
 
 export const EmployerProfilePage = () => {
   const { user } = useAuth();
@@ -37,12 +25,15 @@ export const EmployerProfilePage = () => {
         const data = await getRecruiterJobs(user?._id, { limit: 100 });
 
         if (isMounted) {
-          setJobCount(data.jobs.length);
+          setJobCount(Array.isArray(data?.jobs) ? data.jobs.length : 0);
         }
       } catch (requestError) {
         if (isMounted) {
           setError(
-            getErrorMessage(requestError, "Unable to load recruiter profile insights."),
+            getErrorMessage(
+              requestError,
+              "Unable to load recruiter profile insights.",
+            ),
           );
         }
       } finally {
@@ -66,14 +57,21 @@ export const EmployerProfilePage = () => {
       eyebrow="Recruiter profile"
       title={user?.name || "Recruiter profile"}
       description="A concise overview of your recruiter identity and activity across the platform."
-      navItems={recruiterNav}
+      actions={
+        <Link
+          to="/manage-jobs"
+          className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+        >
+          Manage jobs
+        </Link>
+      }
     >
       {error ? <ErrorPanel message={error} /> : null}
       {isLoading ? <SectionLoader label="Loading recruiter profile..." /> : null}
 
       {!isLoading ? (
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+          <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
             <h2 className="text-2xl font-semibold text-slate-950">Account details</h2>
             <dl className="mt-6 space-y-4 text-sm">
               <div className="rounded-2xl bg-slate-50 px-4 py-4">
@@ -94,7 +92,7 @@ export const EmployerProfilePage = () => {
           </section>
 
           <section className="space-y-6">
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               <StatCard
                 label="Published jobs"
                 value={jobCount}
@@ -102,14 +100,14 @@ export const EmployerProfilePage = () => {
                 icon={BriefcaseBusiness}
               />
               <StatCard
-                label="Account role"
+                label="Workspace"
                 value="Recruiter"
-                note="Your active workspace mode"
+                note="Your active product mode"
                 icon={UserCircle2}
               />
             </div>
 
-            <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <article className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
               <h3 className="text-xl font-semibold text-slate-950">
                 Hiring workflow reminders
               </h3>

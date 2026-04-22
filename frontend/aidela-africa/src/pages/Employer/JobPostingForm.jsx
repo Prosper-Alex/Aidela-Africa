@@ -1,29 +1,19 @@
-import {
-  BriefcaseBusiness,
-  ClipboardList,
-  LayoutDashboard,
-  PlusCircle,
-} from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import DashboardShell from "../../components/DashboardShell";
 import { ErrorPanel, SectionLoader } from "../../components/Feedback";
 import { createJob, getJobById, updateJob } from "../../services/jobService";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 
-const recruiterNav = [
-  { to: "/employer-dashboard", label: "Overview", icon: LayoutDashboard },
-  { to: "/post-job", label: "Post a job", icon: PlusCircle },
-  { to: "/manage-jobs", label: "Manage jobs", icon: BriefcaseBusiness },
-  { to: "/applicants", label: "Applicants", icon: ClipboardList },
-];
-
 const initialForm = {
   title: "",
   company: "",
   location: "",
-  salary: "",
+  salaryMin: "",
+  salaryMax: "",
+  salaryCurrency: "USD",
   jobType: "full-time",
   description: "",
   requirements: "",
@@ -59,14 +49,24 @@ export const JobPostingForm = () => {
           title: job.title || "",
           company: job.company || "",
           location: job.location || "",
-          salary: job.salary || "",
-          jobType: job.jobType || "full-time",
+          salaryMin:
+            job.salary?.min !== null && job.salary?.min !== undefined
+              ? `${job.salary.min}`
+              : "",
+          salaryMax:
+            job.salary?.max !== null && job.salary?.max !== undefined
+              ? `${job.salary.max}`
+              : "",
+          salaryCurrency: job.salary?.currency || "USD",
+          jobType: `${job.jobType || "full-time"}`.toLowerCase(),
           description: job.description || "",
           requirements: job.requirements?.join("\n") || "",
         });
       } catch (requestError) {
         if (isMounted) {
-          setError(getErrorMessage(requestError, "Unable to load the selected job."));
+          setError(
+            getErrorMessage(requestError, "Unable to load the selected job."),
+          );
         }
       } finally {
         if (isMounted) {
@@ -94,8 +94,30 @@ export const JobPostingForm = () => {
     setIsSubmitting(true);
     setError("");
 
+    const salaryMin = form.salaryMin.trim();
+    const salaryMax = form.salaryMax.trim();
+
+    if (
+      salaryMin &&
+      salaryMax &&
+      Number.parseFloat(salaryMin) > Number.parseFloat(salaryMax)
+    ) {
+      setError("Maximum salary must be greater than or equal to minimum salary.");
+      setIsSubmitting(false);
+      return;
+    }
+
     const payload = {
-      ...form,
+      title: form.title,
+      company: form.company,
+      location: form.location,
+      jobType: form.jobType,
+      description: form.description,
+      salary: {
+        min: salaryMin || null,
+        max: salaryMax || null,
+        currency: form.salaryCurrency.trim() || "USD",
+      },
       requirements: form.requirements
         .split("\n")
         .map((item) => item.trim())
@@ -124,20 +146,31 @@ export const JobPostingForm = () => {
       eyebrow={isEditMode ? "Edit listing" : "Create listing"}
       title={isEditMode ? "Refine your job post" : "Publish a new opportunity"}
       description="Use a structured form so candidates can quickly understand the role and recruiters can maintain a consistent standard."
-      navItems={recruiterNav}
-    >
+      actions={
+        <Link
+          to="/manage-jobs"
+          className="inline-flex rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800"
+        >
+          Back to jobs
+        </Link>
+      }>
       {isLoading ? <SectionLoader label="Loading job editor..." /> : null}
 
       {!isLoading ? (
         <form
           onSubmit={handleSubmit}
-          className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
-        >
-          {error ? <div className="mb-5"><ErrorPanel message={error} /></div> : null}
+          className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur sm:p-8">
+          {error ? (
+            <div className="mb-5">
+              <ErrorPanel message={error} />
+            </div>
+          ) : null}
 
           <div className="grid gap-5 md:grid-cols-2">
             <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Job title</span>
+              <span className="text-sm font-medium text-slate-700">
+                Job title
+              </span>
               <input
                 type="text"
                 required
@@ -147,56 +180,105 @@ export const JobPostingForm = () => {
               />
             </label>
             <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Company</span>
+              <span className="text-sm font-medium text-slate-700">
+                Company
+              </span>
               <input
                 type="text"
                 required
                 value={form.company}
-                onChange={(event) => handleChange("company", event.target.value)}
+                onChange={(event) =>
+                  handleChange("company", event.target.value)
+                }
                 className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
               />
             </label>
             <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Location</span>
+              <span className="text-sm font-medium text-slate-700">
+                Location
+              </span>
               <input
                 type="text"
                 required
                 value={form.location}
-                onChange={(event) => handleChange("location", event.target.value)}
+                onChange={(event) =>
+                  handleChange("location", event.target.value)
+                }
                 className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
               />
             </label>
             <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Salary</span>
+              <span className="text-sm font-medium text-slate-700">
+                Salary currency
+              </span>
               <input
                 type="text"
-                value={form.salary}
-                onChange={(event) => handleChange("salary", event.target.value)}
-                placeholder="e.g. ₦500,000 monthly"
+                value={form.salaryCurrency}
+                onChange={(event) =>
+                  handleChange("salaryCurrency", event.target.value.toUpperCase())
+                }
+                placeholder="USD"
                 className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
               />
             </label>
           </div>
 
-          <div className="mt-5 grid gap-5 md:grid-cols-[0.4fr_1.6fr]">
+          <div className="mt-5 grid gap-5 md:grid-cols-3">
             <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Job type</span>
+              <span className="text-sm font-medium text-slate-700">
+                Minimum salary
+              </span>
+              <input
+                type="number"
+                min="0"
+                value={form.salaryMin}
+                onChange={(event) => handleChange("salaryMin", event.target.value)}
+                placeholder="500"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+              />
+            </label>
+            <label className="space-y-2">
+              <span className="text-sm font-medium text-slate-700">
+                Maximum salary
+              </span>
+              <input
+                type="number"
+                min="0"
+                value={form.salaryMax}
+                onChange={(event) => handleChange("salaryMax", event.target.value)}
+                placeholder="1000"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+              />
+            </label>
+            <label className="space-y-2">
+              <span className="text-sm font-medium text-slate-700">
+                Job type
+              </span>
               <select
                 value={form.jobType}
-                onChange={(event) => handleChange("jobType", event.target.value)}
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
-              >
+                onChange={(event) =>
+                  handleChange("jobType", event.target.value)
+                }
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100">
                 <option value="full-time">Full-time</option>
                 <option value="part-time">Part-time</option>
+                <option value="contract">Contract</option>
                 <option value="remote">Remote</option>
               </select>
             </label>
+          </div>
+
+          <div className="mt-5 grid gap-5 md:grid-cols-[0.5fr_1.5fr]">
             <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Requirements</span>
+              <span className="text-sm font-medium text-slate-700">
+                Requirements
+              </span>
               <textarea
                 rows={5}
                 value={form.requirements}
-                onChange={(event) => handleChange("requirements", event.target.value)}
+                onChange={(event) =>
+                  handleChange("requirements", event.target.value)
+                }
                 placeholder="One requirement per line"
                 className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
               />
@@ -204,12 +286,16 @@ export const JobPostingForm = () => {
           </div>
 
           <label className="mt-5 block space-y-2">
-            <span className="text-sm font-medium text-slate-700">Description</span>
+            <span className="text-sm font-medium text-slate-700">
+              Description
+            </span>
             <textarea
               rows={8}
               required
               value={form.description}
-              onChange={(event) => handleChange("description", event.target.value)}
+              onChange={(event) =>
+                handleChange("description", event.target.value)
+              }
               className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
             />
           </label>
@@ -218,8 +304,7 @@ export const JobPostingForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
-            >
+              className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60">
               {isSubmitting
                 ? isEditMode
                   ? "Updating..."

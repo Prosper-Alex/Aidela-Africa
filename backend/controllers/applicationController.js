@@ -8,6 +8,13 @@ export const applyToJob = async (req, res) => {
     const { jobId } = req.params;
     const { resume, coverLetter } = req.body;
 
+    // only job seekers may apply (defensive check - route middleware should already enforce this)
+    if (req.user?.role !== "jobseeker") {
+      return res
+        .status(403)
+        .json({ message: "Only job seekers can apply to jobs" });
+    }
+
     if (!mongoose.Types.ObjectId.isValid(jobId)) {
       return res.status(400).json({ message: "Invalid job ID" });
     }
@@ -29,8 +36,9 @@ export const applyToJob = async (req, res) => {
     const application = await Application.create({
       job: jobId,
       applicant: req.user._id,
-      resume,
-      coverLetter,
+      user: req.user._id,
+      resume: resume || "",
+      coverLetter: coverLetter || "",
       status: "pending",
     });
 
@@ -42,6 +50,12 @@ export const applyToJob = async (req, res) => {
       application,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message: "You already applied to this job.",
+      });
+    }
+
     res.status(500).json({ message: error.message });
   }
 };
@@ -51,11 +65,62 @@ export const getApplicationsForJob = async (req, res) => {
   try {
     const { jobId } = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(jobId)) {
+      return res.status(400).json({ message: "Invalid job ID" });
+    }
+
+    const job = await Job.findById(jobId);
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    // Ensure the requesting recruiter owns the job
+    if (job.createdBy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Forbidden: not the job owner" });
+    }
+
     const applications = await Application.find({ job: jobId })
       .populate("applicant", "name email")
+      .populate("user", "name email")
       .sort({ createdAt: -1 });
 
     res.json(applications);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/* ================= GET MY APPLICATIONS ================= */
+export const getMyApplications = async (req, res) => {
+  try {
+    // support simple pagination params: page, limit
+    const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
+    const limit = Math.max(parseInt(req.query.limit, 10) || 50, 1);
+    const skip = (page - 1) * limit;
+
+    const query = { applicant: req.user._id };
+
+    const [applications, total] = await Promise.all([
+      Application.find(query)
+        .populate({ path: "job", select: "title company location" })
+        .populate("applicant", "name email")
+        .populate("user", "name email")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+      Application.countDocuments(query),
+    ]);
+
+    res.json({
+      applications,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit) || 0,
+      },
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

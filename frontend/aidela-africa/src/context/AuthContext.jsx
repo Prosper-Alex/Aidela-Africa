@@ -5,6 +5,7 @@ import {
   readStoredAuth,
   writeStoredAuth,
 } from "../utils/authStorage";
+import { normalizeUserRole } from "../utils/normalizeRole";
 import {
   fetchCurrentUser,
   loginUser,
@@ -15,7 +16,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const storedAuth = readStoredAuth();
-  const [user, setUser] = useState(storedAuth.user);
+  const [user, setUser] = useState(normalizeUserRole(storedAuth.user));
   const [token, setToken] = useState(storedAuth.token);
   const [isInitializing, setIsInitializing] = useState(
     Boolean(storedAuth.token),
@@ -38,9 +39,10 @@ export const AuthProvider = ({ children }) => {
           return;
         }
 
-        setUser(currentUser);
+        const normalizedUser = normalizeUserRole(currentUser);
+        setUser(normalizedUser);
         setError(null);
-        writeStoredAuth({ token, user: currentUser });
+        writeStoredAuth({ token, user: normalizedUser });
       } catch (err) {
         if (!isMounted) {
           return;
@@ -66,10 +68,11 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const persistAuth = (nextUser, nextToken) => {
-    setUser(nextUser);
+    const normalizedUser = normalizeUserRole(nextUser);
+    setUser(normalizedUser);
     setToken(nextToken);
     writeStoredAuth({
-      user: nextUser,
+      user: normalizedUser,
       token: nextToken,
     });
   };
@@ -110,11 +113,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateUser = (nextUser) => {
-    setUser(nextUser);
+    const normalizedUser = normalizeUserRole(nextUser);
+    setUser(normalizedUser);
 
     if (token) {
       writeStoredAuth({
-        user: nextUser,
+        user: normalizedUser,
         token,
       });
     }

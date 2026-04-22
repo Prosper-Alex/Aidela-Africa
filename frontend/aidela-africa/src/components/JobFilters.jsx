@@ -4,6 +4,7 @@ const JOB_TYPE_OPTIONS = [
   { label: "All job types", value: "" },
   { label: "Full-time", value: "full-time" },
   { label: "Part-time", value: "part-time" },
+  { label: "Contract", value: "contract" },
   { label: "Remote", value: "remote" },
 ];
 
@@ -18,7 +19,7 @@ const JobFilters = ({
   onClear,
 }) => {
   return (
-    <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+    <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur sm:p-6">
       <div className="flex items-center gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-100 text-sky-700">
           <Filter className="h-5 w-5" />
@@ -31,7 +32,7 @@ const JobFilters = ({
         </div>
       </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-[1.5fr_1fr_1fr_auto]">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-[1.5fr_1fr_1fr_auto]">
         <label className="space-y-2">
           <span className="text-sm font-medium text-slate-700">Search by title</span>
           <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-sky-400 focus-within:ring-2 focus-within:ring-sky-100">
@@ -76,7 +77,7 @@ const JobFilters = ({
           </select>
         </label>
 
-        <div className="flex items-end">
+        <div className="flex items-end sm:col-span-2 xl:col-span-1">
           <button
             type="button"
             onClick={onClear}

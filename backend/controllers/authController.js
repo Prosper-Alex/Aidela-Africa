@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 import AppError from "../utils/appError.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import { normalizeRole } from "../utils/normalizeRole.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, role } = req.body;
@@ -21,7 +22,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email: normalizedEmail,
     password,
-    role,
+    role: normalizeRole(role || "jobseeker"),
   });
 
   res.status(201).json({
@@ -53,14 +54,20 @@ const loginUser = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     message: "Login successful",
-    user,
+    user: {
+      ...user.toObject(),
+      role: normalizeRole(user.role),
+    },
     token: generateToken(user._id),
   });
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json({
-    user: req.user,
+    user: {
+      ...req.user.toObject(),
+      role: normalizeRole(req.user.role),
+    },
   });
 });
 

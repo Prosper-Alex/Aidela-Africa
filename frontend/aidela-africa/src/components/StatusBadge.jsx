@@ -1,10 +1,15 @@
 const variantClasses = {
   pending: "bg-amber-100 text-amber-800",
+  reviewed: "bg-slate-200 text-slate-700",
   accepted: "bg-emerald-100 text-emerald-800",
   rejected: "bg-rose-100 text-rose-800",
   "full-time": "bg-sky-100 text-sky-800",
   "part-time": "bg-fuchsia-100 text-fuchsia-800",
+  contract: "bg-violet-100 text-violet-800",
   remote: "bg-indigo-100 text-indigo-800",
+  active: "bg-emerald-100 text-emerald-800",
+  draft: "bg-slate-200 text-slate-700",
+  closed: "bg-rose-100 text-rose-800",
   recruiter: "bg-emerald-100 text-emerald-800",
   jobseeker: "bg-slate-200 text-slate-700",
 };
@@ -15,7 +20,7 @@ const StatusBadge = ({ value }) => {
   }
 
   const normalizedValue = `${value}`.toLowerCase();
-  const label = normalizedValue.replace("-", " ");
+  const label = normalizedValue.replaceAll("-", " ");
   const className = variantClasses[normalizedValue] || "bg-slate-100 text-slate-700";
 
   return (

@@ -12,14 +12,21 @@ const applicationSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    // Legacy field kept for backward compatibility with older Mongo indexes.
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
     resume: {
       type: String,
-      required: true,
+      default: "",
+      trim: true,
     },
     coverLetter: {
       type: String,
-      required: true,
-      minlength: 20,
+      default: "",
+      trim: true,
     },
     status: {
       type: String,
@@ -28,6 +35,29 @@ const applicationSchema = new mongoose.Schema(
     },
   },
   { timestamps: true },
+);
+
+applicationSchema.pre("validate", function syncLegacyUserField(next) {
+  if (!this.applicant && this.user) {
+    this.applicant = this.user;
+  }
+
+  if (!this.user && this.applicant) {
+    this.user = this.applicant;
+  }
+
+  next();
+});
+
+applicationSchema.index(
+  { applicant: 1, job: 1 },
+  {
+    unique: true,
+    partialFilterExpression: {
+      applicant: { $exists: true },
+      job: { $exists: true },
+    },
+  },
 );
 
 export default mongoose.model("Application", applicationSchema);

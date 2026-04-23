@@ -109,6 +109,7 @@ api.interceptors.response.use(
       return Promise.reject({
         status: 400,
         message: message || "Invalid request. Please check your input.",
+        errors: error.response?.data?.errors,
         originalError: error,
       });
     }
@@ -122,6 +123,7 @@ api.interceptors.response.use(
         status: 403,
         message:
           message || "You do not have permission to access this resource.",
+        errors: error.response?.data?.errors,
         originalError: error,
       });
     }
@@ -134,6 +136,7 @@ api.interceptors.response.use(
       return Promise.reject({
         status: 404,
         message: message || "The requested resource was not found.",
+        errors: error.response?.data?.errors,
         originalError: error,
       });
     }
@@ -146,6 +149,7 @@ api.interceptors.response.use(
       return Promise.reject({
         status: status || 500,
         message: message || "Server error. Please try again later.",
+        errors: error.response?.data?.errors,
         originalError: error,
       });
     }
@@ -158,6 +162,7 @@ api.interceptors.response.use(
       return Promise.reject({
         status: 0,
         message: "Network error. Please check your connection.",
+        errors: error.response?.data?.errors,
         originalError: error,
       });
     }
@@ -169,6 +174,7 @@ api.interceptors.response.use(
     return Promise.reject({
       status: status || 500,
       message: message || "An unexpected error occurred.",
+      errors: error.response?.data?.errors,
       originalError: error,
     });
   },

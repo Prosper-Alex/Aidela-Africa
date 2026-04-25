@@ -6,7 +6,16 @@ import Job from "../models/Job.js";
 export const applyToJob = async (req, res) => {
   try {
     const { jobId } = req.params;
-    const { resume, coverLetter } = req.body;
+    const {
+      resume,
+      coverLetter,
+      portfolioUrl,
+      linkedinUrl,
+      availability,
+      expectedSalary,
+      skillsMatch,
+      standoutAnswer,
+    } = req.body;
 
     // only job seekers may apply (defensive check - route middleware should already enforce this)
     if (req.user?.role !== "jobseeker") {
@@ -39,6 +48,12 @@ export const applyToJob = async (req, res) => {
       user: req.user._id,
       resume: resume || "",
       coverLetter: coverLetter || "",
+      portfolioUrl: portfolioUrl || "",
+      linkedinUrl: linkedinUrl || "",
+      availability: availability || "",
+      expectedSalary: expectedSalary || "",
+      skillsMatch: skillsMatch || "",
+      standoutAnswer: standoutAnswer || "",
       status: "pending",
     });
 
@@ -81,8 +96,8 @@ export const getApplicationsForJob = async (req, res) => {
     }
 
     const applications = await Application.find({ job: jobId })
-      .populate("applicant", "name email")
-      .populate("user", "name email")
+      .populate("applicant", "name email candidateProfile verification")
+      .populate("user", "name email candidateProfile verification")
       .sort({ createdAt: -1 });
 
     res.json(applications);
@@ -104,8 +119,8 @@ export const getMyApplications = async (req, res) => {
     const [applications, total] = await Promise.all([
       Application.find(query)
         .populate({ path: "job", select: "title company location" })
-        .populate("applicant", "name email")
-        .populate("user", "name email")
+        .populate("applicant", "name email candidateProfile verification")
+        .populate("user", "name email candidateProfile verification")
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),

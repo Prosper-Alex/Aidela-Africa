@@ -14,3 +14,8 @@ export const fetchCurrentUser = async () => {
   const { data } = await API.get("/api/auth/me");
   return data.user;
 };
+
+export const updateCurrentUser = async (payload) => {
+  const { data } = await API.patch("/api/auth/me", payload);
+  return data;
+};

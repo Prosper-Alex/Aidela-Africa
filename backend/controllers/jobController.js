@@ -102,7 +102,7 @@ const normalizeSalary = (salary) => {
 
 const buildJobPayload = (body) => {
   const payload = {};
-  const fields = ["title", "company", "location", "description"];
+  const fields = ["title", "company", "location", "description", "additionalInfo"];
 
   fields.forEach((field) => {
     if (body[field] !== undefined) {

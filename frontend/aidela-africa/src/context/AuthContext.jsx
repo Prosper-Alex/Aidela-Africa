@@ -13,6 +13,9 @@ import {
 } from "../services/authService";
 
 const AuthContext = createContext(null);
+const SESSION_EXPIRED_MESSAGE = "Session expired. Please log in again.";
+const SESSION_RESTORE_ERROR_MESSAGE =
+  "We couldn't verify your session right now. Please try again.";
 
 export const AuthProvider = ({ children }) => {
   const storedAuth = readStoredAuth();
@@ -24,7 +27,23 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Only run sync logic if token exists (avoid setState in effect body)
+    const handleAuthExpired = () => {
+      setUser(emptyAuthState.user);
+      setToken(emptyAuthState.token);
+      setIsInitializing(false);
+      setError(SESSION_EXPIRED_MESSAGE);
+      clearStoredAuth();
+    };
+
+    window.addEventListener("authExpired", handleAuthExpired);
+
+    return () => {
+      window.removeEventListener("authExpired", handleAuthExpired);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Only run sync logic if token exists.
     if (!token) {
       return;
     }
@@ -49,10 +68,17 @@ export const AuthProvider = ({ children }) => {
         }
 
         console.error("[AUTH] Failed to sync user:", err.message || err);
-        setUser(emptyAuthState.user);
-        setToken(emptyAuthState.token);
-        setError("Session expired. Please log in again.");
-        clearStoredAuth();
+        const status = err?.status || err?.originalError?.response?.status;
+
+        if (status === 401) {
+          setUser(emptyAuthState.user);
+          setToken(emptyAuthState.token);
+          setError(SESSION_EXPIRED_MESSAGE);
+          clearStoredAuth();
+          return;
+        }
+
+        setError(SESSION_RESTORE_ERROR_MESSAGE);
       } finally {
         if (isMounted) {
           setIsInitializing(false);
@@ -108,6 +134,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(emptyAuthState.user);
     setToken(emptyAuthState.token);
+    setIsInitializing(false);
     setError(null);
     clearStoredAuth();
   };

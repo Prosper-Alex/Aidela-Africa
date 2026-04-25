@@ -1,4 +1,4 @@
-import { Building2, Clock3, MapPin, Wallet } from "lucide-react";
+import { Building2, Clock3, MapPin, Sparkles, Wallet } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
@@ -34,6 +34,12 @@ export const JobDetails = () => {
   const [resumeDataUrl, setResumeDataUrl] = useState("");
   const [resumeFileName, setResumeFileName] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
+  const [portfolioUrl, setPortfolioUrl] = useState("");
+  const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [availability, setAvailability] = useState("");
+  const [expectedSalary, setExpectedSalary] = useState("");
+  const [skillsMatch, setSkillsMatch] = useState("");
+  const [standoutAnswer, setStandoutAnswer] = useState("");
 
   const handleApply = async () => {
     if (!job) {
@@ -96,6 +102,12 @@ export const JobDetails = () => {
       const payload = {
         resume: resumeDataUrl || "",
         coverLetter: coverLetter || "",
+        portfolioUrl,
+        linkedinUrl,
+        availability,
+        expectedSalary,
+        skillsMatch,
+        standoutAnswer,
       };
 
       await applyToJob(job._id, payload);
@@ -104,6 +116,12 @@ export const JobDetails = () => {
       setResumeDataUrl("");
       setResumeFileName("");
       setCoverLetter("");
+      setPortfolioUrl("");
+      setLinkedinUrl("");
+      setAvailability("");
+      setExpectedSalary("");
+      setSkillsMatch("");
+      setStandoutAnswer("");
       toast.success("Application submitted successfully.");
 
       if (typeof refetch === "function") {
@@ -228,6 +246,18 @@ export const JobDetails = () => {
                 )}
               </div>
             </div>
+
+            {job.additionalInfo ? (
+              <div className="mt-8 rounded-3xl border border-emerald-100 bg-emerald-50/70 p-5">
+                <div className="flex items-center gap-2 text-sm font-semibold text-emerald-800">
+                  <Sparkles className="h-4 w-4" />
+                  Candidate notes
+                </div>
+                <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-slate-700">
+                  {job.additionalInfo}
+                </p>
+              </div>
+            ) : null}
           </article>
 
           <aside className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
@@ -249,8 +279,19 @@ export const JobDetails = () => {
                   {hasApplied ? "Application submitted" : "Apply now"}
                 </button>
               ) : (
-                <form onSubmit={submitApplication} className="mt-6 space-y-3">
-                  <label className="block text-sm text-slate-700">Resume (PDF or TXT)</label>
+                <form onSubmit={submitApplication} className="mt-6 space-y-4">
+                  <div className="rounded-3xl border border-sky-100 bg-sky-50/70 p-4">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-sky-800">
+                      <Sparkles className="h-4 w-4" />
+                      Standout application
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      Add proof, availability, and a focused fit summary so recruiters can decide faster.
+                    </p>
+                  </div>
+
+                  <label className="block space-y-2 text-sm text-slate-700">
+                    <span className="font-medium">Resume (PDF or TXT)</span>
                   <input
                     type="file"
                     accept=".pdf,.txt" 
@@ -258,18 +299,87 @@ export const JobDetails = () => {
                     disabled={isApplying || hasApplied}
                     className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900"
                   />
+                  </label>
                   {resumeFileName ? (
                     <p className="text-xs text-slate-500">Selected: {resumeFileName}</p>
                   ) : null}
 
-                  <label className="block text-sm text-slate-700">Cover letter (optional)</label>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <label className="block space-y-2 text-sm text-slate-700">
+                      <span className="font-medium">Portfolio URL</span>
+                      <input
+                        value={portfolioUrl}
+                        onChange={(ev) => setPortfolioUrl(ev.target.value)}
+                        disabled={isApplying || hasApplied}
+                        placeholder="https://..."
+                        className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                      />
+                    </label>
+                    <label className="block space-y-2 text-sm text-slate-700">
+                      <span className="font-medium">LinkedIn URL</span>
+                      <input
+                        value={linkedinUrl}
+                        onChange={(ev) => setLinkedinUrl(ev.target.value)}
+                        disabled={isApplying || hasApplied}
+                        placeholder="https://linkedin.com/in/..."
+                        className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                      />
+                    </label>
+                    <label className="block space-y-2 text-sm text-slate-700">
+                      <span className="font-medium">Availability</span>
+                      <input
+                        value={availability}
+                        onChange={(ev) => setAvailability(ev.target.value)}
+                        disabled={isApplying || hasApplied}
+                        placeholder="Immediate, 2 weeks"
+                        className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                      />
+                    </label>
+                    <label className="block space-y-2 text-sm text-slate-700">
+                      <span className="font-medium">Expected salary</span>
+                      <input
+                        value={expectedSalary}
+                        onChange={(ev) => setExpectedSalary(ev.target.value)}
+                        disabled={isApplying || hasApplied}
+                        placeholder="USD 2,000/month"
+                        className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                      />
+                    </label>
+                  </div>
+
+                  <label className="block space-y-2 text-sm text-slate-700">
+                    <span className="font-medium">Skills that match this role</span>
+                    <input
+                      value={skillsMatch}
+                      onChange={(ev) => setSkillsMatch(ev.target.value)}
+                      disabled={isApplying || hasApplied}
+                      placeholder="React, accessibility, API integration"
+                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    />
+                  </label>
+
+                  <label className="block space-y-2 text-sm text-slate-700">
+                    <span className="font-medium">Why you fit the requirements</span>
+                    <textarea
+                      rows={4}
+                      value={standoutAnswer}
+                      onChange={(ev) => setStandoutAnswer(ev.target.value)}
+                      disabled={isApplying || hasApplied}
+                      placeholder="Connect your strongest recent work to the listed requirements."
+                      className="w-full rounded-2xl border border-emerald-200 bg-emerald-50/40 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    />
+                  </label>
+
+                  <label className="block space-y-2 text-sm text-slate-700">
+                    <span className="font-medium">Cover letter (optional)</span>
                   <textarea
                     rows={4}
                     value={coverLetter}
                     onChange={(ev) => setCoverLetter(ev.target.value)}
                     disabled={isApplying || hasApplied}
-                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900"
+                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
                   />
+                  </label>
 
                   <div className="flex gap-3">
                     <button

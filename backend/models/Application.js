@@ -28,6 +28,36 @@ const applicationSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
+    portfolioUrl: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    linkedinUrl: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    availability: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    expectedSalary: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    skillsMatch: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    standoutAnswer: {
+      type: String,
+      default: "",
+      trim: true,
+    },
     status: {
       type: String,
       enum: ["pending", "reviewed", "accepted", "rejected"],

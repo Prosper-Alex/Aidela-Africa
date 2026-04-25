@@ -1,4 +1,4 @@
-import { ExternalLink, RefreshCcw, Users } from "lucide-react";
+import { ExternalLink, RefreshCcw, ShieldCheck, Users } from "lucide-react";
 import { EmptyState, ErrorPanel, SectionLoader } from "./Feedback";
 import StatusBadge from "./StatusBadge";
 
@@ -76,12 +76,62 @@ const ApplicantsPanel = ({
                   <h3 className="text-lg font-semibold text-slate-950">
                     {applicant?.name || "Applicant"}
                   </h3>
+                  {applicant?.verification?.isVerified ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700">
+                      <ShieldCheck className="h-3.5 w-3.5" />
+                      Verified
+                    </span>
+                  ) : null}
                   <StatusBadge value={application.status} />
                 </div>
                 <p className="text-sm text-slate-600">{applicant?.email || "No email available"}</p>
+                {applicant?.candidateProfile?.headline ? (
+                  <p className="text-sm font-medium text-slate-700">
+                    {applicant.candidateProfile.headline}
+                  </p>
+                ) : null}
                 <p className="text-sm text-slate-500">
                   Applied on {new Date(application.createdAt).toLocaleString()}
                 </p>
+                {application.skillsMatch ? (
+                  <p className="rounded-2xl bg-sky-50 px-4 py-3 text-sm leading-6 text-slate-700">
+                    <span className="font-semibold text-slate-950">Skills match: </span>
+                    {application.skillsMatch}
+                  </p>
+                ) : null}
+                {application.standoutAnswer ? (
+                  <p className="rounded-2xl bg-emerald-50 px-4 py-3 text-sm leading-6 text-slate-700">
+                    <span className="font-semibold text-slate-950">Why they fit: </span>
+                    {application.standoutAnswer}
+                  </p>
+                ) : null}
+                <div className="flex flex-wrap gap-2 text-xs font-semibold text-slate-600">
+                  {application.availability ? (
+                    <span className="rounded-full bg-slate-100 px-3 py-1">
+                      {application.availability}
+                    </span>
+                  ) : null}
+                  {application.expectedSalary ? (
+                    <span className="rounded-full bg-slate-100 px-3 py-1">
+                      {application.expectedSalary}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {[application.portfolioUrl, application.linkedinUrl]
+                    .filter(Boolean)
+                    .map((url) => (
+                      <a
+                        key={url}
+                        href={url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-sky-700 hover:text-sky-800">
+                        {url.includes("linkedin") ? "LinkedIn" : "Portfolio"}
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    ))}
+                </div>
                 {resumeValue ? (
                   resumeValue.startsWith("http") || resumeValue.startsWith("data:") ? (
                     <a

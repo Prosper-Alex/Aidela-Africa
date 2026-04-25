@@ -1,4 +1,4 @@
-import { PlusCircle } from "lucide-react";
+import { BriefcaseBusiness, ListChecks, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -17,6 +17,7 @@ const initialForm = {
   jobType: "full-time",
   description: "",
   requirements: "",
+  additionalInfo: "",
 };
 
 export const JobPostingForm = () => {
@@ -61,6 +62,7 @@ export const JobPostingForm = () => {
           jobType: `${job.jobType || "full-time"}`.toLowerCase(),
           description: job.description || "",
           requirements: job.requirements?.join("\n") || "",
+          additionalInfo: job.additionalInfo || "",
         });
       } catch (requestError) {
         if (isMounted) {
@@ -113,6 +115,7 @@ export const JobPostingForm = () => {
       location: form.location,
       jobType: form.jobType,
       description: form.description,
+      additionalInfo: form.additionalInfo,
       salary: {
         min: salaryMin || null,
         max: salaryMax || null,
@@ -159,7 +162,29 @@ export const JobPostingForm = () => {
       {!isLoading ? (
         <form
           onSubmit={handleSubmit}
-          className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur sm:p-8">
+          className="overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-sm">
+          <div className="border-b border-slate-200 bg-gradient-to-r from-sky-50 via-white to-emerald-50 px-6 py-5 sm:px-8">
+            <div className="flex flex-wrap items-center gap-3">
+              {[
+                { label: "Role basics", icon: BriefcaseBusiness },
+                { label: "Requirements", icon: ListChecks },
+                { label: "Candidate appeal", icon: Sparkles },
+              ].map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <span
+                    key={item.label}
+                    className="inline-flex items-center gap-2 rounded-full border border-white bg-white/80 px-4 py-2 text-xs font-semibold text-slate-700 shadow-sm">
+                    <Icon className="h-4 w-4 text-sky-600" />
+                    {item.label}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="p-6 sm:p-8">
           {error ? (
             <div className="mb-5">
               <ErrorPanel message={error} />
@@ -285,20 +310,37 @@ export const JobPostingForm = () => {
             </label>
           </div>
 
-          <label className="mt-5 block space-y-2">
-            <span className="text-sm font-medium text-slate-700">
-              Description
-            </span>
-            <textarea
-              rows={8}
-              required
-              value={form.description}
-              onChange={(event) =>
-                handleChange("description", event.target.value)
-              }
-              className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
-            />
-          </label>
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            <label className="block space-y-2">
+              <span className="text-sm font-medium text-slate-700">
+                Description
+              </span>
+              <textarea
+                rows={8}
+                required
+                value={form.description}
+                onChange={(event) =>
+                  handleChange("description", event.target.value)
+                }
+                placeholder="Mission, outcomes, team context, and what success looks like."
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+              />
+            </label>
+            <label className="block space-y-2">
+              <span className="text-sm font-medium text-slate-700">
+                Benefits, interview process, and standout signals
+              </span>
+              <textarea
+                rows={8}
+                value={form.additionalInfo}
+                onChange={(event) =>
+                  handleChange("additionalInfo", event.target.value)
+                }
+                placeholder="Remote policy, benefits, interview stages, portfolio expectations, or bonus skills."
+                className="w-full rounded-2xl border border-emerald-200 bg-emerald-50/40 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+              />
+            </label>
+          </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
@@ -313,6 +355,7 @@ export const JobPostingForm = () => {
                   ? "Update job"
                   : "Publish job"}
             </button>
+          </div>
           </div>
         </form>
       ) : null}

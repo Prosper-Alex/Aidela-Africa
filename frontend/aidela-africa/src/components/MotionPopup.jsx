@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import { BookOpen, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const MotionPopup = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const { isAuthenticated, isRecruiter } = useAuth();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(false), 12000);
@@ -38,11 +40,30 @@ const MotionPopup = () => {
                 helps candidates and employers move faster.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
-                <Link
-                  to="/signup"
-                  className="btn btn-primary rounded-full text-sm">
-                  Learn more
-                </Link>
+                {isAuthenticated ? (
+                  isRecruiter ? (
+                    <>
+                      <Link
+                        to="/employer-dashboard"
+                        className="btn btn-primary rounded-full text-sm">
+                        Dashboard
+                      </Link>
+                    </>
+                  ) : (
+                    <Link
+                      to="/find-jobs"
+                      className="btn btn-primary rounded-full text-sm">
+                      Open dashboard
+                    </Link>
+                  )
+                ) : (
+                  <Link
+                    to="/signup"
+                    className="btn btn-primary rounded-full text-sm">
+                    Sign up
+                  </Link>
+                )}
+
                 <button
                   type="button"
                   onClick={() => setIsVisible(false)}

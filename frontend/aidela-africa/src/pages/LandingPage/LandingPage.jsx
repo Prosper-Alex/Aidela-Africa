@@ -5,6 +5,8 @@ import MotionPopup from "../../components/MotionPopup";
 import { Hero } from "./components/Hero";
 
 export const LandingPage = () => {
+  const isAuthenticated = true;
+
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
@@ -37,8 +39,7 @@ export const LandingPage = () => {
             return (
               <article
                 key={feature.title}
-                className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
+                className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
                   <Icon className="h-5 w-5" />
                 </div>
@@ -70,12 +71,24 @@ export const LandingPage = () => {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link to="/find-jobs" className="btn btn-primary rounded-full text-sm">
+              <Link
+                to="/find-jobs"
+                className="btn btn-primary rounded-full text-sm">
                 Explore jobs
               </Link>
-              <Link to="/signup" className="btn btn-secondary rounded-full text-sm">
-                Create account
-              </Link>
+              {!isAuthenticated ? (
+                <Link
+                  to="/signup"
+                  className="btn btn-secondary rounded-full text-sm">
+                  Create account
+                </Link>
+              ) : (
+                <Link
+                  to="/dashboard"
+                  className="btn btn-primary rounded-full text-sm">
+                  Dashboard
+                </Link>
+              )}
             </div>
           </div>
         </section>

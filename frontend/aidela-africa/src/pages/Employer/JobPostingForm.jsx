@@ -163,7 +163,7 @@ export const JobPostingForm = () => {
         <form
           onSubmit={handleSubmit}
           className="overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-200 bg-gradient-to-r from-primary/10 via-white to-secondary-accent/10 px-6 py-5 sm:px-8">
+          <div className="border-b border-slate-200 bg-linear-to-r from-primary/10 via-white to-secondary-accent/10 px-6 py-5 sm:px-8">
             <div className="flex flex-wrap items-center gap-3">
               {[
                 { label: "Role basics", icon: BriefcaseBusiness },

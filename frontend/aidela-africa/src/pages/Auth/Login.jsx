@@ -47,9 +47,9 @@ export const Login = () => {
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
-      <main className="mx-auto grid min-h-[calc(100vh-88px)] max-w-6xl items-center gap-8 px-4 py-10 lg:grid-cols-[0.95fr_1.05fr]">
+      <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-6xl items-center gap-8 px-4 py-8 sm:py-10 lg:grid-cols-[0.95fr_1.05fr]">
         <section className="rounded-[2.5rem] border border-slate-200 brand-dark-bg p-8 text-white shadow-xl">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-accent/100 text-slate-950">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-accent text-slate-950">
             <BriefcaseBusiness className="h-6 w-6" />
           </div>
           <p className="mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-secondary-accent">
@@ -64,7 +64,7 @@ export const Login = () => {
           </p>
         </section>
 
-        <section className="rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <section className="auth-form-panel rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="max-w-xl">
             <h2 className="text-2xl font-bold text-slate-950">Welcome back</h2>
             <p className="mt-2 text-sm text-slate-500">

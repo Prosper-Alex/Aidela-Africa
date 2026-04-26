@@ -147,7 +147,7 @@ export const UserProfile = () => {
       {error ? <ErrorPanel message={error} /> : null}
 
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+        <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">
@@ -296,7 +296,7 @@ export const UserProfile = () => {
                 />
               </div>
 
-              <article className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+              <article className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
                 <h3 className="text-xl font-semibold text-slate-950">
                   Candidate experience tips
                 </h3>

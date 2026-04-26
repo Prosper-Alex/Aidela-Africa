@@ -128,7 +128,7 @@ export const EmployerProfilePage = () => {
 
       {!isLoading ? (
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+          <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="flex items-center gap-4">
                 {form.companyLogo ? (
@@ -275,7 +275,7 @@ export const EmployerProfilePage = () => {
               />
             </div>
 
-            <article className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+            <article className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
               <h3 className="text-xl font-semibold text-slate-950">
                 Hiring workflow reminders
               </h3>

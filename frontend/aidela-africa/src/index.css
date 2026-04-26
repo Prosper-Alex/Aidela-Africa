@@ -50,6 +50,36 @@
       linear-gradient(135deg, #042f7f 0%, #061a48 48%, #740044 100%);
   }
 
+  .auth-main {
+    padding-bottom: max(3rem, env(safe-area-inset-bottom));
+  }
+
+  .auth-form-panel {
+    scroll-margin-bottom: 42vh;
+    transition:
+      transform 280ms ease,
+      box-shadow 280ms ease,
+      border-color 280ms ease;
+    will-change: transform;
+  }
+
+  @media (max-width: 767px) {
+    .auth-main {
+      align-items: start;
+      padding-bottom: max(30vh, env(safe-area-inset-bottom));
+    }
+
+    .auth-form-panel {
+      margin-bottom: 10vh;
+    }
+
+    .auth-form-panel:focus-within {
+      transform: translateY(-1rem);
+      border-color: rgba(41, 171, 226, 0.45);
+      box-shadow: 0 24px 60px rgba(6, 73, 181, 0.16);
+    }
+  }
+
   .page {
     min-height: 100vh;
     padding: 1rem;

@@ -19,7 +19,7 @@ const JobFilters = ({
   onClear,
 }) => {
   return (
-    <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur sm:p-6">
+    <section className="rounded-4xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur sm:p-6">
       <div className="flex items-center gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
           <Filter className="h-5 w-5" />

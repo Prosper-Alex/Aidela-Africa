@@ -111,7 +111,7 @@ export const ManageJobs = () => {
           {jobs.map((job) => (
             <article
               key={job._id}
-              className="flex h-full flex-col rounded-[2rem] border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur"
+              className="flex h-full flex-col rounded-4xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur"
             >
               <div className="flex items-start justify-between gap-3">
                 <StatusBadge value={job.jobType} />

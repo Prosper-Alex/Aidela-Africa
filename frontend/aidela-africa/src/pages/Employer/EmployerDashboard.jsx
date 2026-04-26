@@ -115,7 +115,7 @@ export const EmployerDashboard = () => {
           </div>
 
           <div className="grid gap-6 xl:grid-cols-[1.25fr_0.75fr]">
-            <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+            <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
@@ -198,7 +198,7 @@ export const EmployerDashboard = () => {
             </section>
 
             <div className="space-y-6">
-              <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+              <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
                   Focus
                 </p>
@@ -234,7 +234,7 @@ export const EmployerDashboard = () => {
                 )}
               </section>
 
-              <section className="rounded-[2rem] border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+              <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
                   Quick links
                 </p>

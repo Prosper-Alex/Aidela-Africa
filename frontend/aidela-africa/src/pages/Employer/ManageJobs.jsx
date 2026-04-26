@@ -81,7 +81,7 @@ export const ManageJobs = () => {
       actions={
         <Link
           to="/post-job"
-          className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent"
         >
           <PlusCircle className="h-4 w-4" />
           New job
@@ -98,7 +98,7 @@ export const ManageJobs = () => {
           action={
             <Link
               to="/post-job"
-              className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+              className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent"
             >
               Create your first job
             </Link>
@@ -111,7 +111,7 @@ export const ManageJobs = () => {
           {jobs.map((job) => (
             <article
               key={job._id}
-              className="flex h-full flex-col rounded-[2rem] border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur"
+              className="flex h-full flex-col rounded-4xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur"
             >
               <div className="flex items-start justify-between gap-3">
                 <StatusBadge value={job.jobType} />
@@ -138,14 +138,14 @@ export const ManageJobs = () => {
               <div className="mt-6 grid gap-3">
                 <Link
                   to={`/post-job?jobId=${job._id}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
                 >
                   <PencilLine className="h-4 w-4" />
                   Edit listing
                 </Link>
                 <Link
                   to={`/applicants?jobId=${job._id}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent"
                 >
                   <ClipboardList className="h-4 w-4" />
                   Review applicants

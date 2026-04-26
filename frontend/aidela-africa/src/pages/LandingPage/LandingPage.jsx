@@ -5,8 +5,10 @@ import MotionPopup from "../../components/MotionPopup";
 import { Hero } from "./components/Hero";
 
 export const LandingPage = () => {
+  const isAuthenticated = true;
+
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.10),transparent_30%),linear-gradient(180deg,#f8fbff_0%,#eef5ff_100%)]">
+    <div className="min-h-screen app-bg">
       <AppHeader />
       <Hero />
 
@@ -37,9 +39,8 @@ export const LandingPage = () => {
             return (
               <article
                 key={feature.title}
-                className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 text-sky-700">
+                className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
                   <Icon className="h-5 w-5" />
                 </div>
                 <h2 className="mt-5 text-xl font-semibold text-slate-950">
@@ -53,10 +54,10 @@ export const LandingPage = () => {
           })}
         </section>
 
-        <section className="rounded-[2.5rem] border border-slate-200 bg-slate-950 px-6 py-8 text-white shadow-xl sm:px-8">
+        <section className="brand-dark-bg rounded-[2.5rem] border border-white/10 px-6 py-8 text-white shadow-xl sm:px-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-300">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-secondary-accent">
                 Built for both sides of hiring
               </p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
@@ -70,12 +71,24 @@ export const LandingPage = () => {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link to="/find-jobs" className="btn btn-primary rounded-full text-sm">
+              <Link
+                to="/find-jobs"
+                className="btn btn-primary rounded-full text-sm">
                 Explore jobs
               </Link>
-              <Link to="/signup" className="btn btn-secondary rounded-full text-sm">
-                Create account
-              </Link>
+              {!isAuthenticated ? (
+                <Link
+                  to="/signup"
+                  className="btn btn-secondary rounded-full text-sm">
+                  Create account
+                </Link>
+              ) : (
+                <Link
+                  to="/dashboard"
+                  className="btn btn-primary rounded-full text-sm">
+                  Dashboard
+                </Link>
+              )}
             </div>
           </div>
         </section>

@@ -23,7 +23,7 @@ const MotionPopup = () => {
           transition={{ duration: 0.35, ease: "easeOut" }}
           className="fixed bottom-6 left-1/2 z-50 w-[min(95vw,420px)] -translate-x-1/2 rounded-3xl border border-slate-200 bg-white/95 p-5 shadow-2xl backdrop-blur-xl">
           <div className="flex items-start gap-4">
-            <div className="rounded-2xl bg-sky-100 p-3 text-sky-700">
+            <div className="rounded-2xl bg-secondary-accent/15 p-3 text-primary-accent">
               <BookOpen className="h-5 w-5" />
             </div>
             <div className="flex-1">

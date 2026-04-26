@@ -25,16 +25,16 @@ const matchesPath = (pathname, matcher) => {
 };
 
 const desktopLinkClass = (isActive) =>
-  `rounded-full px-4 py-2 text-sm font-semibold transition ${
+  `relative inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold transition ${
     isActive
-      ? "bg-slate-950 text-white shadow-sm"
-      : "text-slate-600 hover:bg-slate-100 hover:text-slate-950"
+      ? "bg-white text-primary shadow-sm shadow-primary/10 ring-1 ring-primary/10"
+      : "text-slate-600 hover:bg-white/75 hover:text-primary hover:shadow-sm hover:shadow-primary/5"
   }`;
 
 const mobileLinkClass = (isActive) =>
   `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition ${
     isActive
-      ? "bg-slate-950 text-white"
+      ? "brand-dark-bg text-white"
       : "text-slate-700 hover:bg-slate-100 hover:text-slate-950"
   }`;
 
@@ -197,9 +197,13 @@ const AppHeader = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-[1.35rem] bg-slate-950 text-white shadow-sm">
-            <BriefcaseBusiness className="h-5 w-5" />
+        <Link to="/" className="flex items-center gap-3 sm:gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/80 bg-white p-1.5 shadow-md shadow-primary/15 ring-1 ring-primary/15 md:h-15 md:w-15 md:rounded-[1.45rem] md:p-2">
+            <img
+              src="/favicon.jpeg"
+              alt="Aidela Africa"
+              className="h-full w-full rounded-xl object-cover md:rounded-2xl"
+            />
           </div>
           <div>
             <p className="text-base font-bold text-slate-950 sm:text-lg">
@@ -212,8 +216,12 @@ const AppHeader = () => {
         </Link>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <nav className="hidden items-center gap-2 md:flex">
-            {primaryLinks.map((link) => renderLink(link))}
+          <nav className="hidden md:block" aria-label="Primary navigation">
+            <ul className="flex list-none items-center gap-1 rounded-full border border-white/70 bg-linear-to-r from-white/85 via-secondary-accent/10 to-primary/10 p-1 pl-0 shadow-sm shadow-primary/5 ring-1 ring-primary/5 backdrop-blur">
+              {primaryLinks.map((link) => (
+                <li key={link.to}>{renderLink(link)}</li>
+              ))}
+            </ul>
           </nav>
 
           {isAuthenticated ? (
@@ -223,7 +231,7 @@ const AppHeader = () => {
                 onClick={() => setProfileOpen((open) => !open)}
                 aria-expanded={profileOpen}
                 aria-haspopup="menu"
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800">
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent">
                 <UserCircle2 className="h-5 w-5" />
                 <span className="hidden md:block">
                   {user?.name?.split(" ")[0] || "Profile"}
@@ -256,7 +264,7 @@ const AppHeader = () => {
                           onClick={() => setProfileOpen(false)}
                           className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-semibold transition ${
                             isActive
-                              ? "bg-slate-950 text-white"
+                              ? "brand-dark-bg text-white"
                               : "text-slate-700 hover:bg-slate-100"
                           }`}>
                           <Icon className="h-4 w-4" />
@@ -280,14 +288,20 @@ const AppHeader = () => {
             </div>
           ) : (
             <div className="hidden items-center gap-2 md:flex">
-              <Link
-                to="/login"
-                className={desktopLinkClass(location.pathname === "/login")}>
-                Login
-              </Link>
+              <ul className="flex list-none items-center gap-1 rounded-full border border-white/70 bg-linear-to-r from-white/85 via-secondary-accent/10 to-primary/10 p-1 pl-0 shadow-sm shadow-primary/5 ring-1 ring-primary/5 backdrop-blur">
+                <li>
+                  <Link
+                    to="/login"
+                    className={desktopLinkClass(
+                      location.pathname === "/login",
+                    )}>
+                    Login
+                  </Link>
+                </li>
+              </ul>
               <Link
                 to="/signup"
-                className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-700">
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-accent">
                 <UserPlus className="h-4 w-4" />
                 Signup
               </Link>
@@ -297,7 +311,7 @@ const AppHeader = () => {
           {!isAuthenticated ? (
             <Link
               to="/login"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800 md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent md:hidden"
               aria-label="Login">
               <LogIn className="h-4 w-4" />
             </Link>
@@ -306,7 +320,7 @@ const AppHeader = () => {
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent md:hidden"
             aria-expanded={mobileOpen}
             aria-label="Toggle menu">
             {mobileOpen ? (
@@ -338,11 +352,13 @@ const AppHeader = () => {
                 </div>
               ) : null}
 
-              <div className="space-y-1 px-1 pt-2">
-                {primaryLinks.map((link) => renderLink(link, true))}
+              <ul className="mt-2 list-none space-y-1 rounded-[1.35rem] bg-linear-to-br from-secondary-accent/10 via-white to-primary/10 p-1 pl-0">
+                {primaryLinks.map((link) => (
+                  <li key={link.to}>{renderLink(link, true)}</li>
+                ))}
 
-                {isAuthenticated
-                  ? secondaryMenuItems.map((item) => renderLink(item, true))
+                {(isAuthenticated
+                  ? secondaryMenuItems
                   : [
                       {
                         to: "/login",
@@ -356,8 +372,11 @@ const AppHeader = () => {
                         icon: UserPlus,
                         match: "/signup",
                       },
-                    ].map((item) => renderLink(item, true))}
-              </div>
+                    ]
+                ).map((item) => (
+                  <li key={item.to}>{renderLink(item, true)}</li>
+                ))}
+              </ul>
 
               {isAuthenticated ? (
                 <div className="mt-2 border-t border-slate-100 px-1 pt-2">

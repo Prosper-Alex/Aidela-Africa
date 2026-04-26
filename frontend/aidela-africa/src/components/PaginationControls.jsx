@@ -21,7 +21,7 @@ const PaginationControls = ({ pagination, onPageChange }) => {
   const visiblePages = buildVisiblePages(pagination.page, pagination.totalPages);
 
   return (
-    <div className="flex flex-col gap-4 rounded-[2rem] border border-slate-200 bg-white px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-4 rounded-4xl border border-slate-200 bg-white px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
       <p className="text-sm text-slate-500">
         Page <span className="font-semibold text-slate-900">{pagination.page}</span> of{" "}
         <span className="font-semibold text-slate-900">{pagination.totalPages}</span>
@@ -32,7 +32,7 @@ const PaginationControls = ({ pagination, onPageChange }) => {
           type="button"
           onClick={() => onPageChange(pagination.page - 1)}
           disabled={!pagination.hasPrevPage}
-          className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800 disabled:cursor-not-allowed disabled:opacity-45"
+          className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent disabled:cursor-not-allowed disabled:opacity-45"
         >
           Prev
         </button>
@@ -47,8 +47,8 @@ const PaginationControls = ({ pagination, onPageChange }) => {
               onClick={() => onPageChange(pageNumber)}
               className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition ${
                 isActive
-                  ? "bg-slate-950 text-white"
-                  : "border border-slate-200 text-slate-700 hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800"
+                  ? "brand-dark-bg text-white"
+                  : "border border-slate-200 text-slate-700 hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
               }`}
             >
               {pageNumber}
@@ -60,7 +60,7 @@ const PaginationControls = ({ pagination, onPageChange }) => {
           type="button"
           onClick={() => onPageChange(pagination.page + 1)}
           disabled={!pagination.hasNextPage}
-          className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800 disabled:cursor-not-allowed disabled:opacity-45"
+          className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent disabled:cursor-not-allowed disabled:opacity-45"
         >
           Next
         </button>

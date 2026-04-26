@@ -148,19 +148,19 @@ export const JobSeekerDashboard = () => {
   const headerAction = !isAuthenticated ? (
     <Link
       to="/signup"
-      className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+      className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
       Join as a candidate
     </Link>
   ) : isRecruiter ? (
     <Link
       to="/employer-dashboard"
-      className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+      className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
       Recruiter dashboard
     </Link>
   ) : (
     <Link
       to="/my-applications"
-      className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+      className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
       View applications
     </Link>
   );
@@ -209,7 +209,7 @@ export const JobSeekerDashboard = () => {
       <section className="rounded-4xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur sm:p-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               Job listings
             </p>
             <h2 className="mt-2 text-2xl font-semibold text-slate-950">
@@ -260,7 +260,7 @@ export const JobSeekerDashboard = () => {
                 <button
                   type="button"
                   onClick={handleClearFilters}
-                  className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+                  className="rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
                   Reset filters
                 </button>
               }

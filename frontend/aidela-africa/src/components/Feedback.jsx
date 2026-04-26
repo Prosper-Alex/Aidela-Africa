@@ -4,7 +4,7 @@ export const FullPageLoader = ({ label = "Loading..." }) => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
       <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-4 text-slate-600 shadow-sm">
-        <LoaderCircle className="h-5 w-5 animate-spin text-sky-600" />
+        <LoaderCircle className="h-5 w-5 animate-spin text-primary" />
         <span className="font-medium">{label}</span>
       </div>
     </div>
@@ -14,7 +14,7 @@ export const FullPageLoader = ({ label = "Loading..." }) => {
 export const SectionLoader = ({ label = "Loading data..." }) => {
   return (
     <div className="flex items-center justify-center gap-3 rounded-3xl border border-dashed border-slate-300 bg-white/70 px-6 py-10 text-slate-600">
-      <LoaderCircle className="h-5 w-5 animate-spin text-sky-600" />
+      <LoaderCircle className="h-5 w-5 animate-spin text-primary" />
       <span>{label}</span>
     </div>
   );
@@ -49,7 +49,7 @@ export const EmptyState = ({
 }) => {
   return (
     <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center shadow-sm">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-100 text-sky-700">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
         <Icon className="h-6 w-6" />
       </div>
       <h3 className="mt-5 text-xl font-semibold text-slate-900">{title}</h3>

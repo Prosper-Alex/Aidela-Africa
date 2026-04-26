@@ -152,7 +152,7 @@ export const JobPostingForm = () => {
       actions={
         <Link
           to="/manage-jobs"
-          className="inline-flex rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800"
+          className="inline-flex rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
         >
           Back to jobs
         </Link>
@@ -163,7 +163,7 @@ export const JobPostingForm = () => {
         <form
           onSubmit={handleSubmit}
           className="overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-200 bg-gradient-to-r from-sky-50 via-white to-emerald-50 px-6 py-5 sm:px-8">
+          <div className="border-b border-slate-200 bg-linear-to-r from-primary/10 via-white to-secondary-accent/10 px-6 py-5 sm:px-8">
             <div className="flex flex-wrap items-center gap-3">
               {[
                 { label: "Role basics", icon: BriefcaseBusiness },
@@ -176,7 +176,7 @@ export const JobPostingForm = () => {
                   <span
                     key={item.label}
                     className="inline-flex items-center gap-2 rounded-full border border-white bg-white/80 px-4 py-2 text-xs font-semibold text-slate-700 shadow-sm">
-                    <Icon className="h-4 w-4 text-sky-600" />
+                    <Icon className="h-4 w-4 text-primary" />
                     {item.label}
                   </span>
                 );
@@ -201,7 +201,7 @@ export const JobPostingForm = () => {
                 required
                 value={form.title}
                 onChange={(event) => handleChange("title", event.target.value)}
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <label className="space-y-2">
@@ -215,7 +215,7 @@ export const JobPostingForm = () => {
                 onChange={(event) =>
                   handleChange("company", event.target.value)
                 }
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <label className="space-y-2">
@@ -229,7 +229,7 @@ export const JobPostingForm = () => {
                 onChange={(event) =>
                   handleChange("location", event.target.value)
                 }
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <label className="space-y-2">
@@ -243,7 +243,7 @@ export const JobPostingForm = () => {
                   handleChange("salaryCurrency", event.target.value.toUpperCase())
                 }
                 placeholder="USD"
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
           </div>
@@ -259,7 +259,7 @@ export const JobPostingForm = () => {
                 value={form.salaryMin}
                 onChange={(event) => handleChange("salaryMin", event.target.value)}
                 placeholder="500"
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <label className="space-y-2">
@@ -272,7 +272,7 @@ export const JobPostingForm = () => {
                 value={form.salaryMax}
                 onChange={(event) => handleChange("salaryMax", event.target.value)}
                 placeholder="1000"
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <label className="space-y-2">
@@ -284,7 +284,7 @@ export const JobPostingForm = () => {
                 onChange={(event) =>
                   handleChange("jobType", event.target.value)
                 }
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100">
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20">
                 <option value="full-time">Full-time</option>
                 <option value="part-time">Part-time</option>
                 <option value="contract">Contract</option>
@@ -305,7 +305,7 @@ export const JobPostingForm = () => {
                   handleChange("requirements", event.target.value)
                 }
                 placeholder="One requirement per line"
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
           </div>
@@ -323,7 +323,7 @@ export const JobPostingForm = () => {
                   handleChange("description", event.target.value)
                 }
                 placeholder="Mission, outcomes, team context, and what success looks like."
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <label className="block space-y-2">
@@ -346,7 +346,7 @@ export const JobPostingForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60">
+              className="inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
               {isSubmitting
                 ? isEditMode
                   ? "Updating..."

@@ -178,7 +178,7 @@ export const ApplicationViewer = () => {
       actions={
         <Link
           to="/post-job"
-          className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
           <PlusCircle className="h-4 w-4" />
           Post a job
         </Link>
@@ -193,7 +193,7 @@ export const ApplicationViewer = () => {
           action={
             <Link
               to="/post-job"
-              className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+              className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
               Create a job
             </Link>
           }
@@ -246,8 +246,8 @@ export const ApplicationViewer = () => {
                     onClick={() => handleSelectJob(job._id)}
                     className={`w-full rounded-3xl border px-4 py-4 text-left transition ${
                       selectedJobId === job._id
-                        ? "border-sky-300 bg-sky-50"
-                        : "border-slate-200 bg-white hover:border-sky-200 hover:bg-slate-50"
+                        ? "border-primary/35 bg-secondary-accent/10"
+                        : "border-slate-200 bg-white hover:border-secondary-accent/35 hover:bg-slate-50"
                     }`}>
                     <p className="font-semibold text-slate-950">{job.title}</p>
                     <p className="mt-2 text-sm text-slate-500">

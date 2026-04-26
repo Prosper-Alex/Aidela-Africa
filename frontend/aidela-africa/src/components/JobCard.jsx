@@ -21,15 +21,15 @@ const JobCard = ({ job }) => {
 
         <div className="mt-4 space-y-3 text-sm text-slate-600">
           <div className="flex items-center gap-2">
-            <Building2 className="h-4 w-4 shrink-0 text-sky-600" />
+            <Building2 className="h-4 w-4 shrink-0 text-primary" />
             <span className="truncate">{job.company || "Aidela Africa"}</span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 shrink-0 text-sky-600" />
+            <MapPin className="h-4 w-4 shrink-0 text-primary" />
             <span>{job.location || "Remote"}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Wallet className="h-4 w-4 shrink-0 text-sky-600" />
+            <Wallet className="h-4 w-4 shrink-0 text-primary" />
             <span>{formatSalary(job.salary)}</span>
           </div>
         </div>
@@ -49,7 +49,7 @@ const JobCard = ({ job }) => {
             isJobSeeker ? (
               <Link
                 to={`/job/${job._id}`}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800">
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent">
                 Apply
               </Link>
             ) : (
@@ -63,14 +63,14 @@ const JobCard = ({ job }) => {
           ) : (
             <Link
               to="/login"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800">
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent">
               Sign in to apply
             </Link>
           )}
 
           <Link
             to={`/job/${job._id}`}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
             View details
             <ArrowRight className="h-4 w-4" />
           </Link>

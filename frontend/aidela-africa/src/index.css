@@ -5,7 +5,10 @@
 @theme {
   --font-dissplay: "Urbanist", sans-serif;
   --breakpoint-3xl: 1920px;
-  --color-primary: #00a7f3;
+  --color-primary: #0649b5;
+  --color-primary-accent: #ed1e79;
+  --color-secondary: #9e005d;
+  --color-secondary-accent: #29abe2;
 }
 
 @layer base {
@@ -13,15 +16,49 @@
     font-family: var(--font-dissplay);
   }
   body {
-    background-color: #f7fafe;
+    background:
+      radial-gradient(circle at 8% 4%, rgba(237, 30, 121, 0.24), transparent 30%),
+      radial-gradient(circle at 92% 0%, rgba(41, 171, 226, 0.3), transparent 32%),
+      radial-gradient(circle at 50% 110%, rgba(6, 73, 181, 0.2), transparent 40%),
+      linear-gradient(180deg, #fdf4fa 0%, #eef7ff 42%, #e5f1ff 100%);
   }
 }
 
 /* Tailwind component utilities and site-wide components */
 @layer components {
   /* 🧭 Layout */
+  .app-bg {
+    background:
+      linear-gradient(115deg, rgba(6, 73, 181, 0.14), transparent 34%),
+      radial-gradient(circle at 9% 8%, rgba(237, 30, 121, 0.3), transparent 30%),
+      radial-gradient(circle at 86% 10%, rgba(41, 171, 226, 0.36), transparent 34%),
+      radial-gradient(circle at 54% 102%, rgba(6, 73, 181, 0.22), transparent 40%),
+      linear-gradient(180deg, #fff5fb 0%, #edf8ff 48%, #e1efff 100%);
+  }
+
+  .brand-panel-bg {
+    background:
+      radial-gradient(circle at top right, rgba(41, 171, 226, 0.24), transparent 34%),
+      radial-gradient(circle at bottom left, rgba(237, 30, 121, 0.14), transparent 38%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(248, 252, 255, 0.88));
+  }
+
+  .brand-dark-bg {
+    background:
+      radial-gradient(circle at 18% 12%, rgba(237, 30, 121, 0.44), transparent 34%),
+      radial-gradient(circle at 86% 18%, rgba(41, 171, 226, 0.36), transparent 36%),
+      linear-gradient(135deg, #042f7f 0%, #061a48 48%, #740044 100%);
+  }
+
   .page {
-    @apply bg-gray-50 min-h-screen p-4;
+    min-height: 100vh;
+    padding: 1rem;
+    background:
+      linear-gradient(115deg, rgba(6, 73, 181, 0.14), transparent 34%),
+      radial-gradient(circle at 9% 8%, rgba(237, 30, 121, 0.3), transparent 30%),
+      radial-gradient(circle at 86% 10%, rgba(41, 171, 226, 0.36), transparent 34%),
+      radial-gradient(circle at 54% 102%, rgba(6, 73, 181, 0.22), transparent 40%),
+      linear-gradient(180deg, #fff5fb 0%, #edf8ff 48%, #e1efff 100%);
   }
 
   .container {
@@ -43,11 +80,11 @@
   }
 
   .btn-primary {
-    @apply bg-indigo-500 text-white hover:bg-indigo-600;
+    @apply bg-linear-to-r from-primary to-primary-accent text-white shadow-sm shadow-primary/20 hover:from-primary-accent hover:to-secondary;
   }
 
   .btn-secondary {
-    @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+    @apply border border-primary/20 bg-white/85 text-primary shadow-sm shadow-primary/5 hover:border-secondary-accent/45 hover:bg-secondary-accent/15 hover:text-secondary;
   }
 
   /* 🏷 Status Badges */
@@ -87,7 +124,7 @@
 
   /* 📝 Input */
   .input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400;
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30;
   }
 
   /* ⏳ Loader */

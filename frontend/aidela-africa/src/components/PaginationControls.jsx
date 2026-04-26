@@ -32,7 +32,7 @@ const PaginationControls = ({ pagination, onPageChange }) => {
           type="button"
           onClick={() => onPageChange(pagination.page - 1)}
           disabled={!pagination.hasPrevPage}
-          className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800 disabled:cursor-not-allowed disabled:opacity-45"
+          className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent disabled:cursor-not-allowed disabled:opacity-45"
         >
           Prev
         </button>
@@ -47,8 +47,8 @@ const PaginationControls = ({ pagination, onPageChange }) => {
               onClick={() => onPageChange(pageNumber)}
               className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition ${
                 isActive
-                  ? "bg-slate-950 text-white"
-                  : "border border-slate-200 text-slate-700 hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800"
+                  ? "brand-dark-bg text-white"
+                  : "border border-slate-200 text-slate-700 hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
               }`}
             >
               {pageNumber}
@@ -60,7 +60,7 @@ const PaginationControls = ({ pagination, onPageChange }) => {
           type="button"
           onClick={() => onPageChange(pagination.page + 1)}
           disabled={!pagination.hasNextPage}
-          className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800 disabled:cursor-not-allowed disabled:opacity-45"
+          className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent disabled:cursor-not-allowed disabled:opacity-45"
         >
           Next
         </button>

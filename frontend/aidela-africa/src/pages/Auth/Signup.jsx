@@ -58,17 +58,17 @@ export const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.10),_transparent_30%),linear-gradient(180deg,_#f8fbff_0%,_#eef5ff_100%)]">
+    <div className="min-h-screen app-bg">
       <AppHeader />
       <main className="mx-auto max-w-6xl px-4 py-10">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <section className="rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 text-sky-700">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
                 <UserPlus className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-600">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
                   Create account
                 </p>
                 <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-950">
@@ -87,7 +87,7 @@ export const Signup = () => {
                   required
                   value={form.name}
                   onChange={(event) => handleChange("name", event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   placeholder="Prosper Alex"
                 />
               </label>
@@ -99,7 +99,7 @@ export const Signup = () => {
                   required
                   value={form.email}
                   onChange={(event) => handleChange("email", event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   placeholder="you@example.com"
                 />
               </label>
@@ -112,7 +112,7 @@ export const Signup = () => {
                   required
                   value={form.password}
                   onChange={(event) => handleChange("password", event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   placeholder="At least 6 characters"
                 />
               </label>
@@ -125,8 +125,8 @@ export const Signup = () => {
                       key={option.value}
                       className={`cursor-pointer rounded-3xl border p-4 transition ${
                         form.role === option.value
-                          ? "border-sky-400 bg-sky-50"
-                          : "border-slate-200 bg-white hover:border-sky-200 hover:bg-slate-50"
+                          ? "border-primary bg-secondary-accent/10"
+                          : "border-slate-200 bg-white hover:border-secondary-accent/35 hover:bg-slate-50"
                       }`}
                     >
                       <input
@@ -141,7 +141,7 @@ export const Signup = () => {
                         <CheckCircle2
                           className={`h-4 w-4 ${
                             form.role === option.value
-                              ? "text-sky-700"
+                              ? "text-primary-accent"
                               : "text-slate-300"
                           }`}
                         />
@@ -158,7 +158,7 @@ export const Signup = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center rounded-2xl bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Creating account..." : "Create account"}
               </button>
@@ -166,14 +166,14 @@ export const Signup = () => {
 
             <p className="mt-6 text-sm text-slate-500">
               Already have an account?{" "}
-              <Link to="/login" className="font-semibold text-sky-700 hover:text-sky-800">
+              <Link to="/login" className="font-semibold text-primary-accent hover:text-primary-accent">
                 Sign in
               </Link>
             </p>
           </section>
 
-          <section className="rounded-[2.5rem] border border-slate-200 bg-slate-950 p-8 text-white shadow-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-300">
+          <section className="rounded-[2.5rem] border border-slate-200 brand-dark-bg p-8 text-white shadow-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-secondary-accent">
               Why join
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight">
@@ -186,7 +186,7 @@ export const Signup = () => {
                 "Fast recruiter workflow for status updates and review",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 text-sky-300" />
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 text-secondary-accent" />
                   <p className="text-sm leading-7 text-slate-300">{item}</p>
                 </div>
               ))}

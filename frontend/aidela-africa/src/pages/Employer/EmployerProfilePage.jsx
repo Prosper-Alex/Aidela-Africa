@@ -117,7 +117,7 @@ export const EmployerProfilePage = () => {
       actions={
         <Link
           to="/manage-jobs"
-          className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
+          className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent"
         >
           Manage jobs
         </Link>
@@ -152,7 +152,7 @@ export const EmployerProfilePage = () => {
               <span
                 className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${
                   isVerified
-                    ? "bg-sky-100 text-sky-700"
+                    ? "bg-secondary-accent/15 text-primary-accent"
                     : "bg-slate-100 text-slate-600"
                 }`}>
                 <ShieldCheck className="h-4 w-4" />
@@ -160,7 +160,7 @@ export const EmployerProfilePage = () => {
               </span>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-sky-100 bg-sky-50 px-4 py-4 text-sm leading-6 text-slate-700">
+            <div className="mt-6 rounded-2xl border border-secondary-accent/25 bg-secondary-accent/10 px-4 py-4 text-sm leading-6 text-slate-700">
               Complete the core company fields to activate the blue tick.
               Missing: {verification.missing?.length ? verification.missing.join(", ") : "none"}.
             </div>
@@ -172,7 +172,7 @@ export const EmployerProfilePage = () => {
                   <input
                     value={form.name}
                     onChange={(event) => handleChange("name", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -180,7 +180,7 @@ export const EmployerProfilePage = () => {
                   <input
                     value={form.companyName}
                     onChange={(event) => handleChange("companyName", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2 sm:col-span-2">
@@ -189,7 +189,7 @@ export const EmployerProfilePage = () => {
                     value={form.companyLogo}
                     onChange={(event) => handleChange("companyLogo", event.target.value)}
                     placeholder="https://..."
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2 sm:col-span-2">
@@ -199,7 +199,7 @@ export const EmployerProfilePage = () => {
                     value={form.bio}
                     onChange={(event) => handleChange("bio", event.target.value)}
                     placeholder="What you build, who you serve, and why candidates should care."
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -209,7 +209,7 @@ export const EmployerProfilePage = () => {
                     min="0"
                     value={form.employeeCount}
                     onChange={(event) => handleChange("employeeCount", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -219,7 +219,7 @@ export const EmployerProfilePage = () => {
                     min="1800"
                     value={form.foundedYear}
                     onChange={(event) => handleChange("foundedYear", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -227,7 +227,7 @@ export const EmployerProfilePage = () => {
                   <input
                     value={form.foundedBy}
                     onChange={(event) => handleChange("foundedBy", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -236,7 +236,7 @@ export const EmployerProfilePage = () => {
                     value={form.headquarters}
                     onChange={(event) => handleChange("headquarters", event.target.value)}
                     placeholder="Lagos, Nigeria"
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2 sm:col-span-2">
@@ -245,14 +245,14 @@ export const EmployerProfilePage = () => {
                     value={form.websiteUrl}
                     onChange={(event) => handleChange("websiteUrl", event.target.value)}
                     placeholder="https://..."
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
               </div>
               <button
                 type="submit"
                 disabled={isSaving}
-                className="inline-flex items-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60">
+                className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
                 <Save className="h-4 w-4" />
                 {isSaving ? "Saving..." : "Save company profile"}
               </button>

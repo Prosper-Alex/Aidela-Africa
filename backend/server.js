@@ -13,10 +13,25 @@ dotenv.config();
 const app = express();
 app.disable("x-powered-by");
 
-const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || "")
+const normalizeOrigin = (origin) => {
+  if (!origin) return "";
+
+  try {
+    return new URL(origin.trim()).origin;
+  } catch {
+    console.warn(`Ignoring invalid CORS origin: ${origin}`);
+    return "";
+  }
+};
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  ...(process.env.CLIENT_URLS || process.env.CLIENT_URL || "")
   .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+  .map(normalizeOrigin)
+  .filter(Boolean),
+];
 
 const corsOptions = {
   origin(origin, callback) {
@@ -25,17 +40,16 @@ const corsOptions = {
       return;
     }
 
-    if (
-      process.env.NODE_ENV !== "production" ||
-      allowedOrigins.length === 0 ||
-      allowedOrigins.includes(origin)
-    ) {
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
       return;
     }
 
     callback(new Error(`CORS blocked for origin: ${origin}`));
   },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));

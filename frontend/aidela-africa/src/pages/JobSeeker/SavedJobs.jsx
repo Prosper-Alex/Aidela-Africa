@@ -36,7 +36,7 @@ export const SavedJobs = () => {
       actions={
         <Link
           to="/find-jobs"
-          className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+          className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
           Explore jobs
         </Link>
       }>
@@ -73,7 +73,7 @@ export const SavedJobs = () => {
               action={
                 <Link
                   to="/find-jobs"
-                  className="inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700">
+                  className="inline-flex rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
                   Browse jobs
                 </Link>
               }
@@ -108,7 +108,7 @@ export const SavedJobs = () => {
                   {application.job?._id ? (
                     <Link
                       to={`/job/${application.job._id}`}
-                      className="mt-6 inline-flex items-center justify-center rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-800">
+                      className="mt-6 inline-flex items-center justify-center rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent">
                       View role
                     </Link>
                   ) : null}

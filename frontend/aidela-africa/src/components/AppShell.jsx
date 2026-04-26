@@ -12,18 +12,17 @@ const AppShell = ({
   const hasHeader = Boolean(title || description || actions);
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.12),transparent_28%),linear-gradient(180deg,#f8fbff_0%,#eef5ff_100%)]">
+    <div className="min-h-screen app-bg">
       <AppHeader />
 
       <main className={`mx-auto w-full ${maxWidth} px-4 pb-16 pt-6 sm:pt-8`}>
         {hasHeader ? (
-          <section className="relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white/85 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur sm:p-8">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.18),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(15,23,42,0.06),transparent_38%)]" />
+          <section className="brand-panel-bg relative overflow-hidden rounded-[2.5rem] border border-white/70 p-6 shadow-[0_24px_60px_rgba(6,73,181,0.10)] backdrop-blur sm:p-8">
 
             <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl">
                 {eyebrow ? (
-                  <p className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-sky-700">
+                  <p className="inline-flex items-center rounded-full border border-secondary-accent/35 bg-secondary-accent/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-primary-accent">
                     {eyebrow}
                   </p>
                 ) : null}

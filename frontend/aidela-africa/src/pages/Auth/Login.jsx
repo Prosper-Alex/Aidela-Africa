@@ -45,14 +45,14 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.10),_transparent_30%),linear-gradient(180deg,_#f8fbff_0%,_#eef5ff_100%)]">
+    <div className="min-h-screen app-bg">
       <AppHeader />
       <main className="mx-auto grid min-h-[calc(100vh-88px)] max-w-6xl items-center gap-8 px-4 py-10 lg:grid-cols-[0.95fr_1.05fr]">
-        <section className="rounded-[2.5rem] border border-slate-200 bg-slate-950 p-8 text-white shadow-xl">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-500 text-slate-950">
+        <section className="rounded-[2.5rem] border border-slate-200 brand-dark-bg p-8 text-white shadow-xl">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-accent/100 text-slate-950">
             <BriefcaseBusiness className="h-6 w-6" />
           </div>
-          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-sky-300">
+          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-secondary-accent">
             Sign in
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
@@ -76,7 +76,7 @@ export const Login = () => {
 
               <label className="block space-y-2">
                 <span className="text-sm font-medium text-slate-700">Email</span>
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-sky-400 focus-within:ring-2 focus-within:ring-sky-100">
+                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Mail className="h-4 w-4 text-slate-400" />
                   <input
                     type="email"
@@ -91,7 +91,7 @@ export const Login = () => {
 
               <label className="block space-y-2">
                 <span className="text-sm font-medium text-slate-700">Password</span>
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-sky-400 focus-within:ring-2 focus-within:ring-sky-100">
+                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Lock className="h-4 w-4 text-slate-400" />
                   <input
                     type="password"
@@ -107,7 +107,7 @@ export const Login = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Signing in..." : "Sign in"}
                 <ArrowRight className="h-4 w-4" />
@@ -116,7 +116,7 @@ export const Login = () => {
 
             <p className="mt-6 text-sm text-slate-500">
               New here?{" "}
-              <Link to="/signup" className="font-semibold text-sky-700 hover:text-sky-800">
+              <Link to="/signup" className="font-semibold text-primary-accent hover:text-primary-accent">
                 Create an account
               </Link>
             </p>

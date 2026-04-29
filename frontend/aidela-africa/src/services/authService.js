@@ -10,6 +10,16 @@ export const registerUser = async (payload) => {
   return data;
 };
 
+export const forgotPassword = async (payload) => {
+  const { data } = await API.post("/api/auth/forgot-password", payload);
+  return data;
+};
+
+export const resetPassword = async (token, payload) => {
+  const { data } = await API.post(`/api/auth/reset-password/${token}`, payload);
+  return data;
+};
+
 export const fetchCurrentUser = async () => {
   const { data } = await API.get("/api/auth/me");
   return data.user;

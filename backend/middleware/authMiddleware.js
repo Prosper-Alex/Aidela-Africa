@@ -29,6 +29,14 @@ const protect = asyncHandler(async (req, _res, next) => {
     throw new AppError("Not authorized, user not found", 401);
   }
 
+  if (
+    user.passwordChangedAt &&
+    decodedToken.iat &&
+    Math.floor(user.passwordChangedAt.getTime() / 1000) > decodedToken.iat
+  ) {
+    throw new AppError("Not authorized, password was changed. Please log in again.", 401);
+  }
+
   req.user = user;
   next();
 });

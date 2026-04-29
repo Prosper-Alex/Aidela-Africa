@@ -1,16 +1,7 @@
 import mongoose from "mongoose";
+import { sanitizeArray } from "../utils/sanitize.js";
 
 const { Schema } = mongoose;
-
-const cleanRequirements = (values) => {
-  if (!Array.isArray(values)) {
-    return values;
-  }
-
-  return values
-    .map((value) => (typeof value === "string" ? value.trim() : value))
-    .filter(Boolean);
-};
 
 const salarySchema = new Schema(
   {
@@ -86,7 +77,7 @@ const jobSchema = new Schema(
     requirements: {
       type: [String],
       default: [],
-      set: cleanRequirements,
+      set: sanitizeArray,
       validate: {
         validator: (values) =>
           Array.isArray(values) &&
@@ -145,10 +136,18 @@ const jobSchema = new Schema(
   },
 );
 
+// Text search lets one search query match the main visible job fields.
+jobSchema.index({
+  title: "text",
+  company: "text",
+  location: "text",
+});
 jobSchema.index({ createdBy: 1, createdAt: -1 });
 jobSchema.index({ status: 1, isPublished: 1, createdAt: -1 });
 jobSchema.index({ jobType: 1, location: 1 });
 jobSchema.index({ isFeatured: 1, status: 1 });
+// MongoDB automatically removes jobs after expiresAt when that date is set.
+jobSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 jobSchema.path("salary").validate(function (salary) {
   if (!salary) return true;

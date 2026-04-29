@@ -6,11 +6,13 @@ const applicationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Job",
       required: true,
+      index: true,
     },
     applicant: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+      index: true,
     },
     // Legacy field kept for backward compatibility with older Mongo indexes.
     user: {
@@ -27,6 +29,7 @@ const applicationSchema = new mongoose.Schema(
       type: String,
       default: "",
       trim: true,
+      maxlength: 2000,
     },
     portfolioUrl: {
       type: String,
@@ -62,11 +65,13 @@ const applicationSchema = new mongoose.Schema(
       type: String,
       enum: ["pending", "reviewed", "accepted", "rejected"],
       default: "pending",
+      index: true,
     },
   },
   { timestamps: true },
 );
 
+// Keeps older records using `user` compatible with newer code using `applicant`.
 applicationSchema.pre("validate", function syncLegacyUserField(next) {
   if (!this.applicant && this.user) {
     this.applicant = this.user;
@@ -79,6 +84,7 @@ applicationSchema.pre("validate", function syncLegacyUserField(next) {
   next();
 });
 
+// A user can apply to the same job only once.
 applicationSchema.index(
   { applicant: 1, job: 1 },
   {

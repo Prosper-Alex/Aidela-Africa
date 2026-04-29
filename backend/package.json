@@ -7,15 +7,20 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "check": "node --check server.js && node --check config/db.js && node --check controllers/authController.js && node --check controllers/jobController.js && node --check controllers/applicationController.js && node --check middleware/authMiddleware.js && node --check middleware/errorMiddleware.js && node --check middleware/roleMiddleware.js && node --check models/User.js && node --check models/Job.js && node --check models/Application.js && node --check routes/authRoutes.js && node --check routes/jobRoutes.js && node --check routes/applicationRoutes.js && node --check utils/appError.js && node --check utils/asyncHandler.js && node --check utils/generateToken.js"
+    "check": "node --check server.js && node --check config/db.js && node --check controllers/authController.js && node --check controllers/jobController.js && node --check controllers/applicationController.js && node --check middleware/authMiddleware.js && node --check middleware/errorMiddleware.js && node --check middleware/roleMiddleware.js && node --check middleware/security.js && node --check middleware/rateLimiter.js && node --check models/User.js && node --check models/Job.js && node --check models/Application.js && node --check routes/authRoutes.js && node --check routes/jobRoutes.js && node --check routes/applicationRoutes.js && node --check utils/appError.js && node --check utils/asyncHandler.js && node --check utils/email.js && node --check utils/generateToken.js && node --check utils/passwordResetEmail.js && node --check utils/sanitize.js && node --check utils/validators.js && node --check utils/verification.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.17.0"
+    "mongoose": "^8.17.0",
+    "resend": "^6.12.2",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

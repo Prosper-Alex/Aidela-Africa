@@ -1,162 +1,131 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import { sanitizeArray, sanitizeString } from "../utils/sanitize.js";
+import {
+  isValidCompanyName,
+  isValidEmail,
+  isValidURL,
+} from "../utils/validators.js";
+import { computeVerification } from "../utils/verification.js";
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+// ✅ Candidate profile
 const candidateProfileSchema = new mongoose.Schema(
   {
     headline: { type: String, trim: true, default: "" },
     bio: { type: String, trim: true, default: "" },
-    techStack: { type: [String], default: [] },
+    techStack: { type: [String], default: [], set: sanitizeArray },
     yearsOfExperience: { type: Number, min: 0, default: null },
-    portfolioUrl: { type: String, trim: true, default: "" },
-    linkedinUrl: { type: String, trim: true, default: "" },
+    portfolioUrl: {
+      type: String,
+      trim: true,
+      default: "",
+      validate: [isValidURL, "Invalid URL"],
+    },
+    linkedinUrl: {
+      type: String,
+      trim: true,
+      default: "",
+      validate: [isValidURL, "Invalid URL"],
+    },
     location: { type: String, trim: true, default: "" },
     availability: { type: String, trim: true, default: "" },
   },
   { _id: false },
 );
 
+// ✅ Company profile
 const companyProfileSchema = new mongoose.Schema(
   {
-    companyName: { type: String, trim: true, default: "" },
+    companyName: {
+      type: String,
+      trim: true,
+      default: "",
+      validate: [isValidCompanyName, "Invalid company name"],
+    },
     companyLogo: { type: String, trim: true, default: "" },
     bio: { type: String, trim: true, default: "" },
     employeeCount: { type: Number, min: 0, default: null },
     foundedYear: { type: Number, min: 1800, default: null },
     foundedBy: { type: String, trim: true, default: "" },
-    websiteUrl: { type: String, trim: true, default: "" },
+    websiteUrl: {
+      type: String,
+      trim: true,
+      default: "",
+      validate: [isValidURL, "Invalid URL"],
+    },
     headquarters: { type: String, trim: true, default: "" },
   },
   { _id: false },
 );
 
-const hasText = (value) => typeof value === "string" && value.trim().length > 0;
-
-const getVerificationForUser = (user) => {
-  if (user.role === "recruiter") {
-    const profile = user.companyProfile || {};
-    const requirements = [
-      ["Company name", hasText(profile.companyName)],
-      ["Company logo", hasText(profile.companyLogo)],
-      ["Company bio", hasText(profile.bio)],
-      ["Employee count", Number(profile.employeeCount) > 0],
-      ["Founded year", Number(profile.foundedYear) > 0],
-      ["Founded by", hasText(profile.foundedBy)],
-    ];
-    const completed = requirements.filter(([, isComplete]) => isComplete).length;
-
-    return {
-      isVerified: completed === requirements.length,
-      completed,
-      total: requirements.length,
-      missing: requirements
-        .filter(([, isComplete]) => !isComplete)
-        .map(([label]) => label),
-    };
-  }
-
-  const profile = user.candidateProfile || {};
-  const requirements = [
-    ["Headline", hasText(profile.headline)],
-    ["Bio", hasText(profile.bio)],
-    ["Tech stack", Array.isArray(profile.techStack) && profile.techStack.length > 0],
-    [
-      "Years of experience",
-      profile.yearsOfExperience !== null &&
-        profile.yearsOfExperience !== undefined &&
-        Number(profile.yearsOfExperience) >= 0,
-    ],
-    ["Portfolio URL", hasText(profile.portfolioUrl)],
-    ["Location", hasText(profile.location)],
-  ];
-  const completed = requirements.filter(([, isComplete]) => isComplete).length;
-
-  return {
-    isVerified: completed === requirements.length,
-    completed,
-    total: requirements.length,
-    missing: requirements
-      .filter(([, isComplete]) => !isComplete)
-      .map(([label]) => label),
-  };
-};
-
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Name is required"],
+      required: true,
       trim: true,
+      set: sanitizeString,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: true,
       unique: true,
       lowercase: true,
       trim: true,
-      match: [emailRegex, "Please provide a valid email address"],
+      validate: [isValidEmail, "Invalid email"],
+      index: true,
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
-      minlength: [6, "Password must be at least 6 characters long"],
+      required: true,
+      minlength: 6,
       select: false,
+    },
+    resetPasswordToken: {
+      type: String,
+      select: false,
+    },
+    resetPasswordExpires: {
+      type: Date,
+      select: false,
+    },
+    passwordChangedAt: {
+      type: Date,
+      default: null,
     },
     role: {
       type: String,
       enum: ["jobseeker", "recruiter"],
       default: "jobseeker",
     },
-    candidateProfile: {
-      type: candidateProfileSchema,
-      default: () => ({}),
+
+    // Cached verification avoids recalculating profile completeness on every request.
+    verificationStatus: {
+      isVerified: { type: Boolean, default: false },
+      completed: { type: Number, default: 0 },
+      total: { type: Number, default: 0 },
     },
-    companyProfile: {
-      type: companyProfileSchema,
-      default: () => ({}),
-    },
+
+    candidateProfile: { type: candidateProfileSchema, default: () => ({}) },
+    companyProfile: { type: companyProfileSchema, default: () => ({}) },
   },
-  {
-    timestamps: true,
-    toJSON: {
-      virtuals: true,
-      transform: (_doc, ret) => {
-        delete ret.password;
-        delete ret.__v;
-        return ret;
-      },
-    },
-    toObject: {
-      virtuals: true,
-      transform: (_doc, ret) => {
-        delete ret.password;
-        delete ret.__v;
-        return ret;
-      },
-    },
-  }
+  { timestamps: true },
 );
 
-userSchema.virtual("verification").get(function verificationVirtual() {
-  return getVerificationForUser(this);
+// Compute verification only when the user is saved.
+userSchema.pre("save", function (next) {
+  this.verificationStatus = computeVerification(this);
+  next();
 });
 
-userSchema.pre("save", async function saveHook(next) {
-  if (!this.isModified("password")) {
-    return next();
-  }
-
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error);
-  }
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
 });
 
-userSchema.methods.matchPassword = async function matchPassword(enteredPassword) {
+// Used during login to compare the submitted password with the hashed password.
+userSchema.methods.matchPassword = function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 

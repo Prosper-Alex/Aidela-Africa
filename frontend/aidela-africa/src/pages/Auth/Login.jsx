@@ -90,7 +90,15 @@ export const Login = () => {
               </label>
 
               <label className="block space-y-2">
-                <span className="text-sm font-medium text-slate-700">Password</span>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm font-medium text-slate-700">Password</span>
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm font-semibold text-primary-accent hover:text-primary"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
                 <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Lock className="h-4 w-4 text-slate-400" />
                   <input

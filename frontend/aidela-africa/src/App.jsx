@@ -12,6 +12,8 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { Signup } from "./pages/Auth/Signup";
 import { Login } from "./pages/Auth/Login";
+import { ForgotPassword } from "./pages/Auth/ForgotPassword";
+import { ResetPassword } from "./pages/Auth/ResetPassword";
 
 // Job Seeker Routes
 import { JobSeekerDashboard } from "./pages/JobSeeker/JobSeekerDashboard";
@@ -39,6 +41,8 @@ const App = () => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
 
             {/* Job Seeker Routes */}
             <Route path="/find-jobs" element={<JobSeekerDashboard />} />

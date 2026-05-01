@@ -1,8 +1,13 @@
+import crypto from "crypto";
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 import AppError from "../utils/appError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { normalizeRole } from "../utils/normalizeRole.js";
+import { sendResetEmail } from "../utils/email.js";
+
+const RESET_TOKEN_EXPIRES_MINUTES = 15;
+const PASSWORD_RESET_SUCCESS_MESSAGE = "If this email exists, a reset link has been sent";
 
 const compactStringArray = (value) => {
   if (Array.isArray(value)) {
@@ -184,6 +189,99 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 });
 
+const createPasswordResetToken = () => {
+  const token = crypto.randomBytes(32).toString("hex");
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+  return { token, hashedToken };
+};
+
+const getPasswordResetUrl = (token) => {
+  const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+  return `${clientUrl.replace(/\/$/, "")}/reset-password/${token}`;
+};
+
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    throw new AppError("Email is required", 400);
+  }
+
+  const normalizedEmail = email.trim().toLowerCase();
+  const response = {
+    message: PASSWORD_RESET_SUCCESS_MESSAGE,
+  };
+
+  let user;
+
+  try {
+    user = await User.findOne({ email: normalizedEmail });
+  } catch (error) {
+    console.error(`Password reset lookup failed for ${normalizedEmail}: ${error.message}`);
+    throw error;
+  }
+
+  // Always return the same response so attackers cannot check which emails exist.
+  if (!user) {
+    res.status(200).json(response);
+    return;
+  }
+
+  const { token, hashedToken } = createPasswordResetToken();
+  const resetUrl = getPasswordResetUrl(token);
+
+  user.resetPasswordToken = hashedToken;
+  user.resetPasswordExpires = new Date(
+    Date.now() + RESET_TOKEN_EXPIRES_MINUTES * 60 * 1000,
+  );
+  await user.save();
+
+  try {
+    await sendResetEmail(user.email, resetUrl);
+  } catch (error) {
+    console.error(`Password reset email failed for ${user.email}: ${error.message}`);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+  }
+
+  res.status(200).json(response);
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  if (!token) {
+    throw new AppError("Password reset token is required", 400);
+  }
+
+  if (!password || password.length < 6) {
+    throw new AppError("Password must be at least 6 characters long", 400);
+  }
+
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  const user = await User.findOne({
+    resetPasswordToken: hashedToken,
+    resetPasswordExpires: { $gt: new Date() },
+  }).select("+resetPasswordToken +resetPasswordExpires +password");
+
+  if (!user) {
+    throw new AppError("Password reset link is invalid or expired", 400);
+  }
+
+  user.password = password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  user.passwordChangedAt = new Date();
+  await user.save();
+
+  res.status(200).json({
+    message: "Password reset successful",
+  });
+});
+
 const getCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json({
     user: serializeUser(req.user),
@@ -206,6 +304,8 @@ const updateCurrentUser = asyncHandler(async (req, res) => {
 export {
   registerUser,
   loginUser,
+  forgotPassword,
+  resetPassword,
   getCurrentUser,
   updateCurrentUser,
 };

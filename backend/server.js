@@ -6,12 +6,14 @@ import authRoutes from "./routes/authRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import { applySecurity } from "./middleware/security.js";
 import { reconcileApplicationStorage } from "./utils/reconcileApplicationStorage.js";
 
 dotenv.config();
 
 const app = express();
 app.disable("x-powered-by");
+applySecurity(app);
 
 const normalizeOrigin = (origin) => {
   if (!origin) return "";

@@ -8,6 +8,7 @@ import { sendResetEmail } from "../utils/email.js";
 
 const RESET_TOKEN_EXPIRES_MINUTES = 15;
 const PASSWORD_RESET_SUCCESS_MESSAGE = "If this email exists, a reset link has been sent";
+const RESET_TOKEN_PATTERN = /^[a-f0-9]{64}$/i;
 
 const compactStringArray = (value) => {
   if (Array.isArray(value)) {
@@ -251,14 +252,18 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
 const resetPassword = asyncHandler(async (req, res) => {
   const { token } = req.params;
-  const { password } = req.body;
+  const { password, confirmPassword } = req.body;
 
-  if (!token) {
+  if (!token || !RESET_TOKEN_PATTERN.test(token)) {
     throw new AppError("Password reset token is required", 400);
   }
 
   if (!password || password.length < 6) {
     throw new AppError("Password must be at least 6 characters long", 400);
+  }
+
+  if (confirmPassword !== undefined && password !== confirmPassword) {
+    throw new AppError("Passwords do not match", 400);
   }
 
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");

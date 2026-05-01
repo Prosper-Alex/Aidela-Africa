@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
 const APP_NAME = "Aidela Africa";
+const DEFAULT_EMAIL_FROM = "Aidela Africa <onboarding@resend.dev>";
 
 const escapeHtml = (value) =>
   `${value}`
@@ -19,11 +20,7 @@ const getResendClient = () => {
 };
 
 const getEmailFrom = () => {
-  if (!process.env.EMAIL_FROM) {
-    throw new Error("EMAIL_FROM is required to send emails");
-  }
-
-  return process.env.EMAIL_FROM;
+  return process.env.EMAIL_FROM || DEFAULT_EMAIL_FROM;
 };
 
 export const sendResetEmail = async (email, resetUrl) => {
@@ -33,7 +30,17 @@ export const sendResetEmail = async (email, resetUrl) => {
   const { data, error } = await resend.emails.send({
     from: getEmailFrom(),
     to: email,
-    subject: "Reset your Aidela Africa password",
+    subject: "Reset your password",
+    text: [
+      `Reset your ${APP_NAME} password`,
+      "",
+      "We received a request to reset your password.",
+      "Use the link below to choose a new password. This link expires in 15 minutes.",
+      "",
+      resetUrl,
+      "",
+      "If you did not request this, ignore this email. Your password will stay unchanged.",
+    ].join("\n"),
     html: `
       <!doctype html>
       <html lang="en">

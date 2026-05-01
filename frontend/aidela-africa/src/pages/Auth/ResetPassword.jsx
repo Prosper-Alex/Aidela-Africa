@@ -11,18 +11,26 @@ export const ResetPassword = () => {
   const { token } = useParams();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [isComplete, setIsComplete] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
     setError("");
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
-      await resetPassword(token, { password });
+      await resetPassword(token, { password, confirmPassword });
       setIsComplete(true);
       window.setTimeout(() => navigate("/login", { replace: true }), 1800);
     } catch (requestError) {
@@ -52,8 +60,8 @@ export const ResetPassword = () => {
               Create a new password
             </h1>
             <p className="mt-3 text-sm leading-6 text-slate-600">
-              Use at least 6 characters. After reset, old login sessions are
-              rejected.
+              Use at least 6 characters. After reset, your old login sessions
+              are rejected.
             </p>
           </div>
 
@@ -91,6 +99,41 @@ export const ResetPassword = () => {
                       showPassword ? "Hide password" : "Show password"
                     }>
                     {showPassword ? (
+                      <FiEyeOff className="h-5 w-5" />
+                    ) : (
+                      <FiEye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+              </label>
+
+              <label className="block space-y-2">
+                <span className="text-sm font-medium text-slate-700">
+                  Confirm password
+                </span>
+                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+                  <Lock className="h-4 w-4 text-slate-400" />
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    minLength={6}
+                    required
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                    placeholder="Repeat your password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowConfirmPassword((current) => !current)
+                    }
+                    className="text-slate-400 transition hover:text-primary"
+                    aria-label={
+                      showConfirmPassword
+                        ? "Hide confirm password"
+                        : "Show confirm password"
+                    }>
+                    {showConfirmPassword ? (
                       <FiEyeOff className="h-5 w-5" />
                     ) : (
                       <FiEye className="h-5 w-5" />

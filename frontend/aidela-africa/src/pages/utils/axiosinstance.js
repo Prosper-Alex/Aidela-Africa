@@ -1,3 +1,4 @@
+// Key feature: Configures the Axios instance used by legacy page utilities.
 /**
  * @deprecated Use ../services/api.js instead
  *

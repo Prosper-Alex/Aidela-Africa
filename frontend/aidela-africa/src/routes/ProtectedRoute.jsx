@@ -1,3 +1,4 @@
+// Key feature: Guards routes by login state and optional role requirements.
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FullPageLoader } from "../components/Feedback";

@@ -1,3 +1,4 @@
+// Key feature: Defines the application route table and protected route boundaries.
 import {
   BrowserRouter as Router,
   Routes,

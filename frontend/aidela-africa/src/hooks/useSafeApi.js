@@ -1,3 +1,4 @@
+// Key feature: Runs async UI requests while avoiding state updates after unmount.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getErrorMessage } from "../utils/getErrorMessage";
 

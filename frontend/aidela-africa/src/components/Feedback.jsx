@@ -1,3 +1,4 @@
+// Key feature: Provides reusable empty, loading, and error feedback components.
 import { AlertCircle, BriefcaseBusiness, LoaderCircle } from "lucide-react";
 
 export const FullPageLoader = ({ label = "Loading..." }) => {

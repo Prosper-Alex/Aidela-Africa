@@ -1,3 +1,4 @@
+// Key feature: Renders the public landing page and platform feature highlights.
 import { BriefcaseBusiness, ShieldCheck, Users2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import AppHeader from "../../components/AppHeader";

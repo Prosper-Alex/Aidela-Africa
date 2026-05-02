@@ -1,3 +1,4 @@
+// Key feature: Limits repeated auth and password reset requests from the same client.
 import rateLimit from "express-rate-limit";
 
 // Limits repeated auth requests from the same client.

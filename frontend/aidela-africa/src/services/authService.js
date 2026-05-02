@@ -1,3 +1,4 @@
+// Key feature: Wraps frontend calls to authentication and profile API endpoints.
 import API from "../pages/utils/axiosinstance";
 
 export const loginUser = async (payload) => {

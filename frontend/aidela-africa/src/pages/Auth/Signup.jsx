@@ -1,3 +1,4 @@
+// Key feature: Renders account creation with role selection and password visibility controls.
 import { CheckCircle2, Lock, UserPlus } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";

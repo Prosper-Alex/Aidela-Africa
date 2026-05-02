@@ -1,3 +1,4 @@
+// Key feature: Defines job application data and recruiter review status fields.
 import mongoose from "mongoose";
 
 const applicationSchema = new mongoose.Schema(

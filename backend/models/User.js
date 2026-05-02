@@ -1,3 +1,4 @@
+// Key feature: Defines user accounts, roles, profiles, password hashing, and reset fields.
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { sanitizeArray, sanitizeString } from "../utils/sanitize.js";

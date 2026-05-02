@@ -1,3 +1,4 @@
+// Key feature: Maps authentication, profile, and password reset endpoints to handlers.
 import express from "express";
 import {
   registerUser,

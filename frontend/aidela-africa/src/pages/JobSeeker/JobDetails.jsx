@@ -1,3 +1,4 @@
+// Key feature: Shows full job details and handles the apply workflow.
 import { Building2, Clock3, MapPin, Sparkles, Wallet } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";

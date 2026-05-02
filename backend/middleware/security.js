@@ -1,3 +1,4 @@
+// Key feature: Applies HTTP security headers, sanitization, and request hardening.
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 

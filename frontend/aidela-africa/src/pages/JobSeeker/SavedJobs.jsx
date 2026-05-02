@@ -1,3 +1,4 @@
+// Key feature: Shows saved and submitted jobs for job seekers.
 import { BriefcaseBusiness, ClipboardList, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import DashboardShell from "../../components/DashboardShell";

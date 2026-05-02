@@ -1,3 +1,4 @@
+// Key feature: Handles registration, login, profile updates, and secure password reset flows.
 import crypto from "crypto";
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
@@ -191,6 +192,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const createPasswordResetToken = () => {
+  // Generate a one-time raw token for email and store only its hash in MongoDB.
   const token = crypto.randomBytes(32).toString("hex");
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
@@ -214,6 +216,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     message: PASSWORD_RESET_SUCCESS_MESSAGE,
   };
 
+  // Keep the same public response for existing and missing users to prevent email enumeration.
   let user;
 
   try {
@@ -241,6 +244,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   try {
     await sendResetEmail(user.email, resetUrl);
   } catch (error) {
+    // Clear reset state if email delivery fails so users cannot be stuck with a hidden active token.
     console.error(`Password reset email failed for ${user.email}: ${error.message}`);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
@@ -267,6 +271,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   }
 
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  // Match against the hashed token and expiry so raw reset tokens are never stored or queried directly.
   const user = await User.findOne({
     resetPasswordToken: hashedToken,
     resetPasswordExpires: { $gt: new Date() },

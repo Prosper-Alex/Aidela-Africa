@@ -1,3 +1,4 @@
+// Key feature: Lets recruiters review applications across their jobs.
 import { ClipboardList, PlusCircle, Users2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";

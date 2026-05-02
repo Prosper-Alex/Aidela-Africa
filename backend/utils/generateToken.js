@@ -1,3 +1,4 @@
+// Key feature: Creates signed JWTs for authenticated API sessions.
 import jwt from "jsonwebtoken";
 
 const generateToken = (userId) =>

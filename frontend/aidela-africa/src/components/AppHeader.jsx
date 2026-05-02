@@ -1,3 +1,4 @@
+// Key feature: Renders the responsive navigation header and account menus.
 import {
   BriefcaseBusiness,
   ClipboardList,

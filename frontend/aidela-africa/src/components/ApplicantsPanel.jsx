@@ -1,3 +1,4 @@
+// Key feature: Displays applicants for a selected job and recruiter review actions.
 import { ExternalLink, RefreshCcw, ShieldCheck, Users } from "lucide-react";
 import { EmptyState, ErrorPanel, SectionLoader } from "./Feedback";
 import StatusBadge from "./StatusBadge";

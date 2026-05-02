@@ -1,3 +1,4 @@
+// Key feature: Renders secure password reset with confirmation and visibility controls.
 import { ArrowLeft, CheckCircle2, Lock } from "lucide-react";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";

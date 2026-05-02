@@ -1,3 +1,4 @@
+// Key feature: Wraps dashboard pages with consistent headings and spacing.
 import AppShell from "./AppShell";
 
 const DashboardShell = ({

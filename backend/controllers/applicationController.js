@@ -1,3 +1,4 @@
+// Key feature: Handles applying to jobs and recruiter application review workflows.
 import mongoose from "mongoose";
 import Application from "../models/Application.js";
 import Job from "../models/Job.js";

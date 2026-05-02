@@ -1,3 +1,4 @@
+// Key feature: Normalizes API role values for frontend role checks.
 const ROLE_ALIASES = {
   employer: "recruiter",
 };

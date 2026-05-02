@@ -1,3 +1,4 @@
+// Key feature: Renders reusable pagination actions for list pages.
 const buildVisiblePages = (currentPage, totalPages) => {
   if (totalPages <= 5) {
     return Array.from({ length: totalPages }, (_, index) => index + 1);

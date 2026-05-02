@@ -1,3 +1,4 @@
+// Key feature: Exports the shared API client used by frontend service modules.
 /**
  * Centralized API Service
  *

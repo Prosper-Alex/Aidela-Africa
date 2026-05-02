@@ -1,3 +1,4 @@
+// Key feature: Maps job listing API endpoints to protected and public handlers.
 import express from "express";
 import {
   createJob,

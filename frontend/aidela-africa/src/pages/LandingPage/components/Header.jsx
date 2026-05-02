@@ -1,3 +1,4 @@
+// Key feature: Renders the landing page header navigation.
 import React from "react";
 import { Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";

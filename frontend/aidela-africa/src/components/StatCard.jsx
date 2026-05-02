@@ -1,3 +1,4 @@
+// Key feature: Displays dashboard metrics in a compact reusable card.
 const StatCard = ({ label, value, note, icon: Icon }) => {
   return (
     <article className="relative h-full overflow-hidden rounded-4xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur">

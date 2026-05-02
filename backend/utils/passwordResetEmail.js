@@ -1,3 +1,4 @@
+// Key feature: Builds the password reset email subject and HTML body.
 const brandName = "Aidela Africa";
 
 const escapeHtml = (value) =>

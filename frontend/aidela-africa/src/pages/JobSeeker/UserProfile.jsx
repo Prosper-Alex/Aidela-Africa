@@ -1,3 +1,4 @@
+// Key feature: Renders and updates the job seeker profile.
 import {
   BriefcaseBusiness,
   ClipboardList,

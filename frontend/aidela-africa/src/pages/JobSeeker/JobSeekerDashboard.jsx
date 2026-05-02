@@ -1,3 +1,4 @@
+// Key feature: Renders job search, filtering, and paginated opportunity browsing.
 import { BriefcaseBusiness, ClipboardList, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";

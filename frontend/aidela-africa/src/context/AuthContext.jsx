@@ -1,3 +1,4 @@
+// Key feature: Stores authenticated user state and keeps it synced with the API.
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   clearStoredAuth,
@@ -94,6 +95,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const persistAuth = (nextUser, nextToken) => {
+    // Store a normalized user shape so route guards and menus read one role format.
     const normalizedUser = normalizeUserRole(nextUser);
     setUser(normalizedUser);
     setToken(nextToken);
@@ -132,6 +134,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    // Clear both React state and browser storage to fully end the local session.
     setUser(emptyAuthState.user);
     setToken(emptyAuthState.token);
     setIsInitializing(false);

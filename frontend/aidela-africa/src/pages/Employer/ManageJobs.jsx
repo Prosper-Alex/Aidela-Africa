@@ -1,3 +1,4 @@
+// Key feature: Lets recruiters manage existing job listings.
 import {
   ClipboardList,
   PencilLine,

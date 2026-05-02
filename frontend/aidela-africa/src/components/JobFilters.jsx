@@ -1,3 +1,4 @@
+// Key feature: Renders filters used to narrow job search results.
 import { Filter, RotateCcw, Search } from "lucide-react";
 
 const JOB_TYPE_OPTIONS = [

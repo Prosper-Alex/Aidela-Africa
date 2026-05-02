@@ -1,3 +1,4 @@
+// Key feature: Provides the shared app layout with header and content regions.
 import AppHeader from "./AppHeader";
 
 const AppShell = ({

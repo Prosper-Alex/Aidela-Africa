@@ -1,3 +1,4 @@
+// Key feature: Renders the safe forgot-password request form.
 import { ArrowLeft, Mail, Send } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";

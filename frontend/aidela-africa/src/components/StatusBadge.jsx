@@ -1,3 +1,4 @@
+// Key feature: Renders status labels with consistent colors and sizing.
 const variantClasses = {
   pending: "bg-amber-100 text-amber-800",
   reviewed: "bg-slate-200 text-slate-700",

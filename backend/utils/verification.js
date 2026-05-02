@@ -1,3 +1,4 @@
+// Key feature: Calculates profile completion and verification state for users.
 // Counts how much of a user's profile is filled in.
 export const computeVerification = (user) => {
   const profile =

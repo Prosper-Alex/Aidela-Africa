@@ -1,3 +1,4 @@
+// Key feature: Renders recruiter dashboard stats and next actions.
 import {
   BriefcaseBusiness,
   ClipboardList,

@@ -1,3 +1,4 @@
+// Key feature: Bootstraps Express, security middleware, API routes, and MongoDB startup.
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";

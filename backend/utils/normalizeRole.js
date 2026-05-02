@@ -1,3 +1,4 @@
+// Key feature: Normalizes role values so old and new role names behave consistently.
 const ROLE_ALIASES = {
   employer: "recruiter",
 };

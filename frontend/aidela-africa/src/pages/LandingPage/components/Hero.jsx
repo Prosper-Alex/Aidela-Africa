@@ -1,3 +1,4 @@
+// Key feature: Renders the landing page hero and primary calls to action.
 import { motion as Motion } from "framer-motion";
 import { ArrowRight, Building2, Search, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";

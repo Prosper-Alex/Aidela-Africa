@@ -1,3 +1,4 @@
+// Key feature: Centralizes reusable validation helpers for user and company input.
 import validator from "validator";
 
 // Checks that an email looks real before we store or use it.

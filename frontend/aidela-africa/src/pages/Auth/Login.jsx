@@ -1,3 +1,4 @@
+// Key feature: Renders sign-in with password visibility and forgot-password access.
 import { ArrowRight, BriefcaseBusiness, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";

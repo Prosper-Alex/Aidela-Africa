@@ -1,3 +1,4 @@
+// Key feature: Creates the MongoDB connection used by the API server.
 import mongoose from "mongoose";
 
 const connectDB = async () => {

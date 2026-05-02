@@ -1,3 +1,4 @@
+// Key feature: Renders the recruiter job creation and editing form.
 import { BriefcaseBusiness, ListChecks, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";

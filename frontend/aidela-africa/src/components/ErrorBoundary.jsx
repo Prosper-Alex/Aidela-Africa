@@ -1,3 +1,4 @@
+// Key feature: Catches unexpected React render errors and shows recovery UI.
 import { Component } from "react";
 
 export class ErrorBoundary extends Component {

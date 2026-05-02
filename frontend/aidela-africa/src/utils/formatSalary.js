@@ -1,3 +1,4 @@
+// Key feature: Formats salary values for job cards and job detail pages.
 const formatMoneyValue = (value, currency) => {
   const amount = new Intl.NumberFormat().format(Number(value));
 

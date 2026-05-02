@@ -1,3 +1,4 @@
+// Key feature: Displays a job summary card with actions and status metadata.
 import { ArrowRight, Building2, MapPin, Wallet } from "lucide-react";
 import { Link } from "react-router-dom";
 import StatusBadge from "./StatusBadge";

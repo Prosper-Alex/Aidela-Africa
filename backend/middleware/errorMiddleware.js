@@ -1,3 +1,4 @@
+// Key feature: Formats application errors into consistent JSON API responses.
 import AppError from "../utils/appError.js";
 
 const notFound = (req, _res, next) => {

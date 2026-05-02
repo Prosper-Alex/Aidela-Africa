@@ -1,3 +1,4 @@
+// Key feature: Defines the operational error type used by Express middleware.
 class AppError extends Error {
   constructor(message, statusCode) {
     super(message);

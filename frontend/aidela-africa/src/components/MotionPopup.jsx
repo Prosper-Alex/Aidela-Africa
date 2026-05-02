@@ -1,3 +1,4 @@
+// Key feature: Shows temporary motion-enhanced feedback popups.
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import { BookOpen, X } from "lucide-react";

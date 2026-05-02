@@ -1,3 +1,4 @@
+// Key feature: Cleans user-controlled strings and arrays before persistence.
 // Cleans a single text value by removing extra spaces at the start and end.
 export const sanitizeString = (value) => {
   if (typeof value !== "string") return value;

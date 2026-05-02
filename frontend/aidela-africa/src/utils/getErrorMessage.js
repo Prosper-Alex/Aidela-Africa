@@ -1,3 +1,4 @@
+// Key feature: Extracts readable error messages from API failures.
 import axios from "axios";
 
 const getNestedError = (errorPayload) => {

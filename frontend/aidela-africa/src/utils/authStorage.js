@@ -1,3 +1,4 @@
+// Key feature: Persists and clears auth data in browser storage.
 export const AUTH_STORAGE_KEY = "aidela-africa-auth";
 
 export const emptyAuthState = {

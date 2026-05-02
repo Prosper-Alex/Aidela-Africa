@@ -1,3 +1,4 @@
+// Key feature: Wraps frontend calls for job application API operations.
 import API from "../pages/utils/axiosinstance";
 
 export const applyToJob = async (jobId, payload) => {

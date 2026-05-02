@@ -1,3 +1,4 @@
+// Key feature: Sends transactional password reset emails through the Resend API.
 import { Resend } from "resend";
 
 const APP_NAME = "Aidela Africa";

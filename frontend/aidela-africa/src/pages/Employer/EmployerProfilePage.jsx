@@ -1,3 +1,4 @@
+// Key feature: Renders and updates the recruiter company profile.
 import { BriefcaseBusiness, Save, ShieldCheck, UserCircle2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";

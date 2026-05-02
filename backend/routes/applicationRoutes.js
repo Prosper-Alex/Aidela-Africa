@@ -1,3 +1,4 @@
+// Key feature: Maps application-related API endpoints to their controller handlers.
 import express from "express";
 import {
   applyToJob,

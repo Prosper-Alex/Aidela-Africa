@@ -1,3 +1,4 @@
+// Key feature: Keeps application records aligned when related storage fields change.
 import mongoose from "mongoose";
 
 const LEGACY_INDEX_NAME = "user_1_job_1";

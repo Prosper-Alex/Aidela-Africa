@@ -1,3 +1,4 @@
+// Key feature: Defines job listings, recruiter ownership, and searchable job metadata.
 import mongoose from "mongoose";
 import { sanitizeArray } from "../utils/sanitize.js";
 

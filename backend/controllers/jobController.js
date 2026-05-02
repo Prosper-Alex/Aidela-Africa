@@ -1,3 +1,4 @@
+// Key feature: Handles creating, reading, updating, and deleting job listings.
 import mongoose from "mongoose";
 import Job from "../models/Job.js";
 import AppError from "../utils/appError.js";

@@ -1,3 +1,4 @@
+// Key feature: Restricts protected endpoints to the required user roles.
 import AppError from "../utils/appError.js";
 import { normalizeRole } from "../utils/normalizeRole.js";
 

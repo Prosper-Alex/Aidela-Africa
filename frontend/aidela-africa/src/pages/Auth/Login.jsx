@@ -1,6 +1,7 @@
 import { ArrowRight, BriefcaseBusiness, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/AppHeader";
 import { ErrorPanel } from "../../components/Feedback";
@@ -17,6 +18,7 @@ export const Login = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (field, value) => {
     setForm((currentForm) => ({
@@ -102,13 +104,25 @@ export const Login = () => {
                 <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Lock className="h-4 w-4 text-slate-400" />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
                     value={form.password}
                     onChange={(event) => handleChange("password", event.target.value)}
                     className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
                     placeholder="Enter your password"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((current) => !current)}
+                    className="shrink-0 text-slate-400 transition hover:text-primary"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? (
+                      <FiEyeOff className="h-5 w-5" />
+                    ) : (
+                      <FiEye className="h-5 w-5" />
+                    )}
+                  </button>
                 </div>
               </label>
 

@@ -1,6 +1,7 @@
-import { CheckCircle2, UserPlus } from "lucide-react";
+import { CheckCircle2, Lock, UserPlus } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/AppHeader";
 import { ErrorPanel } from "../../components/Feedback";
@@ -31,6 +32,7 @@ export const Signup = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (field, value) => {
     setForm((currentForm) => ({
@@ -106,15 +108,30 @@ export const Signup = () => {
 
               <label className="block space-y-2">
                 <span className="text-sm font-medium text-slate-700">Password</span>
-                <input
-                  type="password"
-                  minLength={6}
-                  required
-                  value={form.password}
-                  onChange={(event) => handleChange("password", event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                  placeholder="At least 6 characters"
-                />
+                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+                  <Lock className="h-4 w-4 text-slate-400" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    minLength={6}
+                    required
+                    value={form.password}
+                    onChange={(event) => handleChange("password", event.target.value)}
+                    className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                    placeholder="At least 6 characters"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((current) => !current)}
+                    className="shrink-0 text-slate-400 transition hover:text-primary"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? (
+                      <FiEyeOff className="h-5 w-5" />
+                    ) : (
+                      <FiEye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
               </label>
 
               <div className="space-y-3">

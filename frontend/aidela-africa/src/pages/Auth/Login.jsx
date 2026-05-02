@@ -51,23 +51,23 @@ export const Login = () => {
     <div className="min-h-screen app-bg">
       <AppHeader />
       <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-6xl items-center gap-8 px-4 py-8 sm:py-10 lg:grid-cols-[0.95fr_1.05fr]">
-        <section className="rounded-[2.5rem] border border-slate-200 brand-dark-bg p-8 text-white shadow-xl">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-accent text-slate-950">
+        <section className="hero-gradient rounded-3xl border border-slate-200 p-8 text-slate-950 shadow-sm">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
             <BriefcaseBusiness className="h-6 w-6" />
           </div>
-          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.3em] text-secondary-accent">
+          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
             Sign in
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
             Continue your hiring or job search flow.
           </h1>
-          <p className="mt-5 text-sm leading-7 text-slate-300">
+          <p className="mt-5 text-sm leading-7 text-slate-600">
             Access recruiter dashboards, candidate profiles, and applications
             with one secure sign-in experience.
           </p>
         </section>
 
-        <section className="auth-form-panel rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <section className="auth-form-panel rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="max-w-xl">
             <h2 className="text-2xl font-bold text-slate-950">Welcome back</h2>
             <p className="mt-2 text-sm text-slate-500">
@@ -97,7 +97,7 @@ export const Login = () => {
                   <span className="text-sm font-medium text-slate-700">Password</span>
                   <Link
                     to="/forgot-password"
-                    className="text-sm font-semibold text-primary-accent hover:text-primary"
+                    className="text-sm font-semibold text-secondary hover:text-primary"
                   >
                     Forgot password?
                   </Link>
@@ -139,7 +139,7 @@ export const Login = () => {
 
             <p className="mt-6 text-sm text-slate-500">
               New here?{" "}
-              <Link to="/signup" className="font-semibold text-primary-accent hover:text-primary-accent">
+              <Link to="/signup" className="font-semibold text-secondary hover:text-secondary">
                 Create an account
               </Link>
             </p>

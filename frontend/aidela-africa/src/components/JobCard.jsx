@@ -9,7 +9,7 @@ const JobCard = ({ job }) => {
   const { isAuthenticated, isJobSeeker } = useAuth();
 
   return (
-    <article className="group flex h-full flex-col rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+    <article className="group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
       <div className="flex items-start justify-between gap-3">
         <StatusBadge value={job.jobType} />
         <span className="text-xs font-medium text-slate-400">
@@ -50,7 +50,7 @@ const JobCard = ({ job }) => {
             isJobSeeker ? (
               <Link
                 to={`/job/${job._id}`}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent">
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary">
                 Apply
               </Link>
             ) : (
@@ -64,7 +64,7 @@ const JobCard = ({ job }) => {
           ) : (
             <Link
               to="/login"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent">
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary">
               Sign in to apply
             </Link>
           )}

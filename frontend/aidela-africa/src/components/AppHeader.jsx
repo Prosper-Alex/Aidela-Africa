@@ -28,15 +28,15 @@ const matchesPath = (pathname, matcher) => {
 const desktopLinkClass = (isActive) =>
   `relative inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold transition ${
     isActive
-      ? "bg-white text-primary shadow-sm shadow-primary/10 ring-1 ring-primary/10"
-      : "text-slate-600 hover:bg-white/75 hover:text-primary hover:shadow-sm hover:shadow-primary/5"
+      ? "bg-slate-50 text-secondary ring-1 ring-slate-200"
+      : "text-slate-600 hover:bg-slate-50 hover:text-secondary"
   }`;
 
 const mobileLinkClass = (isActive) =>
   `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition ${
     isActive
-      ? "brand-dark-bg text-white"
-      : "text-slate-700 hover:bg-slate-100 hover:text-slate-950"
+      ? "bg-secondary text-white"
+      : "text-slate-700 hover:bg-slate-50 hover:text-slate-950"
   }`;
 
 const AppHeader = () => {
@@ -196,10 +196,10 @@ const AppHeader = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
         <Link to="/" className="flex items-center gap-3 sm:gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/80 bg-white p-1.5 shadow-md shadow-primary/15 ring-1 ring-primary/15 md:h-15 md:w-15 md:rounded-[1.45rem] md:p-2">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm md:h-15 md:w-15 md:rounded-[1.45rem] md:p-2">
             <img
               src="/favicon.jpeg"
               alt="Aidela Africa"
@@ -218,7 +218,7 @@ const AppHeader = () => {
 
         <div className="flex items-center gap-2 md:gap-3">
           <nav className="hidden md:block" aria-label="Primary navigation">
-            <ul className="flex list-none items-center gap-1 rounded-full border border-white/70 bg-linear-to-r from-white/85 via-secondary-accent/10 to-primary/10 p-1 pl-0 shadow-sm shadow-primary/5 ring-1 ring-primary/5 backdrop-blur">
+            <ul className="flex list-none items-center gap-1 rounded-full border border-slate-200 bg-white p-1 pl-0">
               {primaryLinks.map((link) => (
                 <li key={link.to}>{renderLink(link)}</li>
               ))}
@@ -232,7 +232,7 @@ const AppHeader = () => {
                 onClick={() => setProfileOpen((open) => !open)}
                 aria-expanded={profileOpen}
                 aria-haspopup="menu"
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent">
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 transition hover:border-secondary hover:bg-secondary/5 hover:text-secondary">
                 <UserCircle2 className="h-5 w-5" />
                 <span className="hidden md:block">
                   {user?.name?.split(" ")[0] || "Profile"}
@@ -265,8 +265,8 @@ const AppHeader = () => {
                           onClick={() => setProfileOpen(false)}
                           className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-semibold transition ${
                             isActive
-                              ? "brand-dark-bg text-white"
-                              : "text-slate-700 hover:bg-slate-100"
+                              ? "bg-secondary text-white"
+                              : "text-slate-700 hover:bg-slate-50"
                           }`}>
                           <Icon className="h-4 w-4" />
                           {item.label}
@@ -289,7 +289,7 @@ const AppHeader = () => {
             </div>
           ) : (
             <div className="hidden items-center gap-2 md:flex">
-              <ul className="flex list-none items-center gap-1 rounded-full border border-white/70 bg-linear-to-r from-white/85 via-secondary-accent/10 to-primary/10 p-1 pl-0 shadow-sm shadow-primary/5 ring-1 ring-primary/5 backdrop-blur">
+              <ul className="flex list-none items-center gap-1 rounded-full border border-slate-200 bg-white p-1 pl-0">
                 <li>
                   <Link
                     to="/login"
@@ -312,7 +312,7 @@ const AppHeader = () => {
           {!isAuthenticated ? (
             <Link
               to="/login"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-secondary hover:bg-secondary/5 hover:text-secondary md:hidden"
               aria-label="Login">
               <LogIn className="h-4 w-4" />
             </Link>
@@ -321,7 +321,7 @@ const AppHeader = () => {
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-secondary hover:bg-secondary/5 hover:text-secondary md:hidden"
             aria-expanded={mobileOpen}
             aria-label="Toggle menu">
             {mobileOpen ? (
@@ -353,7 +353,7 @@ const AppHeader = () => {
                 </div>
               ) : null}
 
-              <ul className="mt-2 list-none space-y-1 rounded-[1.35rem] bg-linear-to-br from-secondary-accent/10 via-white to-primary/10 p-1 pl-0">
+              <ul className="mt-2 list-none space-y-1 rounded-[1.35rem] bg-slate-50 p-1 pl-0">
                 {primaryLinks.map((link) => (
                   <li key={link.to}>{renderLink(link, true)}</li>
                 ))}

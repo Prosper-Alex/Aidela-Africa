@@ -227,7 +227,7 @@ export const ApplicationViewer = () => {
           </div>
 
           <div className="grid gap-6 xl:grid-cols-[0.38fr_0.62fr]">
-            <section className="rounded-4xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur">
+            <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <h2 className="text-lg font-semibold text-slate-950">
@@ -247,8 +247,8 @@ export const ApplicationViewer = () => {
                     onClick={() => handleSelectJob(job._id)}
                     className={`w-full rounded-3xl border px-4 py-4 text-left transition ${
                       selectedJobId === job._id
-                        ? "border-primary/35 bg-secondary-accent/10"
-                        : "border-slate-200 bg-white hover:border-secondary-accent/35 hover:bg-slate-50"
+                        ? "border-primary/35 bg-secondary/5"
+                        : "border-slate-200 bg-white hover:border-secondary/30 hover:bg-slate-50"
                     }`}>
                     <p className="font-semibold text-slate-950">{job.title}</p>
                     <p className="mt-2 text-sm text-slate-500">

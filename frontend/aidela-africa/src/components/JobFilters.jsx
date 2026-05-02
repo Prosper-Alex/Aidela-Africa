@@ -20,9 +20,9 @@ const JobFilters = ({
   onClear,
 }) => {
   return (
-    <section className="rounded-4xl border border-slate-200 bg-white/90 p-5 shadow-sm backdrop-blur sm:p-6">
+    <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
       <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
           <Filter className="h-5 w-5" />
         </div>
         <div>
@@ -82,7 +82,7 @@ const JobFilters = ({
           <button
             type="button"
             onClick={onClear}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
           >
             <RotateCcw className="h-4 w-4" />
             Reset

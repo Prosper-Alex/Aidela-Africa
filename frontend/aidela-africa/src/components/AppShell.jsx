@@ -18,12 +18,12 @@ const AppShell = ({
 
       <main className={`mx-auto w-full ${maxWidth} px-4 pb-16 pt-6 sm:pt-8`}>
         {hasHeader ? (
-          <section className="brand-panel-bg relative overflow-hidden rounded-[2.5rem] border border-white/70 p-6 shadow-[0_24px_60px_rgba(6,73,181,0.10)] backdrop-blur sm:p-8">
+          <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm sm:p-8">
 
             <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl">
                 {eyebrow ? (
-                  <p className="inline-flex items-center rounded-full border border-secondary-accent/35 bg-secondary-accent/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-primary-accent">
+                  <p className="inline-flex items-center rounded-full border border-secondary/15 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
                     {eyebrow}
                   </p>
                 ) : null}

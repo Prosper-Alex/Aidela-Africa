@@ -78,7 +78,7 @@ const ApplicantsPanel = ({
                     {applicant?.name || "Applicant"}
                   </h3>
                   {applicant?.verification?.isVerified ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-secondary-accent/15 px-3 py-1 text-xs font-semibold text-primary-accent">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary">
                       <ShieldCheck className="h-3.5 w-3.5" />
                       Verified
                     </span>
@@ -95,7 +95,7 @@ const ApplicantsPanel = ({
                   Applied on {new Date(application.createdAt).toLocaleString()}
                 </p>
                 {application.skillsMatch ? (
-                  <p className="rounded-2xl bg-secondary-accent/10 px-4 py-3 text-sm leading-6 text-slate-700">
+                  <p className="rounded-2xl bg-secondary/5 px-4 py-3 text-sm leading-6 text-slate-700">
                     <span className="font-semibold text-slate-950">Skills match: </span>
                     {application.skillsMatch}
                   </p>
@@ -127,7 +127,7 @@ const ApplicantsPanel = ({
                         href={url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-primary-accent hover:text-primary-accent">
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-secondary hover:text-secondary">
                         {url.includes("linkedin") ? "LinkedIn" : "Portfolio"}
                         <ExternalLink className="h-4 w-4" />
                       </a>
@@ -140,7 +140,7 @@ const ApplicantsPanel = ({
                       target="_blank"
                       rel="noreferrer"
                       download={resumeValue.startsWith("data:") ? "resume" : undefined}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-primary-accent hover:text-primary-accent"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-secondary hover:text-secondary"
                     >
                       {resumeLabel}
                       <ExternalLink className="h-4 w-4" />

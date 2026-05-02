@@ -38,7 +38,7 @@ export const ForgotPassword = () => {
         <section className="auth-form-panel mx-auto w-full max-w-xl rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <Link
             to="/login"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-accent hover:text-primary"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-secondary hover:text-primary"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to login

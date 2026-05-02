@@ -116,7 +116,7 @@ export const EmployerDashboard = () => {
           </div>
 
           <div className="grid gap-6 xl:grid-cols-[1.25fr_0.75fr]">
-            <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+            <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
@@ -131,7 +131,7 @@ export const EmployerDashboard = () => {
                 </div>
                 <Link
                   to="/manage-jobs"
-                  className="text-sm font-semibold text-primary-accent hover:text-primary-accent"
+                  className="text-sm font-semibold text-secondary hover:text-secondary"
                 >
                   Manage all jobs
                 </Link>
@@ -181,7 +181,7 @@ export const EmployerDashboard = () => {
                       <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                         <Link
                           to={`/applicants?jobId=${job._id}`}
-                          className="inline-flex flex-1 items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
+                          className="inline-flex flex-1 items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
                         >
                           View applicants
                         </Link>
@@ -199,7 +199,7 @@ export const EmployerDashboard = () => {
             </section>
 
             <div className="space-y-6">
-              <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+              <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
                   Focus
                 </p>
@@ -222,7 +222,7 @@ export const EmployerDashboard = () => {
                       </Link>
                       <Link
                         to={`/post-job?jobId=${latestJob._id}`}
-                        className="inline-flex w-full items-center justify-center rounded-2xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
+                        className="inline-flex w-full items-center justify-center rounded-2xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
                       >
                         Refine latest listing
                       </Link>
@@ -235,20 +235,20 @@ export const EmployerDashboard = () => {
                 )}
               </section>
 
-              <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+              <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
                   Quick links
                 </p>
                 <div className="mt-5 grid gap-3">
                   <Link
                     to="/manage-jobs"
-                    className="rounded-2xl border border-slate-200 px-4 py-4 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
+                    className="rounded-2xl border border-slate-200 px-4 py-4 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
                   >
                     Manage jobs
                   </Link>
                   <Link
                     to="/applicants"
-                    className="rounded-2xl border border-slate-200 px-4 py-4 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent"
+                    className="rounded-2xl border border-slate-200 px-4 py-4 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
                   >
                     Review applicants
                   </Link>

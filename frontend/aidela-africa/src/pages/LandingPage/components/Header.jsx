@@ -14,11 +14,11 @@ const Header = () => {
     user.role === "employer" ? "/employer-dashboard" : "/find-jobs";
 
   return (
-    <header className="border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="border-b border-slate-200 bg-white">
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-4 py-4 md:grid md:grid-cols-[auto_1fr_auto] md:items-center md:gap-6">
           <Link to="/" className="flex items-center gap-3 self-start">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-r from-primary to-primary-accent shadow-sm">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-sm">
               <Briefcase className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold text-gray-900 sm:text-xl">
@@ -47,7 +47,7 @@ const Header = () => {
                 </span>
                 <Link
                   to={dashboardPath}
-                  className="inline-flex items-center justify-center rounded-lg bg-linear-to-r from-primary to-primary-accent px-5 py-2 text-sm font-medium text-white shadow-sm transition-all duration-300 hover:from-secondary hover:to-primary-accent hover:shadow-md">
+                  className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-accent">
                   Dashboard
                 </Link>
               </div>
@@ -60,7 +60,7 @@ const Header = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className="inline-flex items-center justify-center rounded-lg bg-linear-to-r from-primary to-primary-accent px-5 py-2 text-sm font-medium text-white shadow-sm transition-all duration-300 hover:from-secondary hover:to-primary-accent hover:shadow-md">
+                  className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-accent">
                   Sign Up
                 </Link>
               </div>

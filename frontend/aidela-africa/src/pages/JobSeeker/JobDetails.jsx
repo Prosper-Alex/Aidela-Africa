@@ -157,7 +157,7 @@ export const JobDetails = () => {
       actions={
         <Link
           to="/find-jobs"
-          className="inline-flex rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary-accent/35 hover:bg-secondary-accent/10 hover:text-primary-accent">
+          className="inline-flex rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary">
           Back to jobs
         </Link>
       }>
@@ -173,7 +173,7 @@ export const JobDetails = () => {
       ) : null}
       {!loading && !error && job ? (
         <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-          <article className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur sm:p-8">
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <StatusBadge value={job.jobType} />
               <span className="text-sm text-slate-500">
@@ -261,7 +261,7 @@ export const JobDetails = () => {
             ) : null}
           </article>
 
-          <aside className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+          <aside className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-slate-950">
               Take the next step
             </h2>
@@ -281,8 +281,8 @@ export const JobDetails = () => {
                 </button>
               ) : (
                 <form onSubmit={submitApplication} className="mt-6 space-y-4">
-                  <div className="rounded-3xl border border-secondary-accent/25 bg-secondary-accent/10 p-4">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-primary-accent">
+                  <div className="rounded-3xl border border-secondary/20 bg-secondary/5 p-4">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-secondary">
                       <Sparkles className="h-4 w-4" />
                       Standout application
                     </div>

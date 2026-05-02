@@ -40,8 +40,8 @@ export const LandingPage = () => {
             return (
               <article
                 key={feature.title}
-                className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
+                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
                   <Icon className="h-5 w-5" />
                 </div>
                 <h2 className="mt-5 text-xl font-semibold text-slate-950">
@@ -55,16 +55,16 @@ export const LandingPage = () => {
           })}
         </section>
 
-        <section className="brand-dark-bg rounded-[2.5rem] border border-white/10 px-6 py-8 text-white shadow-xl sm:px-8">
+        <section className="hero-gradient rounded-3xl border border-slate-200 px-6 py-10 text-slate-950 shadow-sm sm:px-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-secondary-accent">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
                 Built for both sides of hiring
               </p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight">
                 A cleaner path from application to hiring decision
               </h2>
-              <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
+              <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">
                 Candidates get a clear job-search flow and application tracking.
                 Recruiters get a practical workspace for posting roles and
                 handling applicants without friction.

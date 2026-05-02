@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-10 pt-8 sm:pt-12">
-      <div className="brand-dark-bg relative overflow-hidden rounded-[2.75rem] border border-white/10 px-6 py-10 text-white shadow-[0_30px_80px_rgba(6,73,181,0.22)] sm:px-8 sm:py-14">
+    <section className="mx-auto max-w-6xl px-4 pb-14 pt-10 sm:pt-14">
+      <div className="hero-gradient relative overflow-hidden rounded-[2rem] border border-slate-200 px-6 py-12 text-slate-950 shadow-sm sm:px-10 sm:py-16">
 
         <div className="relative grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <Motion.div
@@ -14,16 +14,16 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
             className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-secondary-accent">
+            <div className="inline-flex items-center gap-2 rounded-full border border-secondary/15 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
               <Sparkles className="h-3.5 w-3.5" />
               Modern hiring for Africa
             </div>
 
-            <h1 className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
               Discover better jobs and hire with clarity.
             </h1>
 
-            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
               Aidela Africa brings job seekers and recruiters into one clear,
               fast experience for search, applications, and hiring decisions.
             </p>
@@ -51,11 +51,11 @@ export const Hero = () => {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
-                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">
+                  className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm">
+                  <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
                     {item.label}
                   </p>
-                  <p className="mt-2 text-sm font-semibold text-white">
+                  <p className="mt-2 text-sm font-semibold text-slate-950">
                     {item.value}
                   </p>
                 </div>
@@ -67,18 +67,18 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-3xl border border-white/10 bg-white/8 p-5 backdrop-blur">
-            <div className="rounded-[1.75rem] border border-white/10 bg-white p-5 text-slate-950 shadow-2xl">
+            className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 text-slate-950 shadow-sm">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-accent">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">
                     Featured opportunity
                   </p>
                   <h2 className="mt-2 text-2xl font-bold">
                     Senior Frontend Engineer
                   </h2>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
                   <Building2 className="h-5 w-5" />
                 </div>
               </div>

@@ -65,9 +65,9 @@ export const Signup = () => {
       <AppHeader />
       <main className="auth-main mx-auto max-w-6xl px-4 py-8 sm:py-10">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="auth-form-panel rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <section className="auth-form-panel rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary-accent/15 text-primary-accent">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
                 <UserPlus className="h-5 w-5" />
               </div>
               <div>
@@ -143,8 +143,8 @@ export const Signup = () => {
                       key={option.value}
                       className={`cursor-pointer rounded-3xl border p-4 transition ${
                         form.role === option.value
-                          ? "border-primary bg-secondary-accent/10"
-                          : "border-slate-200 bg-white hover:border-secondary-accent/35 hover:bg-slate-50"
+                          ? "border-primary bg-secondary/5"
+                          : "border-slate-200 bg-white hover:border-secondary/30 hover:bg-slate-50"
                       }`}
                     >
                       <input
@@ -159,7 +159,7 @@ export const Signup = () => {
                         <CheckCircle2
                           className={`h-4 w-4 ${
                             form.role === option.value
-                              ? "text-primary-accent"
+                              ? "text-secondary"
                               : "text-slate-300"
                           }`}
                         />
@@ -184,14 +184,14 @@ export const Signup = () => {
 
             <p className="mt-6 text-sm text-slate-500">
               Already have an account?{" "}
-              <Link to="/login" className="font-semibold text-primary-accent hover:text-primary-accent">
+              <Link to="/login" className="font-semibold text-secondary hover:text-secondary">
                 Sign in
               </Link>
             </p>
           </section>
 
-          <section className="rounded-[2.5rem] border border-slate-200 brand-dark-bg p-8 text-white shadow-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-secondary-accent">
+          <section className="hero-gradient rounded-3xl border border-slate-200 p-8 text-slate-950 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
               Why join
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight">
@@ -204,8 +204,8 @@ export const Signup = () => {
                 "Fast recruiter workflow for status updates and review",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 text-secondary-accent" />
-                  <p className="text-sm leading-7 text-slate-300">{item}</p>
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 text-secondary" />
+                  <p className="text-sm leading-7 text-slate-600">{item}</p>
                 </div>
               ))}
             </div>

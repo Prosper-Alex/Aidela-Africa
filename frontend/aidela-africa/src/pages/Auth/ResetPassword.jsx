@@ -45,10 +45,10 @@ export const ResetPassword = () => {
     <div className="min-h-screen app-bg">
       <AppHeader />
       <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-5xl items-center px-4 py-8">
-        <section className="auth-form-panel mx-auto w-full max-w-xl rounded-4xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <section className="auth-form-panel mx-auto w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <Link
             to="/login"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-accent hover:text-primary">
+            className="inline-flex items-center gap-2 text-sm font-semibold text-secondary hover:text-primary">
             <ArrowLeft className="h-4 w-4" />
             Back to login
           </Link>

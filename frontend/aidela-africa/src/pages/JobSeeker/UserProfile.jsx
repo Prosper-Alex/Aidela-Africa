@@ -148,7 +148,7 @@ export const UserProfile = () => {
       {error ? <ErrorPanel message={error} /> : null}
 
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">
@@ -162,7 +162,7 @@ export const UserProfile = () => {
             <span
               className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${
                 isVerified
-                  ? "bg-secondary-accent/15 text-primary-accent"
+                  ? "bg-secondary/10 text-secondary"
                   : "bg-slate-100 text-slate-600"
               }`}>
               <ShieldCheck className="h-4 w-4" />
@@ -170,7 +170,7 @@ export const UserProfile = () => {
             </span>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-secondary-accent/25 bg-secondary-accent/10 px-4 py-4 text-sm leading-6 text-slate-700">
+          <div className="mt-6 rounded-2xl border border-secondary/20 bg-secondary/5 px-4 py-4 text-sm leading-6 text-slate-700">
             Complete the highlighted fields to activate the blue tick. Missing:
             {" "}
             {verification.missing?.length ? verification.missing.join(", ") : "none"}.
@@ -297,7 +297,7 @@ export const UserProfile = () => {
                 />
               </div>
 
-              <article className="rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur">
+              <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h3 className="text-xl font-semibold text-slate-950">
                   Candidate experience tips
                 </h3>

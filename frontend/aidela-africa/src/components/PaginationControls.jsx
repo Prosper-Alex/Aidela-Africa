@@ -22,7 +22,7 @@ const PaginationControls = ({ pagination, onPageChange }) => {
   const visiblePages = buildVisiblePages(pagination.page, pagination.totalPages);
 
   return (
-    <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
       <p className="text-sm text-slate-500">
         Page <span className="font-semibold text-slate-900">{pagination.page}</span> of{" "}
         <span className="font-semibold text-slate-900">{pagination.totalPages}</span>

@@ -173,7 +173,7 @@ export const JobDetails = () => {
       ) : null}
       {!loading && !error && job ? (
         <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <article className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <StatusBadge value={job.jobType} />
               <span className="text-sm text-slate-500">
@@ -205,7 +205,7 @@ export const JobDetails = () => {
                 return (
                   <div
                     key={item.label}
-                    className="rounded-2xl bg-slate-50 px-4 py-4 text-sm">
+                    className="rounded-lg bg-slate-50 px-4 py-4 text-sm">
                     <div className="flex items-center gap-2 text-slate-500">
                       <Icon className="h-4 w-4 text-primary" />
                       {item.label}
@@ -249,7 +249,7 @@ export const JobDetails = () => {
             </div>
 
             {job.additionalInfo ? (
-              <div className="mt-8 rounded-3xl border border-emerald-100 bg-emerald-50/70 p-5">
+              <div className="mt-8 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5">
                 <div className="flex items-center gap-2 text-sm font-semibold text-emerald-800">
                   <Sparkles className="h-4 w-4" />
                   Candidate notes
@@ -261,7 +261,7 @@ export const JobDetails = () => {
             ) : null}
           </article>
 
-          <aside className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <aside className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
             <h2 className="text-xl font-semibold text-slate-950">
               Take the next step
             </h2>
@@ -276,12 +276,12 @@ export const JobDetails = () => {
                   type="button"
                   onClick={handleApply}
                   disabled={isApplying || hasApplied}
-                  className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
+                  className="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
                   {hasApplied ? "Application submitted" : "Apply now"}
                 </button>
               ) : (
                 <form onSubmit={submitApplication} className="mt-6 space-y-4">
-                  <div className="rounded-3xl border border-secondary/20 bg-secondary/5 p-4">
+                  <div className="rounded-xl border border-secondary/20 bg-secondary/5 p-4">
                     <div className="flex items-center gap-2 text-sm font-semibold text-secondary">
                       <Sparkles className="h-4 w-4" />
                       Standout application
@@ -298,7 +298,7 @@ export const JobDetails = () => {
                     accept=".pdf,.txt" 
                     onChange={(ev) => handleFileChange(ev.target.files?.[0])}
                     disabled={isApplying || hasApplied}
-                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900"
+                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900"
                   />
                   </label>
                   {resumeFileName ? (
@@ -313,7 +313,7 @@ export const JobDetails = () => {
                         onChange={(ev) => setPortfolioUrl(ev.target.value)}
                         disabled={isApplying || hasApplied}
                         placeholder="https://..."
-                        className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                        className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                       />
                     </label>
                     <label className="block space-y-2 text-sm text-slate-700">
@@ -323,7 +323,7 @@ export const JobDetails = () => {
                         onChange={(ev) => setLinkedinUrl(ev.target.value)}
                         disabled={isApplying || hasApplied}
                         placeholder="https://linkedin.com/in/..."
-                        className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                        className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                       />
                     </label>
                     <label className="block space-y-2 text-sm text-slate-700">
@@ -333,7 +333,7 @@ export const JobDetails = () => {
                         onChange={(ev) => setAvailability(ev.target.value)}
                         disabled={isApplying || hasApplied}
                         placeholder="Immediate, 2 weeks"
-                        className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                        className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                       />
                     </label>
                     <label className="block space-y-2 text-sm text-slate-700">
@@ -343,7 +343,7 @@ export const JobDetails = () => {
                         onChange={(ev) => setExpectedSalary(ev.target.value)}
                         disabled={isApplying || hasApplied}
                         placeholder="USD 2,000/month"
-                        className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                        className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                       />
                     </label>
                   </div>
@@ -355,7 +355,7 @@ export const JobDetails = () => {
                       onChange={(ev) => setSkillsMatch(ev.target.value)}
                       disabled={isApplying || hasApplied}
                       placeholder="React, accessibility, API integration"
-                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                      className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                     />
                   </label>
 
@@ -367,7 +367,7 @@ export const JobDetails = () => {
                       onChange={(ev) => setStandoutAnswer(ev.target.value)}
                       disabled={isApplying || hasApplied}
                       placeholder="Connect your strongest recent work to the listed requirements."
-                      className="w-full rounded-2xl border border-emerald-200 bg-emerald-50/40 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                      className="w-full rounded-lg border border-emerald-200 bg-emerald-50/40 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     />
                   </label>
 
@@ -378,7 +378,7 @@ export const JobDetails = () => {
                     value={coverLetter}
                     onChange={(ev) => setCoverLetter(ev.target.value)}
                     disabled={isApplying || hasApplied}
-                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                   </label>
 
@@ -386,7 +386,7 @@ export const JobDetails = () => {
                     <button
                       type="submit"
                       disabled={isApplying || hasApplied}
-                      className="inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
+                      className="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
                       {isApplying ? "Applying..." : "Submit application"}
                     </button>
 
@@ -394,7 +394,7 @@ export const JobDetails = () => {
                       type="button"
                       onClick={() => setShowApplyForm(false)}
                       disabled={isApplying}
-                      className="inline-flex items-center justify-center rounded-2xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+                      className="inline-flex items-center justify-center rounded-lg border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
                       Cancel
                     </button>
                   </div>
@@ -405,13 +405,13 @@ export const JobDetails = () => {
             {!isAuthenticated ? (
               <Link
                 to="/login"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
+                className="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent">
                 Sign in to apply
               </Link>
             ) : null}
 
             {isAuthenticated && !isJobSeeker ? (
-              <p className="mt-6 rounded-2xl bg-slate-50 px-4 py-4 text-sm leading-6 text-slate-600">
+              <p className="mt-6 rounded-lg bg-slate-50 px-4 py-4 text-sm leading-6 text-slate-600">
                 Recruiter accounts cannot apply to jobs. Switch to a job seeker
                 account to submit applications.
               </p>

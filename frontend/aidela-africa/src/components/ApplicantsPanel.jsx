@@ -69,7 +69,7 @@ const ApplicantsPanel = ({
         return (
           <article
             key={application._id}
-            className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
+            className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm"
           >
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div className="space-y-3">
@@ -95,13 +95,13 @@ const ApplicantsPanel = ({
                   Applied on {new Date(application.createdAt).toLocaleString()}
                 </p>
                 {application.skillsMatch ? (
-                  <p className="rounded-2xl bg-secondary/5 px-4 py-3 text-sm leading-6 text-slate-700">
+                  <p className="rounded-lg bg-secondary/5 px-4 py-3 text-sm leading-6 text-slate-700">
                     <span className="font-semibold text-slate-950">Skills match: </span>
                     {application.skillsMatch}
                   </p>
                 ) : null}
                 {application.standoutAnswer ? (
-                  <p className="rounded-2xl bg-emerald-50 px-4 py-3 text-sm leading-6 text-slate-700">
+                  <p className="rounded-lg bg-emerald-50 px-4 py-3 text-sm leading-6 text-slate-700">
                     <span className="font-semibold text-slate-950">Why they fit: </span>
                     {application.standoutAnswer}
                   </p>
@@ -146,7 +146,7 @@ const ApplicantsPanel = ({
                       <ExternalLink className="h-4 w-4" />
                     </a>
                   ) : (
-                    <p className="rounded-2xl bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-600">
+                    <p className="rounded-lg bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-600">
                       {resumeValue}
                     </p>
                   )

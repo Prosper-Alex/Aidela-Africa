@@ -74,21 +74,21 @@
 
   .page {
     min-height: 100vh;
-    padding: 1rem;
+    padding: 0.75rem;
     background: #ffffff;
   }
-
+  
   .container {
-    @apply max-w-6xl mx-auto;
+    @apply mx-auto w-full max-w-6xl px-3 sm:px-5 lg:px-6;
   }
 
   /* 🧱 Card */
   .card {
-    @apply bg-white p-4 rounded-2xl border border-slate-200 shadow-sm;
+    @apply bg-white p-4 rounded-lg border border-slate-100 shadow-sm;
   }
 
   .card-hover {
-    @apply hover:border-slate-300 hover:shadow-md transition;
+    @apply hover:border-slate-200 hover:shadow-md transition;
   }
 
   /* 🔘 Buttons */
@@ -136,7 +136,7 @@
 
   /* 🧭 Navbar */
   .navbar {
-    @apply bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center;
+    @apply bg-white border-b border-gray-200 px-3 py-4 sm:px-5 lg:px-6 flex justify-between items-center;
   }
 
   /* 📝 Input */

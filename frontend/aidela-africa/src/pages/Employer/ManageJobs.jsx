@@ -112,7 +112,7 @@ export const ManageJobs = () => {
           {jobs.map((job) => (
             <article
               key={job._id}
-              className="flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
+              className="flex h-full flex-col rounded-xl border border-slate-100 bg-white p-5 shadow-sm"
             >
               <div className="flex items-start justify-between gap-3">
                 <StatusBadge value={job.jobType} />
@@ -139,14 +139,14 @@ export const ManageJobs = () => {
               <div className="mt-6 grid gap-3">
                 <Link
                   to={`/post-job?jobId=${job._id}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
                 >
                   <PencilLine className="h-4 w-4" />
                   Edit listing
                 </Link>
                 <Link
                   to={`/applicants?jobId=${job._id}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent"
                 >
                   <ClipboardList className="h-4 w-4" />
                   Review applicants
@@ -155,7 +155,7 @@ export const ManageJobs = () => {
                   type="button"
                   onClick={() => handleDelete(job._id)}
                   disabled={deletingId === job._id}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-rose-200 px-4 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-rose-200 px-4 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <Trash2 className="h-4 w-4" />
                   {deletingId === job._id ? "Deleting..." : "Delete"}

@@ -148,7 +148,7 @@ export const UserProfile = () => {
       {error ? <ErrorPanel message={error} /> : null}
 
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">
@@ -170,7 +170,7 @@ export const UserProfile = () => {
             </span>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-secondary/20 bg-secondary/5 px-4 py-4 text-sm leading-6 text-slate-700">
+          <div className="mt-6 rounded-lg border border-secondary/20 bg-secondary/5 px-4 py-4 text-sm leading-6 text-slate-700">
             Complete the highlighted fields to activate the blue tick. Missing:
             {" "}
             {verification.missing?.length ? verification.missing.join(", ") : "none"}.
@@ -182,7 +182,7 @@ export const UserProfile = () => {
               <input
                 value={form.name}
                 onChange={(event) => handleChange("name", event.target.value)}
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <label className="block space-y-2">
@@ -191,7 +191,7 @@ export const UserProfile = () => {
                 value={form.headline}
                 onChange={(event) => handleChange("headline", event.target.value)}
                 placeholder="Frontend engineer building fintech products"
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <label className="block space-y-2">
@@ -201,7 +201,7 @@ export const UserProfile = () => {
                 value={form.bio}
                 onChange={(event) => handleChange("bio", event.target.value)}
                 placeholder="Short story, strengths, industries, and what you want next."
-                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
             </label>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -211,7 +211,7 @@ export const UserProfile = () => {
                   value={form.techStack}
                   onChange={(event) => handleChange("techStack", event.target.value)}
                   placeholder="React, Node.js, MongoDB"
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
               <label className="block space-y-2">
@@ -221,7 +221,7 @@ export const UserProfile = () => {
                   min="0"
                   value={form.yearsOfExperience}
                   onChange={(event) => handleChange("yearsOfExperience", event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
               <label className="block space-y-2">
@@ -230,7 +230,7 @@ export const UserProfile = () => {
                   value={form.portfolioUrl}
                   onChange={(event) => handleChange("portfolioUrl", event.target.value)}
                   placeholder="https://..."
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
               <label className="block space-y-2">
@@ -239,7 +239,7 @@ export const UserProfile = () => {
                   value={form.linkedinUrl}
                   onChange={(event) => handleChange("linkedinUrl", event.target.value)}
                   placeholder="https://linkedin.com/in/..."
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
               <label className="block space-y-2">
@@ -248,7 +248,7 @@ export const UserProfile = () => {
                   value={form.location}
                   onChange={(event) => handleChange("location", event.target.value)}
                   placeholder="Lagos, Nigeria"
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
               <label className="block space-y-2">
@@ -257,14 +257,14 @@ export const UserProfile = () => {
                   value={form.availability}
                   onChange={(event) => handleChange("availability", event.target.value)}
                   placeholder="Immediate, 2 weeks, contract only"
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
             </div>
             <button
               type="submit"
               disabled={isSaving}
-              className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
               <Save className="h-4 w-4" />
               {isSaving ? "Saving..." : "Save profile"}
             </button>
@@ -297,7 +297,7 @@ export const UserProfile = () => {
                 />
               </div>
 
-              <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <article className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
                 <h3 className="text-xl font-semibold text-slate-950">
                   Candidate experience tips
                 </h3>

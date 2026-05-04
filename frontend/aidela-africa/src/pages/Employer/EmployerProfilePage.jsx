@@ -129,17 +129,17 @@ export const EmployerProfilePage = () => {
 
       {!isLoading ? (
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <section className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="flex items-center gap-4">
                 {form.companyLogo ? (
                   <img
                     src={form.companyLogo}
                     alt=""
-                    className="h-14 w-14 rounded-2xl border border-slate-200 object-cover"
+                    className="h-14 w-14 rounded-lg border border-slate-200 object-cover"
                   />
                 ) : (
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
                     <BriefcaseBusiness className="h-6 w-6" />
                   </div>
                 )}
@@ -161,7 +161,7 @@ export const EmployerProfilePage = () => {
               </span>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-secondary/20 bg-secondary/5 px-4 py-4 text-sm leading-6 text-slate-700">
+            <div className="mt-6 rounded-lg border border-secondary/20 bg-secondary/5 px-4 py-4 text-sm leading-6 text-slate-700">
               Complete the core company fields to activate the blue tick.
               Missing: {verification.missing?.length ? verification.missing.join(", ") : "none"}.
             </div>
@@ -173,7 +173,7 @@ export const EmployerProfilePage = () => {
                   <input
                     value={form.name}
                     onChange={(event) => handleChange("name", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -181,7 +181,7 @@ export const EmployerProfilePage = () => {
                   <input
                     value={form.companyName}
                     onChange={(event) => handleChange("companyName", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2 sm:col-span-2">
@@ -190,7 +190,7 @@ export const EmployerProfilePage = () => {
                     value={form.companyLogo}
                     onChange={(event) => handleChange("companyLogo", event.target.value)}
                     placeholder="https://..."
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2 sm:col-span-2">
@@ -200,7 +200,7 @@ export const EmployerProfilePage = () => {
                     value={form.bio}
                     onChange={(event) => handleChange("bio", event.target.value)}
                     placeholder="What you build, who you serve, and why candidates should care."
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -210,7 +210,7 @@ export const EmployerProfilePage = () => {
                     min="0"
                     value={form.employeeCount}
                     onChange={(event) => handleChange("employeeCount", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -220,7 +220,7 @@ export const EmployerProfilePage = () => {
                     min="1800"
                     value={form.foundedYear}
                     onChange={(event) => handleChange("foundedYear", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -228,7 +228,7 @@ export const EmployerProfilePage = () => {
                   <input
                     value={form.foundedBy}
                     onChange={(event) => handleChange("foundedBy", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2">
@@ -237,7 +237,7 @@ export const EmployerProfilePage = () => {
                     value={form.headquarters}
                     onChange={(event) => handleChange("headquarters", event.target.value)}
                     placeholder="Lagos, Nigeria"
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
                 <label className="block space-y-2 sm:col-span-2">
@@ -246,14 +246,14 @@ export const EmployerProfilePage = () => {
                     value={form.websiteUrl}
                     onChange={(event) => handleChange("websiteUrl", event.target.value)}
                     placeholder="https://..."
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
               </div>
               <button
                 type="submit"
                 disabled={isSaving}
-                className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
                 <Save className="h-4 w-4" />
                 {isSaving ? "Saving..." : "Save company profile"}
               </button>
@@ -276,7 +276,7 @@ export const EmployerProfilePage = () => {
               />
             </div>
 
-            <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <article className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
               <h3 className="text-xl font-semibold text-slate-950">
                 Hiring workflow reminders
               </h3>

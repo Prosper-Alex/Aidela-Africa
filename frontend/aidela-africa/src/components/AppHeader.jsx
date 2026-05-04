@@ -33,7 +33,7 @@ const desktopLinkClass = (isActive) =>
   }`;
 
 const mobileLinkClass = (isActive) =>
-  `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+  `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold transition ${
     isActive
       ? "bg-secondary text-white"
       : "text-slate-700 hover:bg-slate-50 hover:text-slate-950"
@@ -196,14 +196,14 @@ const AppHeader = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
+    <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-3 py-3.5 sm:px-5 lg:px-6">
         <Link to="/" className="flex items-center gap-3 sm:gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm md:h-15 md:w-15 md:rounded-[1.45rem] md:p-2">
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-slate-100 bg-white p-1.5 shadow-sm md:h-15 md:w-15 md:p-2">
             <img
               src="/favicon.jpeg"
               alt="Aidela Africa"
-              className="h-full w-full rounded-xl object-cover md:rounded-2xl"
+              className="h-full w-full rounded-xl object-cover md:rounded-lg"
             />
           </div>
           <div>
@@ -240,7 +240,7 @@ const AppHeader = () => {
               </button>
 
               {profileOpen ? (
-                <div className="absolute right-0 z-60 mt-3 w-60 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(15,23,42,0.12)]">
+                <div className="absolute right-0 z-60 mt-3 w-60 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_20px_45px_rgba(15,23,42,0.12)]">
                   <div className="border-b border-slate-100 px-4 py-3">
                     <p className="text-sm font-semibold text-slate-950">
                       {user?.name || "Account"}
@@ -263,7 +263,7 @@ const AppHeader = () => {
                           key={item.to}
                           to={item.to}
                           onClick={() => setProfileOpen(false)}
-                          className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-semibold transition ${
+                          className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold transition ${
                             isActive
                               ? "bg-secondary text-white"
                               : "text-slate-700 hover:bg-slate-50"
@@ -279,7 +279,7 @@ const AppHeader = () => {
                     <button
                       type="button"
                       onClick={handleLogout}
-                      className="flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-50">
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-50">
                       <LogOut className="h-4 w-4" />
                       Logout
                     </button>
@@ -340,8 +340,8 @@ const AppHeader = () => {
             : "grid-rows-[0fr] opacity-0"
         }`}>
         <div className="overflow-hidden">
-          <div className="mx-auto max-w-6xl px-4 pb-4">
-            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-3 shadow-sm">
+          <div className="mx-auto max-w-6xl px-3 pb-4 sm:px-5">
+            <div className="rounded-xl border border-slate-100 bg-white p-3 shadow-sm">
               {isAuthenticated ? (
                 <div className="border-b border-slate-100 px-3 pb-3 pt-1">
                   <p className="text-sm font-semibold text-slate-950">
@@ -384,7 +384,7 @@ const AppHeader = () => {
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-50">
+                    className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold text-rose-700 transition hover:bg-rose-50">
                     <LogOut className="h-4 w-4" />
                     Logout
                   </button>

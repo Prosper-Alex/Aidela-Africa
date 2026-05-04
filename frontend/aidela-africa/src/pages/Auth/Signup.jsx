@@ -63,11 +63,11 @@ export const Signup = () => {
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
-      <main className="auth-main mx-auto max-w-6xl px-4 py-8 sm:py-10">
+      <main className="auth-main mx-auto max-w-6xl px-3 py-7 sm:px-5 sm:py-9 lg:px-6">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="auth-form-panel rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <section className="auth-form-panel rounded-xl border border-slate-100 bg-white p-5 shadow-sm sm:p-7">
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
                 <UserPlus className="h-5 w-5" />
               </div>
               <div>
@@ -90,7 +90,7 @@ export const Signup = () => {
                   required
                   value={form.name}
                   onChange={(event) => handleChange("name", event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   placeholder="Prosper Alex"
                 />
               </label>
@@ -102,14 +102,14 @@ export const Signup = () => {
                   required
                   value={form.email}
                   onChange={(event) => handleChange("email", event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   placeholder="you@example.com"
                 />
               </label>
 
               <label className="block space-y-2">
                 <span className="text-sm font-medium text-slate-700">Password</span>
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 px-4 py-3 transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Lock className="h-4 w-4 text-slate-400" />
                   <input
                     type={showPassword ? "text" : "password"}
@@ -141,7 +141,7 @@ export const Signup = () => {
                   {roleOptions.map((option) => (
                     <label
                       key={option.value}
-                      className={`cursor-pointer rounded-3xl border p-4 transition ${
+                      className={`cursor-pointer rounded-xl border p-4 transition ${
                         form.role === option.value
                           ? "border-primary bg-secondary/5"
                           : "border-slate-200 bg-white hover:border-secondary/30 hover:bg-slate-50"
@@ -176,7 +176,7 @@ export const Signup = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center rounded-2xl bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Creating account..." : "Create account"}
               </button>
@@ -190,7 +190,7 @@ export const Signup = () => {
             </p>
           </section>
 
-          <section className="hero-gradient rounded-3xl border border-slate-200 p-8 text-slate-950 shadow-sm">
+          <section className="hero-gradient rounded-xl border border-slate-100 p-6 text-slate-950 shadow-sm sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
               Why join
             </p>

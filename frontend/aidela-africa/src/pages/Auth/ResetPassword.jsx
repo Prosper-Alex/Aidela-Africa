@@ -44,8 +44,8 @@ export const ResetPassword = () => {
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
-      <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-5xl items-center px-4 py-8">
-        <section className="auth-form-panel mx-auto w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-5xl items-center px-3 py-7 sm:px-5 lg:px-6">
+        <section className="auth-form-panel mx-auto w-full max-w-xl rounded-xl border border-slate-100 bg-white p-5 shadow-sm sm:p-7">
           <Link
             to="/login"
             className="inline-flex items-center gap-2 text-sm font-semibold text-secondary hover:text-primary">
@@ -67,7 +67,7 @@ export const ResetPassword = () => {
           </div>
 
           {isComplete ? (
-            <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm leading-6 text-emerald-700">
+            <div className="mt-8 rounded-lg border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm leading-6 text-emerald-700">
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
                 <p>Password reset successful. Redirecting to login...</p>
@@ -81,7 +81,7 @@ export const ResetPassword = () => {
                 <span className="text-sm font-medium text-slate-700">
                   New password
                 </span>
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Lock className="h-4 w-4 text-slate-400" />
                   <input
                     type={showPassword ? "text" : "password"}
@@ -112,7 +112,7 @@ export const ResetPassword = () => {
                 <span className="text-sm font-medium text-slate-700">
                   Confirm password
                 </span>
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Lock className="h-4 w-4 text-slate-400" />
                   <input
                     type={showConfirmPassword ? "text" : "password"}
@@ -146,7 +146,7 @@ export const ResetPassword = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center rounded-2xl bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
+                className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
                 {isSubmitting ? "Resetting password..." : "Reset password"}
               </button>
             </form>

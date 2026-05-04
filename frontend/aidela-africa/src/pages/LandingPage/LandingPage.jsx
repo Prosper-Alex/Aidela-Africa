@@ -13,7 +13,7 @@ export const LandingPage = () => {
       <AppHeader />
       <Hero />
 
-      <main className="mx-auto max-w-6xl space-y-8 px-4 pb-16">
+      <main className="mx-auto max-w-7xl space-y-6 px-3 pb-14 sm:px-5 lg:px-6">
         <section className="grid gap-5 md:grid-cols-3">
           {[
             {
@@ -40,8 +40,8 @@ export const LandingPage = () => {
             return (
               <article
                 key={feature.title}
-                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
+                className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
                   <Icon className="h-5 w-5" />
                 </div>
                 <h2 className="mt-5 text-xl font-semibold text-slate-950">
@@ -55,7 +55,7 @@ export const LandingPage = () => {
           })}
         </section>
 
-        <section className="hero-gradient rounded-3xl border border-slate-200 px-6 py-10 text-slate-950 shadow-sm sm:px-8">
+        <section className="hero-gradient rounded-xl border border-slate-100 px-5 py-9 text-slate-950 shadow-sm sm:px-7">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-secondary">

@@ -20,9 +20,9 @@ const JobFilters = ({
   onClear,
 }) => {
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+    <section className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm sm:p-6">
       <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
+        <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
           <Filter className="h-5 w-5" />
         </div>
         <div>
@@ -36,7 +36,7 @@ const JobFilters = ({
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-[1.5fr_1fr_1fr_auto]">
         <label className="space-y-2">
           <span className="text-sm font-medium text-slate-700">Search by title</span>
-          <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+          <div className="flex items-center gap-3 rounded-lg border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
             <Search className="h-4 w-4 text-slate-400" />
             <input
               type="text"
@@ -53,7 +53,7 @@ const JobFilters = ({
           <select
             value={location}
             onChange={(event) => onLocationChange(event.target.value)}
-            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
           >
             {locationOptions.map((option) => (
               <option key={option.value || "all-locations"} value={option.value}>
@@ -68,7 +68,7 @@ const JobFilters = ({
           <select
             value={jobType}
             onChange={(event) => onJobTypeChange(event.target.value)}
-            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
           >
             {JOB_TYPE_OPTIONS.map((option) => (
               <option key={option.value || "all-job-types"} value={option.value}>
@@ -82,7 +82,7 @@ const JobFilters = ({
           <button
             type="button"
             onClick={onClear}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-secondary/30 hover:bg-secondary/5 hover:text-secondary"
           >
             <RotateCcw className="h-4 w-4" />
             Reset

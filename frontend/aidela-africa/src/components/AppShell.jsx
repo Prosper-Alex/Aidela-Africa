@@ -16,9 +16,11 @@ const AppShell = ({
     <div className="min-h-screen app-bg">
       <AppHeader />
 
-      <main className={`mx-auto w-full ${maxWidth} px-4 pb-16 pt-6 sm:pt-8`}>
+      <main
+        className={`mx-auto w-full ${maxWidth} px-3 pb-14 pt-5 sm:px-5 sm:pt-7 lg:px-6`}
+      >
         {hasHeader ? (
-          <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm sm:p-8">
+          <section className="relative overflow-hidden rounded-xl border border-slate-100 bg-slate-50 p-5 shadow-sm sm:p-7">
 
             <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl">
@@ -46,7 +48,7 @@ const AppShell = ({
           </section>
         ) : null}
 
-        <div className={`${hasHeader ? "mt-6 " : ""}${contentClassName}`}>
+        <div className={`${hasHeader ? "mt-5 " : ""}${contentClassName}`}>
           {children}
         </div>
       </main>

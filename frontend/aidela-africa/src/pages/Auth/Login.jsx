@@ -50,9 +50,9 @@ export const Login = () => {
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
-      <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-6xl items-center gap-8 px-4 py-8 sm:py-10 lg:grid-cols-[0.95fr_1.05fr]">
-        <section className="hero-gradient rounded-3xl border border-slate-200 p-8 text-slate-950 shadow-sm">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/10 text-secondary">
+      <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-6xl items-center gap-6 px-3 py-7 sm:px-5 sm:py-9 lg:grid-cols-[0.95fr_1.05fr] lg:px-6">
+        <section className="hero-gradient rounded-xl border border-slate-100 p-6 text-slate-950 shadow-sm sm:p-7">
+          <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
             <BriefcaseBusiness className="h-6 w-6" />
           </div>
           <p className="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
@@ -67,7 +67,7 @@ export const Login = () => {
           </p>
         </section>
 
-        <section className="auth-form-panel rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <section className="auth-form-panel rounded-xl border border-slate-100 bg-white p-5 shadow-sm sm:p-7">
           <div className="max-w-xl">
             <h2 className="text-2xl font-bold text-slate-950">Welcome back</h2>
             <p className="mt-2 text-sm text-slate-500">
@@ -79,7 +79,7 @@ export const Login = () => {
 
               <label className="block space-y-2">
                 <span className="text-sm font-medium text-slate-700">Email</span>
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Mail className="h-4 w-4 text-slate-400" />
                   <input
                     type="email"
@@ -102,7 +102,7 @@ export const Login = () => {
                     Forgot password?
                   </Link>
                 </div>
-                <div className="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
                   <Lock className="h-4 w-4 text-slate-400" />
                   <input
                     type={showPassword ? "text" : "password"}
@@ -130,7 +130,7 @@ export const Login = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Signing in..." : "Sign in"}
                 <ArrowRight className="h-4 w-4" />

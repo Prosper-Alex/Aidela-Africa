@@ -37,8 +37,12 @@ export const Login = () => {
       const data = await login(form);
       toast.success("Welcome back.");
       const nextPath =
-        location.state?.from ||
-        (data.user.role === "recruiter" ? "/employer-dashboard" : "/find-jobs");
+        !data.user.isOnboarded
+          ? "/onboarding"
+          : location.state?.from ||
+            (data.user.role === "recruiter"
+              ? "/employer-dashboard"
+              : "/find-jobs");
       navigate(nextPath, { replace: true });
     } catch (requestError) {
       setError(getErrorMessage(requestError, "Unable to log you in."));
@@ -50,7 +54,7 @@ export const Login = () => {
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
-      <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-6xl items-center gap-6 px-3 py-7 sm:px-5 sm:py-9 lg:grid-cols-[0.95fr_1.05fr] lg:px-6">
+      <main className="auth-main page-frame grid min-h-[calc(100dvh-88px)] max-w-6xl items-center gap-5 lg:grid-cols-[0.95fr_1.05fr]">
         <section className="hero-gradient rounded-xl border border-slate-100 p-6 text-slate-950 shadow-sm sm:p-7">
           <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
             <BriefcaseBusiness className="h-6 w-6" />

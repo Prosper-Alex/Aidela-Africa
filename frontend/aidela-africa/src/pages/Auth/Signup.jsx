@@ -50,9 +50,14 @@ export const Signup = () => {
     try {
       const data = await signup(form);
       toast.success("Your account is ready.");
-      navigate(data.user.role === "recruiter" ? "/employer-dashboard" : "/find-jobs", {
-        replace: true,
-      });
+      navigate(
+        !data.user.isOnboarded
+          ? "/onboarding"
+          : data.user.role === "recruiter"
+            ? "/employer-dashboard"
+            : "/find-jobs",
+        { replace: true },
+      );
     } catch (requestError) {
       setError(getErrorMessage(requestError, "Unable to create your account."));
     } finally {
@@ -63,8 +68,8 @@ export const Signup = () => {
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
-      <main className="auth-main mx-auto max-w-6xl px-3 py-7 sm:px-5 sm:py-9 lg:px-6">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+      <main className="auth-main page-frame max-w-6xl">
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <section className="auth-form-panel rounded-xl border border-slate-100 bg-white p-5 shadow-sm sm:p-7">
             <div className="flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-secondary/10 text-secondary">

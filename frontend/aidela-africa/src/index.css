@@ -73,13 +73,23 @@
   }
 
   .page {
-    min-height: 100vh;
-    padding: 0.75rem;
-    background: #ffffff;
+    @apply min-h-screen bg-white;
   }
-  
+
+  .page-frame {
+    @apply mx-auto w-full px-3 pb-10 pt-4 sm:px-4 sm:pb-12 sm:pt-5 lg:px-5;
+  }
+
+  .section {
+    @apply py-8 sm:py-10 lg:py-12;
+  }
+
+  .page-stack {
+    @apply space-y-5 sm:space-y-6;
+  }
+
   .container {
-    @apply mx-auto w-full max-w-6xl px-3 sm:px-5 lg:px-6;
+    @apply mx-auto w-full max-w-7xl px-3 sm:px-4 lg:px-5;
   }
 
   /* 🧱 Card */

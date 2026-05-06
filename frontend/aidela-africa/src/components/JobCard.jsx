@@ -10,7 +10,7 @@ const JobCard = ({ job }) => {
 
   return (
     <article className="group flex h-full flex-col rounded-xl border border-slate-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex items-center justify-between gap-3">
         <StatusBadge value={job.jobType} />
         <span className="text-xs font-medium text-slate-400">
           {new Date(job.createdAt).toLocaleDateString()}
@@ -45,7 +45,7 @@ const JobCard = ({ job }) => {
           Posted by {job.createdBy?.name || "Aidela Africa"}
         </span>
 
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
           {isAuthenticated ? (
             isJobSeeker ? (
               <Link

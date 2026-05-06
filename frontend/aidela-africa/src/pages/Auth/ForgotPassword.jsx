@@ -1,13 +1,14 @@
 // Key feature: Renders the safe forgot-password request form.
 import { ArrowLeft, Mail, Send } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppHeader from "../../components/AppHeader";
 import { ErrorPanel } from "../../components/Feedback";
-import { forgotPassword } from "../../services/authService";
+import { requestResetOtp } from "../../services/authService";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 
 export const ForgotPassword = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -20,12 +21,16 @@ export const ForgotPassword = () => {
     setSuccessMessage("");
 
     try {
-      const data = await forgotPassword({ email });
+      const data = await requestResetOtp({ email });
       setSuccessMessage(
-        data.message || "If that email exists, a password reset link has been sent.",
+        data.message || "If this email exists, a verification code has been sent.",
+      );
+      window.setTimeout(
+        () => navigate("/verify-reset-otp", { state: { email }, replace: true }),
+        650,
       );
     } catch (requestError) {
-      setError(getErrorMessage(requestError, "Unable to send reset link."));
+      setError(getErrorMessage(requestError, "Unable to send verification code."));
     } finally {
       setIsSubmitting(false);
     }
@@ -34,7 +39,7 @@ export const ForgotPassword = () => {
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
-      <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-5xl items-center px-3 py-7 sm:px-5 lg:px-6">
+      <main className="auth-main page-frame grid min-h-[calc(100dvh-88px)] max-w-5xl items-center">
         <section className="auth-form-panel mx-auto w-full max-w-xl rounded-xl border border-slate-100 bg-white p-5 shadow-sm sm:p-7">
           <Link
             to="/login"
@@ -52,7 +57,7 @@ export const ForgotPassword = () => {
               Forgot your password?
             </h1>
             <p className="mt-3 text-sm leading-6 text-slate-600">
-              Enter your account email and we will send a reset link if the account exists.
+              Enter your account email and we will send a verification code if the account exists.
             </p>
           </div>
 
@@ -85,7 +90,7 @@ export const ForgotPassword = () => {
               disabled={isSubmitting}
               className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isSubmitting ? "Sending link..." : "Send reset link"}
+                {isSubmitting ? "Sending code..." : "Send verification code"}
               <Send className="h-4 w-4" />
             </button>
           </form>

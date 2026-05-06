@@ -108,7 +108,7 @@ export const EmployerProfilePage = () => {
   };
 
   const verification = user?.verification || { completed: 0, total: 6, missing: [] };
-  const isVerified = Boolean(verification.isVerified);
+  const isVerified = Boolean(user?.isVerified || verification.isVerified);
 
   return (
     <DashboardShell
@@ -157,7 +157,7 @@ export const EmployerProfilePage = () => {
                     : "bg-slate-100 text-slate-600"
                 }`}>
                 <ShieldCheck className="h-4 w-4" />
-                {isVerified ? "Verified" : `${verification.completed}/${verification.total}`}
+                {isVerified ? "Aidela Verified" : `${verification.completed}/${verification.total}`}
               </span>
             </div>
 

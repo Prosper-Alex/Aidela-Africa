@@ -15,6 +15,8 @@ import { Signup } from "./pages/Auth/Signup";
 import { Login } from "./pages/Auth/Login";
 import { ForgotPassword } from "./pages/Auth/ForgotPassword";
 import { ResetPassword } from "./pages/Auth/ResetPassword";
+import { VerifyResetOtp } from "./pages/Auth/VerifyResetOtp";
+import { Onboarding } from "./pages/Onboarding/Onboarding";
 
 // Job Seeker Routes
 import { JobSeekerDashboard } from "./pages/JobSeeker/JobSeekerDashboard";
@@ -43,6 +45,8 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-reset-otp" element={<VerifyResetOtp />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
 
             {/* Job Seeker Routes */}
@@ -50,6 +54,7 @@ const App = () => {
             <Route path="/job/:jobId" element={<JobDetails />} />
 
             <Route element={<ProtectedRoute />}>
+              <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/profile" element={<UserProfile />} />
             </Route>
 

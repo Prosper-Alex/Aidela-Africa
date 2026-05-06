@@ -12,18 +12,20 @@ import { Link } from "react-router-dom";
 import DashboardShell from "../../components/DashboardShell";
 import { ErrorPanel, SectionLoader } from "../../components/Feedback";
 import StatCard from "../../components/StatCard";
+import TechStackInput from "../../components/TechStackInput";
 import { useAuth } from "../../context/AuthContext";
 import { getMyApplications } from "../../services/applicationService";
 import { updateCurrentUser } from "../../services/authService";
 import { getErrorMessage } from "../../utils/getErrorMessage";
+import { AVAILABILITY_OPTIONS } from "../../utils/profileOptions";
 
 const getCandidateForm = (user) => ({
   name: user?.name || "",
   headline: user?.candidateProfile?.headline || "",
   bio: user?.candidateProfile?.bio || "",
   techStack: Array.isArray(user?.candidateProfile?.techStack)
-    ? user.candidateProfile.techStack.join(", ")
-    : "",
+    ? user.candidateProfile.techStack
+    : [],
   yearsOfExperience:
     user?.candidateProfile?.yearsOfExperience ?? "",
   portfolioUrl: user?.candidateProfile?.portfolioUrl || "",
@@ -129,7 +131,7 @@ export const UserProfile = () => {
   };
 
   const verification = user?.verification || { completed: 0, total: 6, missing: [] };
-  const isVerified = Boolean(verification.isVerified);
+  const isVerified = Boolean(user?.isVerified || verification.isVerified);
 
   return (
     <DashboardShell
@@ -166,7 +168,7 @@ export const UserProfile = () => {
                   : "bg-slate-100 text-slate-600"
               }`}>
               <ShieldCheck className="h-4 w-4" />
-              {isVerified ? "Verified" : `${verification.completed}/${verification.total}`}
+              {isVerified ? "Aidela Verified" : `${verification.completed}/${verification.total}`}
             </span>
           </div>
 
@@ -205,15 +207,11 @@ export const UserProfile = () => {
               />
             </label>
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block space-y-2">
-                <span className="text-sm font-medium text-slate-700">Tech stack</span>
-                <input
-                  value={form.techStack}
-                  onChange={(event) => handleChange("techStack", event.target.value)}
-                  placeholder="React, Node.js, MongoDB"
-                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                />
-              </label>
+              <TechStackInput
+                value={form.techStack}
+                onChange={(value) => handleChange("techStack", value)}
+                className="sm:col-span-2"
+              />
               <label className="block space-y-2">
                 <span className="text-sm font-medium text-slate-700">Years of experience</span>
                 <input
@@ -253,12 +251,17 @@ export const UserProfile = () => {
               </label>
               <label className="block space-y-2">
                 <span className="text-sm font-medium text-slate-700">Availability</span>
-                <input
+                <select
                   value={form.availability}
                   onChange={(event) => handleChange("availability", event.target.value)}
-                  placeholder="Immediate, 2 weeks, contract only"
-                  className="w-full rounded-lg border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                />
+                  className="w-full appearance-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                >
+                  {AVAILABILITY_OPTIONS.map((option) => (
+                    <option key={option.value || "empty"} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </label>
             </div>
             <button

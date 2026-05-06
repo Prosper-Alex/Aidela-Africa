@@ -2,6 +2,7 @@
 import mongoose from "mongoose";
 import Application from "../models/Application.js";
 import Job from "../models/Job.js";
+import User from "../models/User.js";
 
 /* ================= APPLY ================= */
 export const applyToJob = async (req, res) => {
@@ -96,12 +97,44 @@ export const getApplicationsForJob = async (req, res) => {
       return res.status(403).json({ message: "Forbidden: not the job owner" });
     }
 
-    const applications = await Application.find({ job: jobId })
-      .populate("applicant", "name email candidateProfile verification")
-      .populate("user", "name email candidateProfile verification")
+    const verifiedApplicantIds = await User.find({
+      role: "jobseeker",
+      "verificationStatus.isVerified": true,
+    }).distinct("_id");
+
+    const applications = await Application.find({
+      job: jobId,
+      applicant: { $in: verifiedApplicantIds },
+    })
+      .populate("applicant", "name email avatar candidateProfile verificationStatus")
+      .populate("user", "name email avatar candidateProfile verificationStatus")
       .sort({ createdAt: -1 });
 
-    res.json(applications);
+    res.json(
+      applications.map((application) => {
+        const applicationObject = application.toObject();
+        const applicantVerification =
+          applicationObject.applicant?.verificationStatus || {
+            isVerified: false,
+            completed: 0,
+            total: 0,
+          };
+
+        if (applicationObject.applicant) {
+          applicationObject.applicant.isVerified = applicantVerification.isVerified;
+          applicationObject.applicant.verification = applicantVerification;
+        }
+
+        if (applicationObject.user) {
+          applicationObject.user.isVerified =
+            applicationObject.user.verificationStatus?.isVerified || false;
+          applicationObject.user.verification =
+            applicationObject.user.verificationStatus || applicantVerification;
+        }
+
+        return applicationObject;
+      }),
+    );
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

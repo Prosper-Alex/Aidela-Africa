@@ -114,7 +114,7 @@ export const ManageJobs = () => {
               key={job._id}
               className="flex h-full flex-col rounded-xl border border-slate-100 bg-white p-5 shadow-sm"
             >
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center justify-between gap-3">
                 <StatusBadge value={job.jobType} />
                 <span className="text-xs font-semibold text-slate-400">
                   {job.applicationsCount || 0} applicants

@@ -15,6 +15,7 @@ import { applyToJob } from "../../services/applicationService";
 import { getJobById } from "../../services/jobService";
 import { formatSalary } from "../../utils/formatSalary";
 import { getErrorMessage } from "../../utils/getErrorMessage";
+import { AVAILABILITY_OPTIONS } from "../../utils/profileOptions";
 import useSafeApi from "../../hooks/useSafeApi";
 
 const MAX_RESUME_SIZE_BYTES = 2 * 1024 * 1024;
@@ -328,13 +329,18 @@ export const JobDetails = () => {
                     </label>
                     <label className="block space-y-2 text-sm text-slate-700">
                       <span className="font-medium">Availability</span>
-                      <input
+                      <select
                         value={availability}
                         onChange={(ev) => setAvailability(ev.target.value)}
                         disabled={isApplying || hasApplied}
-                        placeholder="Immediate, 2 weeks"
-                        className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                      />
+                        className="w-full appearance-none rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                      >
+                        {AVAILABILITY_OPTIONS.map((option) => (
+                          <option key={option.value || "empty"} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
                     </label>
                     <label className="block space-y-2 text-sm text-slate-700">
                       <span className="font-medium">Expected salary</span>

@@ -2,15 +2,20 @@
 import { ArrowLeft, CheckCircle2, Lock } from "lucide-react";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import AppHeader from "../../components/AppHeader";
 import { ErrorPanel } from "../../components/Feedback";
-import { resetPassword } from "../../services/authService";
+import {
+  resetPassword,
+  resetPasswordWithToken,
+} from "../../services/authService";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 
 export const ResetPassword = () => {
   const { token } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const resetToken = location.state?.resetToken || "";
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +36,11 @@ export const ResetPassword = () => {
     setIsSubmitting(true);
 
     try {
-      await resetPassword(token, { password, confirmPassword });
+      if (token) {
+        await resetPassword(token, { password, confirmPassword });
+      } else {
+        await resetPasswordWithToken({ resetToken, password, confirmPassword });
+      }
       setIsComplete(true);
       window.setTimeout(() => navigate("/login", { replace: true }), 1800);
     } catch (requestError) {
@@ -44,7 +53,7 @@ export const ResetPassword = () => {
   return (
     <div className="min-h-screen app-bg">
       <AppHeader />
-      <main className="auth-main mx-auto grid min-h-[calc(100dvh-88px)] max-w-5xl items-center px-3 py-7 sm:px-5 lg:px-6">
+      <main className="auth-main page-frame grid min-h-[calc(100dvh-88px)] max-w-5xl items-center">
         <section className="auth-form-panel mx-auto w-full max-w-xl rounded-xl border border-slate-100 bg-white p-5 shadow-sm sm:p-7">
           <Link
             to="/login"
@@ -61,8 +70,8 @@ export const ResetPassword = () => {
               Create a new password
             </h1>
             <p className="mt-3 text-sm leading-6 text-slate-600">
-              Use at least 6 characters. After reset, your old login sessions
-              are rejected.
+              Use at least 6 characters. This reset session can only change
+              your password and cannot access your dashboard.
             </p>
           </div>
 
@@ -76,6 +85,10 @@ export const ResetPassword = () => {
           ) : (
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               {error ? <ErrorPanel message={error} /> : null}
+
+              {!token && !resetToken ? (
+                <ErrorPanel message="Your password reset session is missing or expired. Request a new verification code." />
+              ) : null}
 
               <label className="block space-y-2">
                 <span className="text-sm font-medium text-slate-700">
@@ -145,7 +158,7 @@ export const ResetPassword = () => {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || (!token && !resetToken)}
                 className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary-accent disabled:cursor-not-allowed disabled:opacity-60">
                 {isSubmitting ? "Resetting password..." : "Reset password"}
               </button>

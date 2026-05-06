@@ -71,7 +71,7 @@ const ApplicantsPanel = ({
             key={application._id}
             className="rounded-xl border border-slate-100 bg-white p-5 shadow-sm"
           >
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="text-lg font-semibold text-slate-950">
@@ -80,7 +80,7 @@ const ApplicantsPanel = ({
                   {applicant?.verification?.isVerified ? (
                     <span className="inline-flex items-center gap-1 rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold text-secondary">
                       <ShieldCheck className="h-3.5 w-3.5" />
-                      Verified
+                      Aidela Verified
                     </span>
                   ) : null}
                   <StatusBadge value={application.status} />
@@ -153,7 +153,7 @@ const ApplicantsPanel = ({
                 ) : null}
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <button
                   type="button"
                   onClick={() => onUpdateStatus(application._id, "accepted")}

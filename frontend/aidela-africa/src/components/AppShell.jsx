@@ -8,7 +8,7 @@ const AppShell = ({
   actions,
   children,
   maxWidth = "max-w-6xl",
-  contentClassName = "space-y-6",
+  contentClassName = "page-stack",
 }) => {
   const hasHeader = Boolean(title || description || actions);
 
@@ -16,9 +16,7 @@ const AppShell = ({
     <div className="min-h-screen app-bg">
       <AppHeader />
 
-      <main
-        className={`mx-auto w-full ${maxWidth} px-3 pb-14 pt-5 sm:px-5 sm:pt-7 lg:px-6`}
-      >
+      <main className={`page-frame ${maxWidth}`}>
         {hasHeader ? (
           <section className="relative overflow-hidden rounded-xl border border-slate-100 bg-slate-50 p-5 shadow-sm sm:p-7">
 

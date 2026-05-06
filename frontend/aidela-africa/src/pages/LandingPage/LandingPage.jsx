@@ -13,7 +13,7 @@ export const LandingPage = () => {
       <AppHeader />
       <Hero />
 
-      <main className="mx-auto max-w-7xl space-y-6 px-3 pb-14 sm:px-5 lg:px-6">
+      <main className="page-frame page-stack max-w-7xl">
         <section className="grid gap-5 md:grid-cols-3">
           {[
             {

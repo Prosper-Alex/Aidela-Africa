@@ -90,6 +90,19 @@ const userSchema = new mongoose.Schema(
       type: Date,
       select: false,
     },
+    resetOtp: {
+      type: String,
+      select: false,
+    },
+    resetOtpExpire: {
+      type: Date,
+      select: false,
+    },
+    resetOtpAttempts: {
+      type: Number,
+      default: 0,
+      select: false,
+    },
     passwordChangedAt: {
       type: Date,
       default: null,
@@ -99,6 +112,8 @@ const userSchema = new mongoose.Schema(
       enum: ["jobseeker", "recruiter"],
       default: "jobseeker",
     },
+    avatar: { type: String, trim: true, default: "" },
+    isOnboarded: { type: Boolean, default: false },
 
     // Cached verification avoids recalculating profile completeness on every request.
     verificationStatus: {

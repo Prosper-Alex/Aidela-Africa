@@ -1,20 +1,47 @@
-// Key feature: Calculates profile completion and verification state for users.
-// Counts how much of a user's profile is filled in.
+// Key feature: Calculates role-specific profile completion and verification state.
+const hasText = (value) => typeof value === "string" && value.trim().length > 0;
+
+export const getVerificationRequirements = (user) => {
+  if (user.role === "recruiter") {
+    const profile = user.companyProfile || {};
+
+    return [
+      ["Company name", hasText(profile.companyName)],
+      ["Company logo", hasText(profile.companyLogo)],
+      ["Company bio", hasText(profile.bio)],
+      ["Employee count", Number(profile.employeeCount) > 0],
+      ["Founded year", Number(profile.foundedYear) > 0],
+      ["Founded by", hasText(profile.foundedBy)],
+    ];
+  }
+
+  const profile = user.candidateProfile || {};
+
+  return [
+    ["Headline", hasText(profile.headline)],
+    ["Bio", hasText(profile.bio)],
+    ["Tech stack", Array.isArray(profile.techStack) && profile.techStack.length > 0],
+    [
+      "Years of experience",
+      profile.yearsOfExperience !== null &&
+        profile.yearsOfExperience !== undefined &&
+        Number(profile.yearsOfExperience) >= 0,
+    ],
+    ["Portfolio URL", hasText(profile.portfolioUrl)],
+    ["Location", hasText(profile.location)],
+  ];
+};
+
 export const computeVerification = (user) => {
-  const profile =
-    user.role === "recruiter" ? user.companyProfile : user.candidateProfile;
-
-  const total = Object.keys(profile || {}).length;
-
-  const completed = Object.values(profile || {}).filter((val) => {
-    if (typeof val === "string") return val.trim().length > 0;
-    if (Array.isArray(val)) return val.length > 0;
-    return val !== null && val !== undefined;
-  }).length;
+  const requirements = getVerificationRequirements(user);
+  const completed = requirements.filter(([, isComplete]) => isComplete).length;
 
   return {
-    isVerified: completed >= 4,
+    isVerified: completed === requirements.length,
     completed,
-    total,
+    total: requirements.length,
+    missing: requirements
+      .filter(([, isComplete]) => !isComplete)
+      .map(([label]) => label),
   };
 };

@@ -26,7 +26,7 @@ const matchesPath = (pathname, matcher) => {
 };
 
 const desktopLinkClass = (isActive) =>
-  `relative inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold transition ${
+  `relative inline-flex min-w-24 items-center justify-center rounded-full px-4 py-2 text-center text-sm font-semibold transition ${
     isActive
       ? "bg-slate-50 text-secondary ring-1 ring-slate-200"
       : "text-slate-600 hover:bg-slate-50 hover:text-secondary"
@@ -218,7 +218,7 @@ const AppHeader = () => {
 
         <div className="flex items-center gap-2 md:gap-3">
           <nav className="hidden md:block" aria-label="Primary navigation">
-            <ul className="flex list-none items-center gap-1 rounded-full border border-slate-200 bg-white p-1 pl-0">
+            <ul className="flex list-none items-center justify-center gap-1 rounded-full border border-slate-200 bg-white p-1">
               {primaryLinks.map((link) => (
                 <li key={link.to}>{renderLink(link)}</li>
               ))}
@@ -289,7 +289,7 @@ const AppHeader = () => {
             </div>
           ) : (
             <div className="hidden items-center gap-2 md:flex">
-              <ul className="flex list-none items-center gap-1 rounded-full border border-slate-200 bg-white p-1 pl-0">
+              <ul className="flex list-none items-center justify-center gap-1 rounded-full border border-slate-200 bg-white p-1">
                 <li>
                   <Link
                     to="/login"
